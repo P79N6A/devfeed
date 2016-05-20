@@ -20,4 +20,5 @@ logs
 *.log
 _ide_*
 /config/ide-helper.php
+.phpstorm.meta.php
 

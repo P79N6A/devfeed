@@ -11,7 +11,7 @@
 |
 */
 
-$factory->define(Fedn\User::class, function (Faker\Generator $faker) {
+$factory->define(Fedn\Models\User::class, function (Faker\Generator $faker) {
     return [
         'name' => $faker->name,
         'email' => $faker->safeEmail,
