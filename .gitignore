@@ -18,4 +18,6 @@ Homestead.json
 *.sublime_project
 logs
 *.log
-_ide_helper.php
+_ide_*
+/config/ide-helper.php
+
