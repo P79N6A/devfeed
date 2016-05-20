@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Controllers\Auth;
+namespace Fedn\Http\Controllers\Auth;
 
-use App\User;
+use Fedn\User;
 use Validator;
-use App\Http\Controllers\Controller;
+use Fedn\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\ThrottlesLogins;
 use Illuminate\Foundation\Auth\AuthenticatesAndRegistersUsers;
 

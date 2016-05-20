@@ -1,5 +1,5 @@
 suites:
     main:
-        namespace: App
-        psr4_prefix: App
+        namespace: Fedn
+        psr4_prefix: Fedn
         src_path: app
