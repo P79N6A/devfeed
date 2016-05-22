@@ -1,9 +1,10 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Laravel</title>
-
-        <link href="{{ asset('css/app.css') }}" rel="stylesheet" type="text/css">
+        <title>FEDN - 通过 FEDN 学习前端开发，致力于为中国前端开发人员提供最全面及时的前端开发信息资讯</title>
+        <meta name="Copyright" content="Copyright (c) TGideas">
+        <!-- 团队博客：http://tgideas.qq.com -->
+        <link href="//fonts.gmirror.org/css?family=Lato:100" rel="stylesheet" type="text/css">
 
         <style>
             html, body {
@@ -38,7 +39,7 @@
     <body>
         <div class="container">
             <div class="content">
-                <div class="title">Laravel 5</div>
+                <div class="title">Coming soon...</div>
             </div>
         </div>
     </body>
