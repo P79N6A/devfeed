@@ -1,5 +1,5 @@
 <?php
-
+use \Log;
 /*
 |--------------------------------------------------------------------------
 | Create The Application
@@ -52,9 +52,12 @@ $app->singleton(
 |
 */
 
-if($app->environment('production') && env('LOG_TOKEN', false)) {
-    $logentriesHandler = new Monolog\Handler\LogEntriesHandler(env('LOG_TOKEN'));
-    Log::getMonolog()->pushHandler($logentriesHandler);
+if(env('LOG_TOKEN','false')) {
+    $app->configureMonologUsing(function($monolog) {
+        $logentriesHandler = new Monolog\Handler\LogEntriesHandler(env('LOG_TOKEN'));
+        $monolog->pushHandler($logentriesHandler);
+    });
+
 }
 
 return $app;
