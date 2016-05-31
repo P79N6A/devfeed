@@ -19,36 +19,11 @@ use Fedn\Models\Category;
 use Illuminate\Foundation\Inspiring;
 
 Route::get('/', function () {
-    $tag = new Tag();
-    $tag->title = "JavaScript";
-    $tag->slug = 'tag-js';
-    $tag->save();
-
-    $category = new Category();
-    $category->title = 'JavaScript';
-    $category->slug = 'cate-js';
-    $category->pid = 0;
-    $category->save();
-
-
-    $user = new \Fedn\Models\User();
-    $user->email = 'kairee@qq.com';
-    $user->name = 'kairee';
-    $user->save();
-
-    $article = new Article();
-    $article->title = "Test Article";
-    $article->summary = Inspiring::quote();
-    $article->content = Inspiring::quote();
-    $article->save();
-    
-    $user->push();
-
-    $user->articles()->save($article);
-
-    $article->categories()->save($category);
-    $article->tags()->save($tag);
-
-
-    dd($article);
+    try {
+        $exitCode = Artisan::call('migrate:status');
+        $result = Artisan::output();
+        return '<pre><code>'.$result.'</code></pre>';
+    } catch (RuntimeException $e) {
+        dd($e->getMessage());
+    }
 });
