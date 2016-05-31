@@ -19,13 +19,7 @@ use Fedn\Models\Category;
 use Illuminate\Foundation\Inspiring;
 
 Route::get('/', function () {
-    try {
-        $exitCode = Artisan::call('migrate:status');
-        $result = Artisan::output();
-        return '<pre><code>'.$result.'</code></pre>';
-    } catch (RuntimeException $e) {
-        dd($e->getMessage());
-    }
+    return view('welcome');
 });
 
 Route::get('/login/qq', 'Auth\AuthController@loginWithQQ');
