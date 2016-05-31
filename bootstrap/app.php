@@ -51,12 +51,4 @@ $app->singleton(
 |
 */
 
-if(env('LOG_TOKEN','false')) {
-    $app->configureMonologUsing(function($monolog) {
-        $logentriesHandler = new Monolog\Handler\LogEntriesHandler(env('LOG_TOKEN'));
-        $monolog->pushHandler($logentriesHandler);
-    });
-
-}
-
 return $app;

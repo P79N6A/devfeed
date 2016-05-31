@@ -65,7 +65,7 @@ class AuthController extends Controller
     }
 
     public function loginWithQQ(){
-        return Socialite::with('qq')->stateless(false)->redirect();
+        return Socialite::with('qq')->redirect();
     }
 
     public function handleQQLogin(){
