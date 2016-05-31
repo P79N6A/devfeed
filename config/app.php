@@ -144,6 +144,7 @@ return [
         Fedn\Providers\AuthServiceProvider::class,
         Fedn\Providers\EventServiceProvider::class,
         Fedn\Providers\RouteServiceProvider::class,
+        SocialiteProviders\Manager\ServiceProvider::class,
 
     ],
 
@@ -192,6 +193,7 @@ return [
         'URL'       => Illuminate\Support\Facades\URL::class,
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View'      => Illuminate\Support\Facades\View::class,
+        'Socialize' => 'Laravel\Socialite\Facades\Socialite',
 
     ],
 

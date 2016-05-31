@@ -27,3 +27,6 @@ Route::get('/', function () {
         dd($e->getMessage());
     }
 });
+
+Route::get('/login/qq', 'Auth\AuthController@loginWithQQ');
+Route::get('/auth/qqlogin', 'Auth\AuthController@handleQQLogin');

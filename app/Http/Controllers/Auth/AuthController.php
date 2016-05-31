@@ -7,6 +7,7 @@ use Validator;
 use Fedn\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\ThrottlesLogins;
 use Illuminate\Foundation\Auth\AuthenticatesAndRegistersUsers;
+use Laravel\Socialite\Facades\Socialite;
 
 class AuthController extends Controller
 {
@@ -61,5 +62,19 @@ class AuthController extends Controller
             'email' => $data['email'],
             'password' => bcrypt($data['password']),
         ]);
+    }
+
+    public function loginWithQQ(){
+        return Socialite::with('qq')->stateless(false)->redirect();
+    }
+
+    public function handleQQLogin(){
+        $user = Socialite::with('qq')->user();
+        $data = [
+            'user' => $user,
+            'body' => $user->accessTokenResponseBody
+        ];
+        dd($data);
+
     }
 }
