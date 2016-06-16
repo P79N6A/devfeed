@@ -22,5 +22,19 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+
+/** public */
 Route::get('/login/qq', 'Auth\AuthController@loginWithQQ');
 Route::get('/auth/qqlogin', 'Auth\AuthController@handleQQLogin');
+
+/** front-end */
+
+/** backend */
+
+Route::group(['prefix'=>'admin', 'namespace'=>'Admin', 'as'=>'admin.'], function(){
+    Route::get('/', function(){
+       return view('backend.layout');
+    });
+});
+
+
