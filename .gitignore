@@ -7,13 +7,14 @@ Homestead.json
 .env.*.php
 /bootstrap/compiled.php
 /bootstrap/cache/
+/wiki
 /build/logs
 /build/coverage
 /app/tests_log
 .DS_Store
-.idea
-*.iws
-*.iml
+/.idea
+/*.iws
+/*.iml
 *.sublime-workspace
 *.sublime_project
 logs
