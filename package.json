@@ -2,5 +2,13 @@
   "name": "fedn",
   "version": "0.1.0",
   "author": "kaireewu<kaireewu@gmail.com>",
-  "license": "MIT"
+  "private": true,
+  "scripts": {
+    "prod": "gulp --production",
+    "dev": "gulp watch"
+  },
+  "devDependencies": {
+    "gulp": "*",
+    "laravel-elixir": "*"
+  }
 }

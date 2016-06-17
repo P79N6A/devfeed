@@ -16,7 +16,7 @@ class CreateClassifiablesTable extends Migration
             $table->increments('id');
             $table->unsignedInteger('category_id');
             $table->morphs('classifiable');
-            $table->timestamps();
+            $table->nullableTimestamps();
         });
     }
 

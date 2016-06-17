@@ -62,7 +62,7 @@ class User extends Model implements AuthenticatableContract,
         return $this->hasMany('Fedn\Models\Article');
     }
 
-    public function quotes() {
-        return $this->hasMany('Fedn\Models\Quote');
+    public function roles() {
+        return $this->belongsToMany('Fedn\Models\Role');
     }
 }

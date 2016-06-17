@@ -11,13 +11,6 @@
 |
 */
 
-
-use Fedn\Models\Article;
-use Fedn\Models\Quote;
-use Fedn\Models\Tag;
-use Fedn\Models\Category;
-use Illuminate\Foundation\Inspiring;
-
 Route::get('/', function () {
     return view('welcome');
 });
@@ -32,9 +25,13 @@ Route::get('/auth/qqlogin', 'Auth\AuthController@handleQQLogin');
 /** backend */
 
 Route::group(['prefix'=>'admin', 'namespace'=>'Admin', 'as'=>'admin.'], function(){
-    Route::get('/', function(){
-       return view('backend.layout');
-    });
+    Route::get('/', ['as'=>'home', 'uses'=>'AdminController@getIndex']);
+    Route::get('roles', ['as'=>'roles', 'uses'=>'RoleController@getRoles']);
+    Route::get('users', ['as'=>'users', 'uses'=>'UserController@getUsers']);
 });
 
 
+
+Route::auth();
+
+Route::get('/home', 'HomeController@index');

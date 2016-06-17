@@ -10,12 +10,12 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * Fedn\Models\Article
  *
  * @property integer $id
- * @property integer $user_id
+ * @property integer $userId
  * @property string $title
  * @property string $summary
  * @property string $content
- * @property \Carbon\Carbon $created_at
- * @property \Carbon\Carbon $updated_at
+ * @property \Carbon\Carbon $createdAt
+ * @property \Carbon\Carbon $updatedAt
  * @property string $deleted_at
  * @property-read \Fedn\Models\User $user
  * @property-read \Illuminate\Database\Eloquent\Collection|\Fedn\Models\Category[] $categories
