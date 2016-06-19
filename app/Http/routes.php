@@ -28,6 +28,8 @@ Route::group(['prefix'=>'admin', 'namespace'=>'Admin', 'as'=>'admin.'], function
     Route::get('/', ['as'=>'home', 'uses'=>'AdminController@getIndex']);
     Route::get('roles', ['as'=>'roles', 'uses'=>'RoleController@getRoles']);
     Route::get('users', ['as'=>'users', 'uses'=>'UserController@getUsers']);
+    Route::post('save-role', ['as'=>'role.save', 'uses'=>'RoleController@postSave']);
+    Route::get('del-role/{role}', ['as'=>'role.del', 'uses'=>'RoleController@postDelete'])->where('role', '[0-9]+');
 });
 
 

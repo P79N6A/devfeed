@@ -65,4 +65,13 @@ class User extends Model implements AuthenticatableContract,
     public function roles() {
         return $this->belongsToMany('Fedn\Models\Role');
     }
+
+    public function hasRole($role) {
+        $roles = $this->roles()->toArray();
+        if(is_int($role)) {
+            return in_array($role, array_fetch($roles, 'id'));
+        } else {
+            return in_array($role, array_fetch($roles, 'title'));
+        }
+    }
 }
