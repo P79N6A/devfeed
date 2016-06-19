@@ -21,4 +21,4 @@ logs
 _ide_*
 /config/ide-helper.php
 .phpstorm.meta.php
-
+/storage/debugbar
