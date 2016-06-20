@@ -26,5 +26,17 @@ class Category extends Model
     public function articles() {
         return $this->morphedByMany('Fedb\Models\Article','classifiable');
     }
-    
+
+
+    public function scopeRoot($query) {
+        return $query->where('pid', 0);
+    }
+
+    public function children() {
+        return $this->hasMany(Fedn\Models\Category::class, 'pid', 'id');
+    }
+
+    public function parent() {
+        return $this->belongsTo(Fedn\Models\Category::class, 'pid', 'id');
+    }
 }

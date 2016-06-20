@@ -37,14 +37,14 @@
         <div class="col-sm-3 col-md-2 sidebar">
             <div class="list-group">
                 <a class="list-group-item{{ request()->is('admin') ? ' active':null }}" href="{{ route('admin.home') }}">概况 <span class="sr-only">(current)</span></a>
-                <a class="list-group-item{{ request()->is('admin/roles') ? ' active':null }}" href="{{ route('admin.roles') }}">角色</a>
-                <a class="list-group-item{{ request()->is('admin/users') ? ' active':null }}" href="{{ route('admin.users') }}">用户</a>
+                <a class="list-group-item{{ request()->is('admin/role*') ? ' active':null }}" href="{{ route('admin.roles') }}">角色</a>
+                <a class="list-group-item{{ request()->is('admin/user*') ? ' active':null }}" href="{{ route('admin.users') }}">用户</a>
             </div>
             <div class="list-group">
-                <a class="list-group-item{{ request()->is('admin/articles') ? ' active':null }}" href="{{ url('admin/articles') }}">文章</a>
-                <a class="list-group-item" href="{{ url('admin/categories') }}">分类</a>
-                <a class="list-group-item" href="{{ url('admin/specials') }}">专题</a>
-                <a class="list-group-item" href="{{ url('admin/tags') }}">标签</a>
+                <a class="list-group-item{{ request()->is('admin/article*') ? ' active':null }}" href="{{ url('admin/articles') }}">文章</a>
+                <a class="list-group-item{{ request()->is('admin/categor*') ? ' active':null }}" href="{{ url('admin/categories') }}">分类</a>
+                <a class="list-group-item" href="{{ url('admin/special*') }}">专题</a>
+                <a class="list-group-item" href="{{ url('admin/tag*') }}">标签</a>
             </div>
             <div class="list-group">
                 <a class="list-group-item" href="{{ url('admin/spider') }}">采集</a>
