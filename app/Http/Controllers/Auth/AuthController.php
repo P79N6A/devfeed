@@ -2,9 +2,10 @@
 
 namespace Fedn\Http\Controllers\Auth;
 
-use Fedn\User;
-use Validator;
+use Fedn\Models\Role;
+use Fedn\Models\User;
 use Fedn\Http\Controllers\Controller;
+use Validator;
 use Illuminate\Foundation\Auth\ThrottlesLogins;
 use Illuminate\Foundation\Auth\AuthenticatesAndRegistersUsers;
 use Laravel\Socialite\Facades\Socialite;
@@ -57,11 +58,18 @@ class AuthController extends Controller
      */
     protected function create(array $data)
     {
-        return User::create([
+        $user = User::create([
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => bcrypt($data['password']),
         ]);
+
+        $roleId = Role::where('title', 'Contributor')->firstOrFail()->id;
+
+        $user->roles()->attach($roleId);
+
+        return $user;
+
     }
 
     public function loginWithQQ(){
