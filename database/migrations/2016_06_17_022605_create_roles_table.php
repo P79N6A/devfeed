@@ -16,6 +16,7 @@ class CreateRolesTable extends Migration
             $table->increments('id');
             $table->string('title');
             $table->string('description');
+            $table->boolean('is_system')->default(false);
             $table->nullableTimestamps();
         });
     }

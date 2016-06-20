@@ -18,7 +18,7 @@ class RoleController extends Controller
     }
 
     public function postSave(RoleFormRequest $req) {
-        
+
         $role = Role::findOrNew($req->get('id', 0));
 
         $role->title = $req->get('title');
@@ -32,6 +32,11 @@ class RoleController extends Controller
 
         if(count($role->users) > 0) {
             return redirect('admin/roles')->with('message', ['type'=>'danger', 'text'=>"角色 $role->title 下还有用户,请先将用户从角色移除,再删除角色。"]);
+        }
+
+        if($role->is_system) {
+            return redirect('admin/roles')->with('message',
+                ['type' => 'danger', 'text' => "$role->title 是系统角色，不能删除。"]);
         }
 
         $role->delete();

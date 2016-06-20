@@ -29,6 +29,7 @@
                     <th>角色</th>
                     <th>用户数</th>
                     <th>说明</th>
+                    <th>属性</th>
                     <th>操作</th>
                 </tr>
                 </thead>
@@ -51,9 +52,12 @@
                         <td>{{ $role->title }}</td>
                         <td>{{ $role->users()->count() }}</td>
                         <td>{{ $role->description }}</td>
+                        <td>{{ $role->is_system ? '系统角色' : '普通角色' }}</td>
                         <td>
                             <button data-id="{{ $role->id }}" data-title="{{ $role->title }}" data-description="{{ $role->description }}" data-toggle="modal" data-target="#formModal" class="btn btn-xs btn-success">编辑</button>
-                            <a href="{{ route('admin.role.del', $role->id) }}" class="btn btn-xs btn-danger{{ count($role->users)>0 ? ' btn-disabled': '' }}"{!! count($role->users)>0 ? ' disabled onclick="return false;"': ' onclick="return confirm(\'确定要删除角色吗?\');"' !!}>删除</a>
+                            @if(!$role->is_system && count($role->users) <= 0)
+                                <a href="{{ route('admin.role.del', $role->id) }}" class="btn btn-xs btn-danger" onclick="return confirm('确定要删除角色吗?');">删除</a>
+                            @endif
                         </td>
                     </tr>
                 @empty
