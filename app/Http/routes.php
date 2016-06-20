@@ -25,10 +25,16 @@ Route::get('/auth/qqlogin', 'Auth\AuthController@handleQQLogin');
 
 Route::group(['prefix'=>'admin', 'namespace'=>'Admin', 'as'=>'admin.'], function(){
     Route::get('/', ['as'=>'home', 'uses'=>'AdminController@getIndex']);
+
+    // roles
     Route::get('roles', ['as'=>'roles', 'uses'=>'RoleController@getRoles']);
     Route::get('users', ['as'=>'users', 'uses'=>'UserController@getUsers']);
     Route::post('save-role', ['as'=>'role.save', 'uses'=>'RoleController@postSave']);
     Route::get('del-role/{role}', ['as'=>'role.del', 'uses'=>'RoleController@postDelete'])->where('role', '[0-9]+');
+
+    // articles
+    Route::get('articles', ['as'=>'articles', 'uses'=>'ArticleController@getArticles']);
+
 });
 
 Route::auth();

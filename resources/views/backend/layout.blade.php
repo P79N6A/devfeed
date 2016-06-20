@@ -41,7 +41,7 @@
                 <a class="list-group-item{{ request()->is('admin/users') ? ' active':null }}" href="{{ route('admin.users') }}">用户</a>
             </div>
             <div class="list-group">
-                <a class="list-group-item" href="{{ url('admin/articles') }}">文章</a>
+                <a class="list-group-item{{ request()->is('admin/articles') ? ' active':null }}" href="{{ url('admin/articles') }}">文章</a>
                 <a class="list-group-item" href="{{ url('admin/categories') }}">分类</a>
                 <a class="list-group-item" href="{{ url('admin/specials') }}">专题</a>
                 <a class="list-group-item" href="{{ url('admin/tags') }}">标签</a>
