@@ -18,9 +18,18 @@ class CreateCategoriesTable extends Migration
             $table->string('slug')->unique();
             $table->string('figure')->nullable();
             $table->string('description')->nullable();
-            $table->unsignedInteger('pid')->default(0);
+            $table->integer('parent_id')->default(0);
+            $table->integer('lft')->default(0);
+            $table->integer('rgt')->default(0);
+            $table->integer('depth')->nullable();
+            $table->integer('order')->default(0);
             $table->unsignedBigInteger('count')->default(0);
             $table->nullableTimestamps();
+            $table->index('parent_id');
+            $table->index('lft');
+            $table->index('rgt');
+
+
         });
     }
 

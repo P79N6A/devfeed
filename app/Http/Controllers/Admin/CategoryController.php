@@ -12,7 +12,8 @@ use Fedn\Models\Category;
 class CategoryController extends Controller
 {
     public function getCategories() {
-        $categories = Category::root()->with('children')->paginate(10);
+        $categories = Category::orderBy('order')->orderBy('id','desc')->get()->toHierarchy();
+        //$selectSource = Category::getNestedList('title','id','&nbsp;&nbsp;&nbsp;&nbsp;');
 
         return view('backend.category', compact('categories'));
     }

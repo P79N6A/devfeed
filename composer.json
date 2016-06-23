@@ -9,7 +9,8 @@
         "laravel/framework": "5.2.*",
         "socialiteproviders/qq": "^2.0",
         "laravel/socialite": "~2.0",
-        "laravelcollective/html": "^5.2"
+        "laravelcollective/html": "^5.2",
+        "baum/baum": "^1.1"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",
