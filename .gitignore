@@ -6,7 +6,6 @@ Homestead.json
 .env.php
 .env.*.php
 /bootstrap/compiled.php
-/bootstrap/cache/
 /build/logs
 /build/coverage
 /app/tests_log
