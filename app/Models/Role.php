@@ -9,6 +9,6 @@ class Role extends Model
     protected $fillable = ['title', 'description'];
 
     public function users(){
-        return $this->belongsToMany('Fedn\Models\User');
+        return $this->belongsToMany(User::class);
     }
 }

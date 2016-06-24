@@ -21,7 +21,6 @@ use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
  * @property \Carbon\Carbon $created_at
  * @property \Carbon\Carbon $updated_at
  * @property-read \Illuminate\Database\Eloquent\Collection|\Fedn\Models\Article[] $articles
- * @property-read \Illuminate\Database\Eloquent\Collection|\Fedn\Models\Quote[] $quotes
  * @method static \Illuminate\Database\Query\Builder|\Fedn\Models\User whereId($value)
  * @method static \Illuminate\Database\Query\Builder|\Fedn\Models\User whereName($value)
  * @method static \Illuminate\Database\Query\Builder|\Fedn\Models\User whereEmail($value)
@@ -59,19 +58,21 @@ class User extends Model implements AuthenticatableContract,
     protected $hidden = ['password', 'remember_token'];
 
     public function articles() {
-        return $this->hasMany('Fedn\Models\Article');
+        return $this->hasMany(Article::class);
     }
 
     public function roles() {
-        return $this->belongsToMany('Fedn\Models\Role');
+        return $this->belongsToMany(Role::class);
     }
 
     public function hasRole($role) {
-        $roles = $this->roles()->toArray();
+
         if(is_int($role)) {
-            return in_array($role, array_fetch($roles, 'id'));
+            $roles = array_pluck($this->roles->toArray(), 'id');
+            return in_array($role, $roles);
         } else {
-            return in_array($role, array_fetch($roles, 'title'));
+            $roles = array_pluck($this->roles->toArray(), 'title');
+            return in_array($role, $roles);
         }
     }
 }

@@ -10,9 +10,8 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/','HomeController@index');
+Route::get('/home', 'HomeController@index');
 
 
 /** public */
@@ -48,6 +47,15 @@ Route::group(['prefix'=>'api/v1', 'as'=>'api.'], function(){
     });
 });
 
-Route::auth();
+Route::get('update', ['middleware'=>'auth', function(){
+    $user = Auth::user();
+    if($user->hasRole('Admin')) {
+        set_time_limit(300);
+        $exitCode = Artisan::call('app:update');
+        return $exitCode === 0 ? "OK" : "Failed.";
+    } else {
+        die('你没有进行此操作的权限！');
+    }
+}]);
 
-Route::get('/home', 'HomeController@index');
+Route::auth();

@@ -16,7 +16,6 @@ class CreateTaggablesTable extends Migration
             $table->increments('id');
             $table->unsignedInteger('tag_id');
             $table->morphs('taggable');
-            $table->nullableTimestamps();
         });
     }
 

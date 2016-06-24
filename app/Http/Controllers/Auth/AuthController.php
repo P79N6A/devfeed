@@ -9,6 +9,7 @@ use Validator;
 use Illuminate\Foundation\Auth\ThrottlesLogins;
 use Illuminate\Foundation\Auth\AuthenticatesAndRegistersUsers;
 use Laravel\Socialite\Facades\Socialite;
+use Auth;
 
 class AuthController extends Controller
 {
@@ -32,7 +33,7 @@ class AuthController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('guest', ['except' => 'getLogout']);
+        $this->middleware('guest', ['except' => ['logout','getLogout']]);
     }
 
     /**
@@ -83,6 +84,5 @@ class AuthController extends Controller
             'body' => $user->accessTokenResponseBody
         ];
         dd($data);
-
     }
 }

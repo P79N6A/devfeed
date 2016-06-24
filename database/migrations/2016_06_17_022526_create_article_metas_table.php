@@ -17,7 +17,6 @@ class CreateArticleMetasTable extends Migration
             $table->unsignedInteger('article_id');
             $table->string('key');
             $table->string('value');
-            $table->nullableTimestamps();
         });
     }
 
