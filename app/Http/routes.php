@@ -33,12 +33,19 @@ Route::group(['prefix'=>'admin', 'namespace'=>'Admin', 'as'=>'admin.'], function
     Route::get('del-role/{role}', ['as'=>'role.del', 'uses'=>'RoleController@postDelete'])->where('role', '[0-9]+');
 
     // categories
-    Route::get('categories', ['as'=>'categories', 'uses'=>'CategoryController@getCategories']);
-    Route::get('category/create/{category?}', ['as'=>'category.create', 'uses'=>'CategoryController@create'])->where('category', '[0-9]+');
+    Route::get('categories', ['as'=>'categories', 'uses'=>'CategoryController@getIndex']);
 
     // articles
     Route::get('articles', ['as'=>'articles', 'uses'=>'ArticleController@getArticles']);
 
+});
+
+Route::group(['prefix'=>'api/v1', 'as'=>'api.'], function(){
+    Route::group(['namespace'=>'Admin'],function(){
+        Route::get('categories', ['as' => 'category.list', 'uses' => 'CategoryController@listApi']);
+        Route::post('categories', ['as' => 'category.save', 'uses' => 'CategoryController@saveApi']);
+        Route::delete('categories', ['as' => 'category.delete', 'uses' => 'CategoryController@delApi']);
+    });
 });
 
 Route::auth();
