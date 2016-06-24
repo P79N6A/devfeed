@@ -34,7 +34,7 @@
 
 <div class="container-fluid">
     <div class="row">
-        <div class="col-sm-3 col-md-2 sidebar">
+        <div class="col-md-1 sidebar">
             <div class="list-group">
                 <a class="list-group-item{{ request()->is('admin') ? ' active':null }}" href="{{ route('admin.home') }}">概况 <span class="sr-only">(current)</span></a>
                 <a class="list-group-item{{ request()->is('admin/role*') ? ' active':null }}" href="{{ route('admin.roles') }}">角色</a>
@@ -52,7 +52,7 @@
                 <a class="list-group-item" href="{{ url('admin/authors') }}">作者</a>
             </div>
         </div>
-        <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+        <div class="col-md-offset-1 col-md-11 main">
             @section('content')
             <h1 class="page-header">Dashboard</h1>
             <div class="row">
