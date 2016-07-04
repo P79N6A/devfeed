@@ -7,7 +7,6 @@
 @endsection
 
 @section('content')
-    <h1 class="page-header">分类管理</h1>
     <div class="row" id="app">
         <div class="col-md-4">
             <div class="panel panel-default">

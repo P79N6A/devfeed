@@ -35,7 +35,8 @@ Route::group(['prefix'=>'admin', 'namespace'=>'Admin', 'as'=>'admin.'], function
     Route::get('categories', ['as'=>'categories', 'uses'=>'CategoryController@getIndex']);
 
     // articles
-    Route::get('articles', ['as'=>'articles', 'uses'=>'ArticleController@getArticles']);
+    Route::get('articles', ['as'=>'articles', 'uses'=>'ArticleController@getIndex']);
+    Route::get('article/new', ['as'=>'article.add', 'uses'=>'ArticleController@getNew']);
 
 });
 

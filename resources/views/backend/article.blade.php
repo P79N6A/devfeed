@@ -28,7 +28,7 @@
                     <th>日期</th>
                 </tr>
                 </thead>
-                <tbody>
+                <tbody>git
                 @forelse($articles as $art)
                     <tr>
                         <td><input id="ckb-{{$art->id}}" type="checkbox" value="{{ $art->id }}"></td>
