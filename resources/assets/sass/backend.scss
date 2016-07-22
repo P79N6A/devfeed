@@ -36,13 +36,14 @@ body {
   }
 }
 
+.sidebar-menus {
+  width:90px;
+}
+
 .main {
   padding: 10px;
+  margin-left:75px;
   .page-header {
     margin-top:0;
   }
-}
-
-.spliter {
-  border-right:1px solid #eee;
 }

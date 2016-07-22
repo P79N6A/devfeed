@@ -59,4 +59,10 @@ Route::get('update', ['middleware'=>'auth', function(){
     }
 }]);
 
+Route::post('test', function(){
+   if(request()->hasFile('file')) {
+       return request()->all();
+   }
+});
+
 Route::auth();

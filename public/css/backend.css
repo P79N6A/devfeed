@@ -28,12 +28,13 @@ body {
 .sidebar .list-group-item {
   text-align: center; }
 
+.sidebar-menus {
+  width: 90px; }
+
 .main {
-  padding: 10px; }
+  padding: 10px;
+  margin-left: 75px; }
   .main .page-header {
     margin-top: 0; }
-
-.spliter {
-  border-right: 1px solid #eee; }
 
 /*# sourceMappingURL=backend.css.map */
