@@ -26,6 +26,10 @@ class Article extends Model
 {
     use SoftDeletes;
 
+    protected $attributes = [
+        'status' => 'draft'
+    ];
+
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
@@ -42,6 +46,10 @@ class Article extends Model
 
     public function tags() {
         return $this->morphToMany(Tag::class, 'taggable');
+    }
+
+    public function metas() {
+        return $this->hasMany(ArticleMeta::class);
     }
 
 }

@@ -20,7 +20,9 @@ class CreateArticlesTable extends Migration
             $table->string('figure')->nullable();
             $table->boolean('is_link')->default(true);
             $table->text('summary');
-            $table->string('author',100);
+            $table->string('author',40);
+            $table->string('author_url', 100)->nullable();
+            $table->text('content');
             $table->unsignedBigInteger('click_count')->default(0);
             $table->string('status')->default('initial');
             $table->unsignedBigInteger('likes')->default(0);

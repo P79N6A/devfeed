@@ -32,11 +32,11 @@
                 @forelse($articles as $art)
                     <tr>
                         <td><input id="ckb-{{$art->id}}" type="checkbox" value="{{ $art->id }}"></td>
-                        <td>{{ url('admin/article/edit/'.$art->id, $art->title) }}</td>
+                        <td>{{ Html::Link('admin/article/'.$art->id, $art->title) }}</td>
                         <td>{{ $art->is_link ? '转载': '原创' }}</td>
                         <td>{{ $art->author }}</td>
-                        <td>{{ $art->categories()->toArray() }}</td>
-                        <td>{{ $art->tags()->toArray() }}</td>
+                        <td></td>
+                        <td></td>
                         <td>{{ count($art->comments) }}</td>
                         <td>{{ $art->status }} <br> {{ $art->updated_at }}</td>
                     </tr>

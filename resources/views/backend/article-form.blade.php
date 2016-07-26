@@ -20,10 +20,10 @@
         .tag-wrap input {border:0 none;display:block;width:auto;overflow:hidden;}
         .cover-wrap {position:relative;overflow:hidden;display:block;margin:0 auto;width:340px;height:200px;background:rgba(0,0,0,.3);color:#fff;text-align:center;line-height:200px;}
         .fake-cover {position:absolute;top:0;right:0;bottom:0;left:0;opacity:0.7;font-size:400%;z-index:100;}
-        #coverPic {width:340px;height:200px;display:none;vertical-align:top}
-        .article-form {margin-right:-15px;background-color:#f5f5f5;overflow:hidden;}
+        #coverPic {width:340px;height:200px;vertical-align:top}
+        .article-form {margin-right:-15px;overflow:hidden;}
         .article-ext {float:right;width:402px;margin-left:10px;}
-        .article-main {overflow:hidden;background:#fff;}
+        .article-main {overflow:hidden;}
         #coverFile {
             position:absolute;
             top:-100px;
@@ -38,23 +38,26 @@
 @endsection
 
 @section('content')
-        {{ Form::model($article,['class'=>'article-form', 'id'=>'articleForm']) }}
+    @if(Session::has('errors'))
+        <div class="alert alert-danger alert-dismissable fade in">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            @foreach(Session::get('errors')->default->all(':message') as $message)
+                <p>{{ $message }}</p>
+            @endforeach
+        </div>
+    @endif
+        {{ Form::model($article,['action'=>['Admin\ArticleController@save', $article->id],'class'=>'article-form', 'id'=>'articleForm', 'enctype'=>'multipart/form-data']) }}
         <div class="article-ext">
             <div class="panel panel-default">
                 <div class="panel-heading">属性:</div>
                 <div class="panel-body">
                     <div class="fedn-line">
-                        <span class="fedn-label">来源：</span>
-                        <div class="fedn-controls">
-                            <label class="fedn-radio"><input type="radio" name="is_link" value="false"> 原创</label>
-                            <label class="fedn-radio"><input type="radio" name="is_link" value="false"> 转载</label>
-                        </div>
-                    </div>
-                    <div class="fedn-line">
                         <span class="fedn-label">状态：</span>
                         <div class="fedn-controls">
-                            <label class="fedn-radio"><input type="radio" name="is_link" value="false"> 草稿</label>
-                            <label class="fedn-radio"><input type="radio" name="is_link" value="false"> 发布</label>
+                            <label class="fedn-radio">{{ Form::radio('status','draft') }} 草稿</label>
+                            <label class="fedn-radio">{{ Form::radio('status','publish') }} 发布</label>
                         </div>
                     </div>
                     <div class="fedn-line">
@@ -68,7 +71,7 @@
                     <div class="fedn-line">
                         <span class="fedn-label">标签：</span>
                         <div class="fedn-controls">
-                            <input type="text" class="form-control">
+                            <input name="tags" type="text" class="form-control">
                         </div>
                     </div>
                 </div>
@@ -83,11 +86,10 @@
                 <div class="panel-heading">配图:</div>
                 <div class="panel-body">
                     <div class="cover-wrap">
-                        <img src="" alt="" id="coverPic">
+                        <img src="{{ $article->figure }}" alt="" id="coverPic">
                         <span class="fake-cover">点击上传</span>
-                        <input type="file" name="cover-file" id="coverFile">
+                        <input type="file" name="figure" id="coverFile">
                     </div>
-                    <input type="hidden" name="cover" id="cover">
                 </div>
             </div>
             <div class="panel panel-default">
@@ -95,11 +97,11 @@
                 <div class="panel-body">
                     <div class="fedn-line">
                         <label class="fedn-label">名称：</label>
-                        <div class="fedn-controls"><input type="text" class="form-control"></div>
+                        <div class="fedn-controls">{{ Form::text('author',null, ['class'=>'form-control']) }}</div>
                     </div>
                     <div class="fedn-line">
                         <label class="fedn-label">主页：</label>
-                        <div class="fedn-controls"><input type="text" class="form-control"></div>
+                        <div class="fedn-controls">{{ Form::text('author_url',null, ['class'=>'form-control']) }}</div>
                     </div>
                 </div>
             </div>
@@ -107,19 +109,24 @@
         </div>
         <div class="article-main">
                 <div class="form-group">
-                    <input id="title" name="title" type="text" class="form-control" placeholder="文章标题...">
+                    {{ Form::text('title',null, ['class'=>'form-control','placeholder'=>'文章标题...']) }}
                 </div>
                 <div class="form-group">
-                    <input id="slug" name="slug" type="text" class="form-control" placeholder="slug：用于生成URL，小写字母及连接线...">
+                    {{ Form::text('source_url',null, ['class'=>'form-control','placeholder'=>'转载源URL，原创文章请留空...']) }}
                 </div>
                 <div class="form-group">
-                    <textarea name="summary" id="summary" class="form-control" placeholder="文章内容摘要..." rows="5"></textarea>
+                    {{ Form::textarea('summary',null, ['class'=>'form-control', 'placeholder'=>'文章内容摘要...','rows'=>3]) }}
                 </div>
                 <div class="form-group">
                     <div id="editor">
-                        {{ Form::textarea('content', null, ['class'=>'form-control','id'=>'content']) }}
+                        <script id="editorContainer" name="content" type="text/plain">
+                            {{ $article->content or '' }}
+                        </script>
                     </div>
                 </div>
+            <div class="form-group">
+                <button class="btn btn-primary" type="submit">保存文章</button>
+            </div>
 
         </div>
 
@@ -128,13 +135,15 @@
 
 @section('pageScript')
     <script src="//cdn.bootcss.com/jquery/2.2.4/jquery.js"></script>
+    <script src="//cdn.bootcss.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
     <script src="//cdn.bootcss.com/vue/1.0.25/vue.min.js"></script>
     <script src="//cdn.bootcss.com/vue-resource/0.8.0/vue-resource.min.js"></script>
-    <script src="{{ asset('editor/editormd.min.js') }}"></script>
+    <script src="{{ asset('ueditor/ueditor.config.js') }}"></script>
+    <script src="{{ asset('ueditor/ueditor.all.js') }}"></script>
     <template id="vueCateList">
         <ul>
             <li v-for="item in categories">
-                <input type="checkbox" v-model="checkedIds" :value="item.id"> @{{ item.title }}
+                <input name="categories[]" type="checkbox" v-model="checkedIds" :value="item.id"> @{{ item.title }}
                 <vue-cate-list v-if="item.children" :categories="item.children"></vue-cate-list>
             </li>
         </ul>
@@ -155,7 +164,7 @@
             const vm = new Vue({
                 el: '#articleForm',
                 data: {
-                    checkedIds: []
+                    checkedIds: {{ json_encode($article->categories->modelKeys()) }}
                 },
                 ready: function () {
                     this.$http.get("{{ route('api.category.list') }}").then(function (response) {
@@ -168,34 +177,31 @@
                 if($coverFile) {
                     let dataUri = window.URL.createObjectURL($coverFile);
                     $('#coverPic').attr('src', dataUri).show();
-                    $('#cover').val($coverPath);
                 }
             };
             const onReady = function () {
-                const editor = editormd("editor", {
-                    path: "/editor/lib/",
-                    toolbarIcons: [
-                        "undo", "redo", "|",
-                        "bold", "italic", "quote", "code", "code-block", "|",
-                        "h1", "h2", "h3", "h4", "h5", "h6", "|",
-                        "list-ul", "list-ol", "hr", "|",
-                        "link", "reference-link", "image", "table", "|",
-                        "watch", "fullscreen", "|", "help"
-                    ],
-                    height: 700,
-                    gotoLine: false,
-                    indentWithTabs: false,
-                    saveHTMLToTextarea: false,
-                    imageUpload: true,
-                    tocm: true,
-                    pageBreak: false,
-                    flowChart: true,
-                    lineNumbers: false,
-                    watch: false,
-                    placeholder: "文章内容,请使用 Markdown 语法...",
-                    styleActiveLine: false,
-                    dialogMaskBgColor: "#000"
+                var editor = UE.getEditor('editorContainer',{
+                    toolbars: [
+                        [
+                            'source', '|', 'undo', 'redo', '|',
+                            'bold', 'italic', 'underline', 'strikethrough', 'superscript', 'subscript', 'blockquote', 'pasteplain', '|', 'forecolor', 'backcolor', 'insertorderedlist', 'insertunorderedlist', '|',
+                            'indent', '|',
+                            'justifyleft', 'justifycenter', 'justifyright', 'justifyjustify', '|', 'touppercase', 'tolowercase', '|',
+                            'link', 'unlink', 'anchor', '|', 'imagenone', 'imageleft', 'imageright', 'imagecenter', '|',
+                            'simpleupload', 'insertimage', 'insertcode'
 
+                        ],
+                        [
+                            'paragraph', 'fontsize', 'removeformat', 'formatmatch', 'autotypeset', 'horizontal','wordimage','inserttable', 'deletetable', 'insertparagraphbeforetable', 'insertrow', 'deleterow', 'insertcol', 'deletecol', 'mergecells', 'mergeright', 'mergedown', 'splittocells', 'splittorows', 'splittocols', 'charts', '|',
+                            'searchreplace', 'insertvideo', 'music', 'attachment', 'map', 'gmap', '|', 'pagebreak'
+                        ]
+                    ],
+                    initialFrameHeight:652,
+                    saveInterval: 2000,
+                    retainOnlyLabelPasted: true,
+                    autoHeightEnabled: false,
+                    pageBreakTag: '<!--more-->',
+                    maximumWords: 50000
                 });
                 $('#articleForm').on('change', '#coverFile', onCoverChanged);
             };
