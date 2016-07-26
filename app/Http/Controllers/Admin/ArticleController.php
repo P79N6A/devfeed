@@ -20,9 +20,9 @@ class ArticleController extends Controller
 {
     public function getIndex()
     {
-        $articles = Article::orderBy('id','desc')->with(['categories','metas'])->with('tags')->paginate(10);
+        $articles = Article::orderBy('id','desc')->with(['categories','metas', 'tags'])->paginate(10);
 
-        return view('backend.article', compact('articles'));
+        return view('backend.article-list', compact('articles'));
     }
 
     public function new()
@@ -62,10 +62,10 @@ class ArticleController extends Controller
 
         $article->title = $data['title'];
         $article->summary = $data['summary'];
-        $article->slug = $data['slug'];
+        $article->source_url = $request->get('source_url', '');
         $article->author = $data['author'];
-        $article->author_url = $data['author_url'];
-        $article->is_link = $data['is_link'];
+        $article->author_url = $request->get('author_url', '');
+        $article->is_link = !empty($data['source_url']);
         $article->content = $data['content'];
         $article->status = $data['status'];
 

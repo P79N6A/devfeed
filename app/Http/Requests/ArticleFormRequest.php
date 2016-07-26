@@ -25,11 +25,11 @@ class ArticleFormRequest extends Request
             'id'    => 'exists:articles',
             'title' => 'required|max:255',
             'summary' => 'required',
-            'content' => 'required',
-            'is_link' => 'required|boolean',
+            'source_url' => 'url',
             'status'  => 'required|in:draft,published',
             'categories' => 'required',
-            'figure' => 'image'
+            'figure' => 'image',
+            'author_url' => 'url',
         ];
     }
 }

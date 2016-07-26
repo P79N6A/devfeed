@@ -16,15 +16,15 @@ class CreateArticlesTable extends Migration
             $table->increments('id');
             $table->unsignedInteger('user_id');
             $table->string('title', 200);
-            $table->string('slug')->unique();
+            $table->string('source_url')->unique();
             $table->string('figure')->nullable();
-            $table->boolean('is_link')->default(true);
+            //$table->boolean('is_link')->default(true);
             $table->text('summary');
             $table->string('author',40);
             $table->string('author_url', 100)->nullable();
             $table->text('content');
             $table->unsignedBigInteger('click_count')->default(0);
-            $table->string('status')->default('initial');
+            $table->string('status')->default('draft');
             $table->unsignedBigInteger('likes')->default(0);
             $table->unsignedBigInteger('dislikes')->default(0);
             $table->nullableTimestamps();
