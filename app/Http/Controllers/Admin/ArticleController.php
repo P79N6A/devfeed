@@ -2,6 +2,7 @@
 
 namespace Fedn\Http\Controllers\Admin;
 
+use Fedn\Models\Tag;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
 
@@ -52,10 +53,6 @@ class ArticleController extends Controller
 
     public function save(ArticleFormRequest $request, $id = 0)
     {
-        //dd($request->all());
-
-
-
         $data = $request->all();
 
         $article = Article::with('categories')->findOrNew($id);
@@ -68,6 +65,7 @@ class ArticleController extends Controller
         $article->is_link = !empty($data['source_url']);
         $article->content = $data['content'];
         $article->status = $data['status'];
+
 
         if ($request->hasFile('figure')) {
             $save_path = '/upload/figure/';
@@ -86,17 +84,24 @@ class ArticleController extends Controller
 
         // metas
 
-        //TODO: handler tags
+        // tags
+        $tags = $request->get('tags','');
+        if($tags) {
+            $tags = explode(',', $tags);
+        }
+        foreach($tags as $tag) {
+            $tag = trim($tag);
+            if(empty($tag)) {
+                continue;
+            }
+            Tag::firstOrCreate(['title' => $tag, 'slug' => urlencode($tag)]);
+        }
+        $tag_ids = Tag::whereIn('title', $tags)->pluck('id')->toArray();
+        $article->tags()->sync($tag_ids);
+
         // categories
         $article->categories()->sync($data['categories']);
 
-
-        Category::query()->whereIn('id', $data['categories'])->update([
-            'count' => DB::raw('count+1')
-        ]);
-
-
-
-        dd($article);
+        return redirect('admin/articles')->with('message', ['type' => 'success', 'text' => "文章《$article->title》已保存"]);
     }
 }

@@ -65,10 +65,9 @@ Route::get('update', ['middleware'=>'auth', function(){
     }
 }]);
 
-Route::post('test', function(){
-   if(request()->hasFile('file')) {
-       return request()->all();
-   }
+Route::get('test', function(){
+    $roles = Fedn\Models\Role::all();
+    dd($roles->implode('title',','));
 });
 
 Route::auth();

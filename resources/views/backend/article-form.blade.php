@@ -7,17 +7,40 @@
 @endsection
 
 @section('pageStyle')
-    <link rel="stylesheet" href="{{ asset('editor/css/editormd.min.css') }}">
     <style>
         .category-list, .category-list ul {list-style:none;padding-left:0}
         .category-list li ul {margin-left:15px;}
-        .fedn-line {margin-bottom:5px;overflow:hidden;display:block;}
+        .fedn-line {margin-bottom:5px;display:block;padding-bottom:3px;}
         .fedn-label {float:left;margin-right:5px;text-align:right;white-space:nowrap;word-wrap:normal;height:34px;line-height:34px;}
-        .fedn-controls {display:block;overflow:hidden;line-height:34px;height:34px;}
-        .fedn-controls input, select {vertical-align:middle;margin:0;padding:0;height:34px;padding:2px 3px;}
+        .fedn-controls {display:block;overflow:hidden}
+        .fedn-controls input, select {vertical-align:middle;margin:0;padding:0;height:34px;}
         .fedn-radio, .fedn-checkbox {margin-right:10px;}
-        .tag-wrap {border:1px solid #ccc;}
-        .tag-wrap input {border:0 none;display:block;width:auto;overflow:hidden;}
+        .fedn-controls .tag-wrap {position:relative;padding:3px 5px;cursor:text}
+        .tags .tag {
+            display:inline-block;
+            position:relative;
+            border:1px solid #ebebeb;
+            background:#eee;
+            padding:2px 5px;
+            margin-right:3px;
+            cursor:pointer;
+        }
+        #inputTag {
+            width:70%;
+            display:inline-block;
+        }
+        .tag-close {
+            background:none;
+            border:0 none;
+            padding:0;
+            margin:0;
+            line-height:1;
+            -webkit-transform:translate(2px, -7px);
+            -moz-transform:translate(2px, -7px);
+            -ms-transform:translate(2px, -7px);
+            -o-transform:translate(2px, -7px);
+            transform:translate(2px, -7px);
+        }
         .cover-wrap {position:relative;overflow:hidden;display:block;margin:0 auto;width:340px;height:200px;background:rgba(0,0,0,.3);color:#fff;text-align:center;line-height:200px;}
         .fake-cover {position:absolute;top:0;right:0;bottom:0;left:0;opacity:0.7;font-size:400%;z-index:100;}
         #coverPic {width:340px;height:200px;vertical-align:top}
@@ -71,9 +94,18 @@
                     <div class="fedn-line">
                         <span class="fedn-label">标签：</span>
                         <div class="fedn-controls">
-                            <input name="tags" type="text" class="form-control">
+                            <input id="inputTag" autocomplete="off" type="text" class="form-control">
+                            <button type="button" id="btnAddTag" class="btn btn-default">添加</button>
+                            <p class="help-block">多个标签用半角逗号分隔</p>
+                            <div id="tags" class="tags">
+                                @foreach($article->tags as $tag)
+                                <span class="tag">{{ $tag->title }}<button class="tag-close" aria-label="Close">&times;</button></span>
+                                @endforeach
+                            </div>
+                            <input type="hidden" name="tags" value="{{ $article->tags->implode('title',',') }}">
                         </div>
                     </div>
+
                 </div>
             </div>
             <div class="panel panel-default">
@@ -120,7 +152,7 @@
                 <div class="form-group">
                     <div id="editor">
                         <script id="editorContainer" name="content" type="text/plain">
-                            {{ $article->content or '' }}
+                            {!!  $article->content or '' !!}
                         </script>
                     </div>
                 </div>
@@ -152,6 +184,7 @@
         (function($){
             "use strict";
             const token = document.querySelector('meta[name=csrf-token]').getAttribute('content');
+            let tags = [];
             Vue.component('vueCateList', {
                 template: '#vueCateList',
                 props: ['categories'],
@@ -179,6 +212,18 @@
                     $('#coverPic').attr('src', dataUri).show();
                 }
             };
+            const makeTag = function(tag) {
+                let btn = document.createElement('button');
+                btn.textContent = '×';
+                btn.className = "tag-close";
+                btn.setAttribute('aria-label','Close');
+                let tagSpan = document.createElement('span');
+                tagSpan.className = "tag";
+
+                tagSpan.textContent = tag;
+                tagSpan.appendChild(btn);
+                return tagSpan;
+            };
             const onReady = function () {
                 var editor = UE.getEditor('editorContainer',{
                     toolbars: [
@@ -204,6 +249,27 @@
                     maximumWords: 50000
                 });
                 $('#articleForm').on('change', '#coverFile', onCoverChanged);
+                $('#articleForm').on('click', '#btnAddTag', function(){
+                    let _tags = $('#inputTag').val();
+                    if(!_tags){
+                        return false;
+                    }
+                    _tags = _tags.split(',');
+                    _tags.map(function(tag){
+                        if(tag.trim() === ''){
+                            return false;
+                        }
+                        let tagSpan = makeTag(tag);
+                        $('#tags')[0].appendChild(tagSpan);
+                        $('input[name=tags]')[0].value += ','+tag;
+                    });
+                    $(this).val('').blur();
+                });
+                $('#articleForm').on('click', '.tag', function(){
+                    let tag = this.textContent.replace('×', '');
+                    $(this).remove();
+                    $('input[name=tags]')[0].value = $('input[name=tags]')[0].value.replace(tag,'');
+                });
             };
             $(onReady);
         }(jQuery))
