@@ -13,7 +13,7 @@
                             <li role="presentation">
                                 <a href="#register" aria-controls="profile" role="tab" data-toggle="tab">注册新帐号</a></li>
                         </ul>
-                        <div class="tab-content">
+                        <div class="tab-content" style="padding-top:15px;">
                             <div role="tabpanel" class="tab-pane active" id="login">
                                 {{ Form::model($user, ['url'=>'/bind', 'class'=>'form-horizontal', 'role'=>'form']) }}
 
@@ -24,9 +24,7 @@
                                         {{ Form::email('email', null, ['class'=>'form-control']) }}
 
                                         @if ($errors->has('email'))
-                                            <span class="help-block">
-                                        <strong>{{ $errors->first('email') }}</strong>
-                                    </span>
+                                            <span class="help-block"><strong>{{ $errors->first('email') }}</strong></span>
                                         @endif
                                     </div>
                                 </div>
@@ -38,9 +36,7 @@
                                         <input id="password" type="password" class="form-control" name="password">
 
                                         @if ($errors->has('password'))
-                                            <span class="help-block">
-                                        <strong>{{ $errors->first('password') }}</strong>
-                                    </span>
+                                            <span class="help-block"><strong>{{ $errors->first('password') }}</strong></span>
                                         @endif
                                     </div>
                                 </div>
@@ -57,7 +53,7 @@
 
                                 <div class="form-group">
                                     <div class="col-md-6 col-md-offset-4">
-                                        <button type="submit" class="btn btn-primary">
+                                        <button name="login_button" type="submit" class="btn btn-primary">
                                             <i class="fa fa-btn fa-sign-in"></i> 绑定并登陆
                                         </button>
 
@@ -76,9 +72,7 @@
                                         {{ Form::text('name', null, ['class'=>'form-control']) }}
 
                                         @if ($errors->has('name'))
-                                            <span class="help-block">
-                                        <strong>{{ $errors->first('name') }}</strong>
-                                    </span>
+                                            <span class="help-block"><strong>{{ $errors->first('name') }}</strong></span>
                                         @endif
                                     </div>
                                 </div>
@@ -88,12 +82,11 @@
 
                                     <div class="col-md-6">
                                         {{ Form::email('email', null, ['class'=>'form-control']) }}
-
-
+                                        <p class="help-block text-muted">电子邮件将用于网站登录</p>
                                         @if ($errors->has('email'))
                                             <span class="help-block"><strong>{{ $errors->first('email') }}</strong></span>
                                         @endif
-                                        <p class="help-block text-muted">电子邮件将用于网站登录</p>
+
                                     </div>
                                 </div>
 
@@ -104,9 +97,7 @@
                                         <input id="password" type="password" class="form-control" name="password">
 
                                         @if ($errors->has('password'))
-                                            <span class="help-block">
-                                        <strong>{{ $errors->first('password') }}</strong>
-                                    </span>
+                                            <span class="help-block"><strong>{{ $errors->first('password') }}</strong></span>
                                         @endif
                                     </div>
                                 </div>
@@ -117,8 +108,7 @@
                                         <input id="confirm_password" type="password" class="form-control" name="confirm_password">
 
                                         @if ($errors->has('confirm_password'))
-                                            <span class="help-block">
-                                        <strong>{{ $errors->first('confirm_password') }}</strong>
+                                            <span class="help-block"><strong>{{ $errors->first('confirm_password') }}</strong>
                                     </span>
                                         @endif
                                     </div>
@@ -136,7 +126,7 @@
 
                                 <div class="form-group">
                                     <div class="col-md-6 col-md-offset-4">
-                                        <button type="submit" class="btn btn-primary">
+                                        <button name="register_button" type="submit" class="btn btn-primary">
                                             <i class="fa fa-btn fa-sign-in"></i> 注册并绑定
                                         </button>
 

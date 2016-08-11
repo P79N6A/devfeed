@@ -96,12 +96,14 @@ class AuthController extends Controller
             $user->nickname = $sUser->getNickname();
 
             $metas = [
-                'qq_id' => $sUser->getId(),
-                'qq_token' => $sUser->accessTokenResponseBody['access_token'],
+                'qq_openId' => $sUser->getId(),
+                'qq_accessToken' => $sUser->accessTokenResponseBody['access_token'],
                 'qq_refreshToken' => $sUser->accessTokenResponseBody['refresh_token']
             ];
 
-            return view('auth.bind', ['user'=>$user, 'metas'=>$metas]);
+            session(['metas' => $metas]);
+
+            return view('auth.bind', ['user'=>$user]);
         }
     }
 
