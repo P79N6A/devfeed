@@ -93,7 +93,7 @@ class AuthController extends Controller
         } else {
             $user = new User();
             $user->email = $sUser->getEmail();
-            $user->name = $sUser->getNickname();
+            $user->nickname = $sUser->getNickname();
 
             $metas = [
                 'qq_id' => $sUser->getId(),

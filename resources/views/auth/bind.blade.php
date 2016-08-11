@@ -10,7 +10,7 @@
                         {{ Form::model($user, ['url'=>'/bind', 'class'=>'form-horizontal', 'role'=>'form']) }}
 
                             @foreach($metas as $key=>$val)
-                                {{ Form::hidden($key, $val) }}
+                                {{ Form::hidden("metas['$key']", $val) }}
                             @endforeach
 
                             <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
