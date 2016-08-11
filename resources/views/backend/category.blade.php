@@ -83,8 +83,8 @@
         <option is="vue-option" v-for="cate in item.children" :item="cate"></option>
     </template>
 
-    <script src="http://cdn.bootcss.com/vue/1.0.25/vue.min.js"></script>
-    <script src="http://cdn.bootcss.com/vue-resource/0.8.0/vue-resource.min.js"></script>
+    <script src="//cdn.bootcss.com/vue/1.0.25/vue.min.js"></script>
+    <script src="//cdn.bootcss.com/vue-resource/0.8.0/vue-resource.min.js"></script>
     <script>
         "use strict";
         const token = document.querySelector('meta[name=csrf-token]').getAttribute('content');
