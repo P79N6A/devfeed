@@ -2,8 +2,6 @@
 
 namespace Fedn\Http\Requests;
 
-use Fedn\Http\Requests\Request;
-
 class BindFormRequest extends Request
 {
     /**

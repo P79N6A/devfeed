@@ -12,12 +12,13 @@
 
 Route::get('/','HomeController@index');
 Route::get('/home', 'HomeController@index');
-Route::post('/bind', 'Auth\AuthController@bindAccount');
+
 
 
 /** public */
 Route::get('/login/qq', 'Auth\AuthController@loginWithQQ');
 Route::get('/auth/qqlogin', 'Auth\AuthController@handleQQLogin');
+Route::post('/auth/bind', 'Auth\AuthController@bindAccount');
 
 /** front-end */
 
