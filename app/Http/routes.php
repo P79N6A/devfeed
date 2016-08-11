@@ -12,7 +12,7 @@
 
 Route::get('/','HomeController@index');
 Route::get('/home', 'HomeController@index');
-Route::get('/bind', 'Auth\AuthController@bindAccount');
+Route::post('/bind', 'Auth\AuthController@bindAccount');
 
 
 /** public */
