@@ -65,6 +65,10 @@ class User extends Model implements AuthenticatableContract,
         return $this->belongsToMany(Role::class);
     }
 
+    public function metas() {
+        return $this->hasMany(UserMeta::class);
+    }
+
     public function hasRole($role) {
 
         if(is_int($role)) {

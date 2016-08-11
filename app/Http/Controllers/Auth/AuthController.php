@@ -5,11 +5,13 @@ namespace Fedn\Http\Controllers\Auth;
 use Fedn\Models\Role;
 use Fedn\Models\User;
 use Fedn\Http\Controllers\Controller;
-use Validator;
 use Illuminate\Foundation\Auth\ThrottlesLogins;
 use Illuminate\Foundation\Auth\AuthenticatesAndRegistersUsers;
 use Laravel\Socialite\Facades\Socialite;
+use Fedn\Http\Requests\Request;
 use Auth;
+use Hash;
+use Validator;
 
 class AuthController extends Controller
 {
@@ -78,11 +80,32 @@ class AuthController extends Controller
     }
 
     public function handleQQLogin(){
-        $user = Socialite::with('qq')->user();
-        $data = [
-            'user' => $user,
-            'body' => $user->accessTokenResponseBody
-        ];
-        dd($data);
+
+        // check user with openid
+        $sUser = Socialite::with('qq')->user();
+
+        $user = User::whereHas('metas', function($query){
+            $query->where('key','qq_id');
+        })->first();
+        if($user) {
+            Auth::login($user);
+            return redirect()->intended('/');
+        } else {
+            $user = new User();
+            $user->email = $sUser->getEmail();
+            $user->name = $sUser->getNickname();
+
+            $metas = [
+                'qq_id' => $sUser->getId(),
+                'qq_token' => $sUser->accessTokenResponseBody['access_token'],
+                'qq_refreshToken' => $sUser->accessTokenResponseBody['refresh_token']
+            ];
+
+            return view('auth.bind', ['user'=>$user, 'metas'=>$metas]);
+        }
+    }
+
+    public function bindAccount(Request $req) {
+        dd($req->all());
     }
 }

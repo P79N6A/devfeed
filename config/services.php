@@ -30,7 +30,7 @@ return [
     ],
 
     'stripe' => [
-        'model'  => Fedn\User::class,
+        'model'  => Fedn\Models\User::class,
         'key'    => env('STRIPE_KEY'),
         'secret' => env('STRIPE_SECRET'),
     ],
