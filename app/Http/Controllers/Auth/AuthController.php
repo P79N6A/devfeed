@@ -5,7 +5,7 @@ namespace Fedn\Http\Controllers\Auth;
 use Fedn\Models\Role;
 use Fedn\Models\User;
 use Fedn\Http\Controllers\Controller;
-use Illuminate\Http\Request;
+use Fedn\Http\Requests\BindFormRequest;
 use Illuminate\Foundation\Auth\ThrottlesLogins;
 use Illuminate\Foundation\Auth\AuthenticatesAndRegistersUsers;
 use Laravel\Socialite\Facades\Socialite;
@@ -107,7 +107,7 @@ class AuthController extends Controller
         }
     }
 
-    public function bindAccount(Request $req) {
+    public function bindAccount(BindFormRequest $req) {
         dd($req->all());
     }
 }
