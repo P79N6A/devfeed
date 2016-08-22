@@ -87,12 +87,14 @@ class AuthController extends Controller
         // check user with openid
         $sUser = Socialite::with('qq')->user();
 
-        $user = User::whereHas('metas', function($query){
-            $query->where('key','qq_id');
+        $user = User::whereHas('metas', function($query) use ($sUser) {
+            $query->where('key','qq_id')
+                  ->where('value', $sUser->getId());
         })->first();
+
         if($user) {
             Auth::login($user);
-            return redirect()->intended('/');
+            return redirect('/');
         } else {
             $metas = [
                 'nickname' => $sUser->getNickname(),
@@ -160,6 +162,6 @@ class AuthController extends Controller
 
         Auth::login($user, $req->get('remember', false));
         request()->session()->forget('metas');
-        redirect()->intended('/');
+        redirect()->to('/');
     }
 }
