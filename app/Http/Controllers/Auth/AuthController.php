@@ -90,11 +90,15 @@ class AuthController extends Controller
         $user = User::whereHas('metas', function($query) use ($sUser) {
             $query->where('key','qq_openId')
                   ->where('value', $sUser->getId());
-        })->first();
+        })->with('roles')->first();
 
         if($user) {
             Auth::login($user);
-            return redirect('/');
+
+            if($user->hasRole(1) || $user->hasRole(2)) {
+                return redirect()->to('/admin');
+            }
+            return redirect()->intended('/');
         } else {
             $metas = [
                 'nickname' => $sUser->getNickname(),
@@ -162,6 +166,6 @@ class AuthController extends Controller
 
         Auth::login($user, $req->get('remember', false));
         request()->session()->forget('metas');
-        redirect()->to('/');
+        return redirect()->to('/');
     }
 }
