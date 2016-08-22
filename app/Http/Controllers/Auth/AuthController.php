@@ -91,10 +91,6 @@ class AuthController extends Controller
             Auth::login($user);
             return redirect()->intended('/');
         } else {
-            $user = new User();
-            $user->email = $sUser->getEmail();
-            $user->nickname = $sUser->getNickname();
-
             $metas = [
                 'qq_openId' => $sUser->getId(),
                 'qq_accessToken' => $sUser->accessTokenResponseBody['access_token'],
@@ -103,8 +99,14 @@ class AuthController extends Controller
 
             session(['metas' => $metas]);
 
-            return view('auth.bind', ['user'=>$user]);
+            //return view('auth.bind', ['user'=>$user]);
+            return redirect()->action('Auth\AuthController@socialBind');
         }
+    }
+
+    public function socialBind()
+    {
+        return view('auth.bind');
     }
 
     public function bindAccount(BindFormRequest $req) {
