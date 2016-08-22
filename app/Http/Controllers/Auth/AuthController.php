@@ -88,7 +88,7 @@ class AuthController extends Controller
         $sUser = Socialite::with('qq')->user();
 
         $user = User::whereHas('metas', function($query) use ($sUser) {
-            $query->where('key','qq_id')
+            $query->where('key','qq_openId')
                   ->where('value', $sUser->getId());
         })->first();
 
