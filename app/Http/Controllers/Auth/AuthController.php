@@ -115,7 +115,7 @@ class AuthController extends Controller
     }
 
     public function bindAccount(BindFormRequest $req) {
-        $isNew = $req->has('login_button') ? false : true;
+        $isNew = $req->has('name') ? true : false;
 
         $metas = session('metas');
 
