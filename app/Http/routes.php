@@ -18,6 +18,7 @@ Route::get('/home', 'HomeController@index');
 /** public */
 Route::get('/login/qq', 'Auth\AuthController@loginWithQQ');
 Route::get('/auth/qqlogin', 'Auth\AuthController@handleQQLogin');
+Route::get('/auth/social', 'Auth\AuthController@socialBind');
 Route::post('/auth/bind', 'Auth\AuthController@bindAccount');
 
 /** front-end */

@@ -4,10 +4,13 @@ namespace Fedn\Http\Controllers\Auth;
 
 use Fedn\Models\Role;
 use Fedn\Models\User;
+use Fedn\Models\UserMeta;
 use Fedn\Http\Controllers\Controller;
 use Fedn\Http\Requests\BindFormRequest;
+use Illuminate\Auth\AuthenticationException;
 use Illuminate\Foundation\Auth\ThrottlesLogins;
 use Illuminate\Foundation\Auth\AuthenticatesAndRegistersUsers;
+use Illuminate\Support\MessageBag;
 use Laravel\Socialite\Facades\Socialite;
 use Auth;
 use Hash;
@@ -92,7 +95,9 @@ class AuthController extends Controller
             return redirect()->intended('/');
         } else {
             $metas = [
+                'nickname' => $sUser->getNickname(),
                 'qq_openId' => $sUser->getId(),
+                'avatar' => $sUser->getAvatar(),
                 'qq_accessToken' => $sUser->accessTokenResponseBody['access_token'],
                 'qq_refreshToken' => $sUser->accessTokenResponseBody['refresh_token']
             ];
@@ -110,6 +115,37 @@ class AuthController extends Controller
     }
 
     public function bindAccount(BindFormRequest $req) {
-        dd($req->all());
+        $isNew = $req->has('login_button') ? false : true;
+
+        $metas = session('metas');
+
+        if($isNew) {
+            $data = [
+                'name' => $req->get('name', null),
+                'email' => $req->get('email', null),
+                'password' => Hash::make($req->get('password', '')),
+                'nickname' => $metas['nickname']
+            ];
+
+            $user = User::create($data);
+        } else {
+            $email = $req->get('email', null);
+            $password = $req->get('password', null);
+
+            $user = User::with('metas')->where('email', $email)->where('password', Hash::make($password))->firstOrFail();
+        }
+
+        $user->roles()->attach([4,5]);
+
+        $user->metas()->saveMany([
+            new UserMeta(['key'=>'avatar','value'=>$metas['avatar']]),
+            new UserMeta(['key'=>'qq_openId','value'=>$metas['qq_openId']]),
+            new UserMeta(['key'=>'qq_accessToken','value'=>$metas['qq_accessToken']]),
+            new UserMeta(['key'=>'qq_refreshToken','value'=>$metas['qq_refreshToken']])
+        ]);
+
+        Auth::login($user, $req->get('remember', false));
+        request()->session()->forget('metas');
+        redirect()->intended('/');
     }
 }
