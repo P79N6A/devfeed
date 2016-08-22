@@ -132,7 +132,21 @@ class AuthController extends Controller
             $email = $req->get('email', null);
             $password = $req->get('password', null);
 
-            $user = User::with('metas')->where('email', $email)->where('password', Hash::make($password))->firstOrFail();
+            $user = User::with('metas')->where('email', $email)->first();
+
+            if(!$user) {
+                redirect()->back()->withErrors('本站帐户登陆失败，请检查后重试', 'default');
+            }
+
+            foreach($user->metas() as $meta) {
+                if($meta->key = 'qq_openId') {
+                    redirect()->back()->withErrors('您的本站帐号已经绑定了其它QQ号', 'default');
+                }
+            }
+
+            if(!Hash::check($password, $user->password)) {
+                redirect()->back()->withErrors('本站帐户登陆失败，请检查后重试', 'default');
+            }
         }
 
         $user->roles()->attach([4,5]);
