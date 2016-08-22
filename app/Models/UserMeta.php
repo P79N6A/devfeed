@@ -8,6 +8,8 @@ class UserMeta extends Model
 {
     protected $fillable = ['user_id', 'key', 'value'];
 
+    public $timestamps = false;
+
     public function user()
     {
         return $this->belongsTo(User::class);

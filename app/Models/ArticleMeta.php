@@ -9,6 +9,7 @@ class ArticleMeta extends Model
 
     protected $fillable = ['article_id', 'key', 'value'];
 
+    public $timestamps = false;
 
     public function articles()
     {
