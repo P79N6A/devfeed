@@ -20,15 +20,14 @@ class ArticlePolicy
         //
     }
 
-    public function before(User $user, $ability) {
-        if ($user->inRoles([1, 2])) {
-            return true;
-        }
-    }
-
     public function createArticle(User $user)
     {
-        return $user->inRoles([1,2,3,4]);
+        if ($user->inRoles([1,2,3,4])) {
+            return true;
+        } else {
+            dd($user->roles);
+            return false;
+        }
     }
 
     public function updateArticle(User $user, Article $article)

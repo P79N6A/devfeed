@@ -81,11 +81,13 @@ class User extends Model implements AuthenticatableContract,
     }
 
     public function inRoles($roles) {
-        foreach ($roles as $role) {
+        $result = false;
+        foreach($roles as $role) {
             if ($this->hasRole($role)) {
-                return true;
+                $result = true;
+                break;
             }
         }
-        return false;
+        return $result;
     }
 }
