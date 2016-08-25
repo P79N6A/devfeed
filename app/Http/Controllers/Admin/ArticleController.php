@@ -21,7 +21,7 @@ class ArticleController extends Controller
 {
     public function getIndex()
     {
-        $articles = Article::orderBy('id','desc')->with(['categories','metas', 'tags'])->paginate(10);
+        $articles = Article::orderBy('id','desc')->with(['user', 'categories','tags'])->paginate(10);
 
         return view('backend.article-list', compact('articles'));
     }

@@ -26,6 +26,7 @@
                     <th>标签</th>
                     <th>评论</th>
                     <th>日期</th>
+                    <th>录入</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -33,12 +34,21 @@
                     <tr>
                         <td><input id="ckb-{{$art->id}}" type="checkbox" value="{{ $art->id }}"></td>
                         <td>{{ Html::Link('admin/article/'.$art->id, $art->title) }}</td>
-                        <td>{{ $art->is_link ? '转载': '原创' }}</td>
+                        <td>{{ $art->isLink ? '转载': '原创' }}</td>
                         <td>{{ $art->author }}</td>
-                        <td></td>
-                        <td></td>
+                        <td>
+                            @foreach($art->categories as $cate)
+                                <a href="javascript:alert('尚未实现')">{{ $cate->title }}</a>
+                            @endforeach
+                        </td>
+                        <td>
+                            @foreach($art->tags as $tag)
+                                <a href="javascript:alert('尚未实现')">{{ $tag->title }}</a>
+                            @endforeach
+                        </td>
                         <td>{{ count($art->comments) }}</td>
                         <td>{{ $art->status }} <br> {{ $art->updated_at }}</td>
+                        <td>{{ $art->user->name }}</td>
                     </tr>
                 @empty
                     <tr>
