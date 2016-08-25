@@ -29,7 +29,7 @@ class ArticleController extends Controller
     public function new()
     {
         if(Gate::denies('create-article')) {
-            return response('Unautorized.', 403);
+            return response('Unauthorized.', 403);
         }
 
         $article = new Article;
@@ -50,7 +50,7 @@ class ArticleController extends Controller
             throw new ModelNotFoundException('文章不存在！');
         }
 
-        $this->authorize('updateArticle', $article);
+        $this->authorize('update', $article);
 
         return view('backend.article-form', ['article'=>$article]);
     }
@@ -66,7 +66,9 @@ class ArticleController extends Controller
         if($article->exists){
             $this->authorize('update', $article);
         } else {
-            $this->authorize('add');
+            if (Gate::denies('create-article')) {
+                return response('Unauthorized.', 403);
+            }
             $article->user_id = request()->user()->id;
         }
 
