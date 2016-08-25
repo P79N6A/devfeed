@@ -64,9 +64,10 @@ class ArticleController extends Controller
         $article = Article::with('categories')->findOrNew($id);
 
         if($article->exists){
-            $this->authorize('updateArticle', $article);
+            $this->authorize('update', $article);
         } else {
-            $this->authorize('createArticle');
+            $this->authorize('create');
+            $article->user_id = request()->user()->id;
         }
 
         $article->title = $data['title'];
