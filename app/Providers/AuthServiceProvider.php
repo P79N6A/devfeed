@@ -29,7 +29,7 @@ class AuthServiceProvider extends ServiceProvider
     {
         $this->registerPolicies($gate);
 
-        $gate->define('create-article', 'ArticlePolicy@add');
+        $gate->define('create-article', 'Fedn\Policies\ArticlePolicy@add');
     }
 
 
