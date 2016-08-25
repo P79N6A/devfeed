@@ -10,6 +10,6 @@ use Fedn\Http\Controllers\Controller;
 class UserController extends Controller
 {
     public function getUsers() {
-
+        
     }
 }
