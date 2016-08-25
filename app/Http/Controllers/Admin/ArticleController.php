@@ -28,7 +28,9 @@ class ArticleController extends Controller
 
     public function new()
     {
-        $this->authorize('createArticle');
+        if(Gate::denies('create-article')) {
+            return response('Unautorized.', 403);
+        }
 
         $article = new Article;
 
