@@ -77,7 +77,7 @@ class ArticleController extends Controller
         $article->source_url = $request->get('source_url', '');
         $article->author = $data['author'];
         $article->author_url = $request->get('author_url', '');
-        $article->is_link = !empty($data['source_url']);
+        //$article->is_link = !empty($data['source_url']);
         $article->content = $data['content'];
         $article->status = $data['status'];
 
