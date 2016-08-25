@@ -25,7 +25,7 @@ Route::post('/auth/bind', 'Auth\AuthController@bindAccount');
 
 /** backend */
 
-Route::group(['prefix'=>'admin', 'namespace'=>'Admin', 'as'=>'admin.'], function(){
+Route::group(['prefix'=>'admin', 'namespace'=>'Admin', 'as'=>'admin.', 'middleware'=>'admin'], function(){
     Route::get('/', ['as'=>'home', 'uses'=>'AdminController@getIndex']);
 
     // roles

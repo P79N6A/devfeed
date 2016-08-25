@@ -168,4 +168,5 @@ class AuthController extends Controller
         request()->session()->forget('metas');
         return redirect()->to('/');
     }
+
 }
