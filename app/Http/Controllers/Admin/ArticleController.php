@@ -66,7 +66,7 @@ class ArticleController extends Controller
         if($article->exists){
             $this->authorize('update', $article);
         } else {
-            $this->authorize('create');
+            $this->authorize('add');
             $article->user_id = request()->user()->id;
         }
 
