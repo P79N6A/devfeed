@@ -5,6 +5,9 @@ namespace Fedn\Providers;
 use Illuminate\Contracts\Auth\Access\Gate as GateContract;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 
+use Fedn\Models\Article;
+use Fedn\Policies\ArticlePolicy;
+
 class AuthServiceProvider extends ServiceProvider
 {
     /**
@@ -13,7 +16,7 @@ class AuthServiceProvider extends ServiceProvider
      * @var array
      */
     protected $policies = [
-        //'Fedn\Model' => 'Fedn\Policies\ModelPolicy',
+        Article::class => ArticlePolicy::class
     ];
 
     /**
@@ -27,5 +30,5 @@ class AuthServiceProvider extends ServiceProvider
         $this->registerPolicies($gate);
     }
 
-    protected function
+
 }

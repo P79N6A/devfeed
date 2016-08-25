@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 
 use Fedn\Http\Requests;
 use Fedn\Http\Controllers\Controller;
-
+use Gate;
 use Fedn\Models\Article;
 use Fedn\Models\ArticleMeta;
 use Fedn\Models\Category;
@@ -28,6 +28,8 @@ class ArticleController extends Controller
 
     public function new()
     {
+        $this->authorize('createArticle');
+
         $article = new Article;
 
         return view('backend.article-form', ['article' => $article]);
@@ -46,6 +48,8 @@ class ArticleController extends Controller
             throw new ModelNotFoundException('文章不存在！');
         }
 
+        $this->authorize('updateArticle', $article);
+
         return view('backend.article-form', ['article'=>$article]);
     }
 
@@ -56,6 +60,12 @@ class ArticleController extends Controller
         $data = $request->all();
 
         $article = Article::with('categories')->findOrNew($id);
+
+        if($article->exists){
+            $this->authorize('updateArticle', $article);
+        } else {
+            $this->authorize('createArticle');
+        }
 
         $article->title = $data['title'];
         $article->summary = $data['summary'];
