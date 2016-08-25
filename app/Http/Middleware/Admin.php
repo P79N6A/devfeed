@@ -38,7 +38,7 @@ class Admin
             }
         }
 
-        if($request->user()->hasRoles([1,2,3])) {
+        if($request->user()->inRoles([1,2,3])) {
             return $next($request);
         }
 
