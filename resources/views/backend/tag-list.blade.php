@@ -34,7 +34,7 @@
                         <td><img src="{{ $tag->figure  }}" width="80" height="80"></td>
                         <td>{{ $tag->slug }}</td>
                         <td>{{ Html::Link('admin/tag/'.$tag->id, $tag->title) }}</td>
-                        <td>{{ $art->description }}</td>
+                        <td>{{ $tag->description }}</td>
                         <td>{{ $tag->articles_count }}</td>
                         <td>{{ $tag->created_at }}
                     </tr>
