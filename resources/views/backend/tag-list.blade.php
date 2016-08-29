@@ -7,7 +7,7 @@
 
     <div class="row">
         <div class="col-md-6">
-            <a href="{{ route('admin.tag.add') }}" class="btn btn-success">新建标签</a>
+            <a href="{{ url('admin/tag') }}" class="btn btn-success">新建标签</a>
         </div>
         <div class="col-md-6">
 
