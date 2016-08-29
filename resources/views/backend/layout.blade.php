@@ -44,7 +44,7 @@
                 <a class="list-group-item{{ request()->is('admin/article*') ? ' active':null }}" href="{{ url('admin/articles') }}">文章</a>
                 <a class="list-group-item{{ request()->is('admin/categor*') ? ' active':null }}" href="{{ url('admin/categories') }}">分类</a>
                 <a class="list-group-item disabled" href="{{ url('admin/special*') }}">专题</a>
-                <a class="list-group-item{{ request()->is('admin/tag*') ? ' active':null }}" href="{{ url('admin/categories') }}">标签</a>
+                <a class="list-group-item{{ request()->is('admin/tag*') ? ' active':null }}" href="{{ url('admin/tags') }}">标签</a>
             </div>
             <div class="list-group">
                 <a class="list-group-item" href="{{ url('admin/spider') }}">采集</a>
