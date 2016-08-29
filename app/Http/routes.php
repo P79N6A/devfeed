@@ -43,6 +43,9 @@ Route::group(['prefix'=>'admin', 'namespace'=>'Admin', 'as'=>'admin.', 'middlewa
     Route::get('article', ['as' => 'article.add', 'uses' => 'ArticleController@new']);
     Route::post('article/{id?}', ['as'=>'article.save','uses'=>'ArticleController@save'])->where('id', '[0-9]+');
 
+    // tags
+    Route::get('tags', ['as'=>'tags', 'uses'=>'TagController@list']);
+
 });
 
 Route::group(['prefix'=>'api/v1', 'as'=>'api.'], function(){

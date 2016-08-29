@@ -16,9 +16,8 @@ class CreateArticlesTable extends Migration
             $table->increments('id');
             $table->unsignedInteger('user_id');
             $table->string('title', 200);
-            $table->string('source_url')->unique();
+            $table->string('source_url');
             $table->string('figure')->nullable();
-            //$table->boolean('is_link')->default(true);
             $table->text('summary');
             $table->string('author',40);
             $table->string('author_url', 100)->nullable();
