@@ -23,6 +23,9 @@ Route::post('/auth/bind', 'Auth\AuthController@bindAccount');
 /** front-end */
 Route::group(['namespace' => 'Front', 'as' => 'front.'], function () {
     Route::get('/', ['as' => 'home', 'uses' => 'HomeController@index']);
+    Route::group(['as'=>'article.', 'prefix'=>'article'], function(){
+       Route::get('/{id}', ['as'=>'view', 'uses'=>'ArticleController@view']);
+    });
 });
 /** backend */
 
