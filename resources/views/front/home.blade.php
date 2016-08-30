@@ -33,7 +33,7 @@
                         @endforeach
                     </h3>
                     <div class="ac-info">
-                        <span>{{ $item->updated_at }} {{ $item->sourceSite }}</span>
+                        <span>{{ $item->updated_at }} {!! $item->sourceSite !!}</span>
                         <span><a href="#comments" title="点击立刻发表评论">暂无评论</a></span>
                     </div>
                     <div class="ac-detail">
