@@ -62,7 +62,7 @@ class Article extends Model
         return !empty($this->source_url);
     }
 
-    public function getSourceSite() {
+    public function getSourceSiteAttribute() {
         if(empty($this->source_url)){
             return "本站原创";
         } else {
