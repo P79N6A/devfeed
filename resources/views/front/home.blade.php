@@ -35,6 +35,9 @@
                     <div class="ac-info">
                         @if($art->isLink)
                         <span>{{ $art->updated_at }} 来自 {{ link_to($art->source_url) }}</span>
+                        @else
+                        <span>{{ $art->updated_at }} 本站原创</span>
+                        @endif
                         <span><a href="#comments" title="点击立刻发表评论">暂无评论</a></span>
                     </div>
                     <div class="ac-detail">
@@ -49,7 +52,7 @@
             </div>
             @endif
         </div>
-        @else
+        @empty
         <div class="row">
             <div class="col-md-12"><p class="muted">暂时没有文章</p></div>
         </div>
