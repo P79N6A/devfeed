@@ -22,7 +22,7 @@ class HomeController extends Controller
         if(is_numeric($page) == false) {
             $page = 1;
         }
-        $articles = Cache::tags(['article','home'])->remember('articles_'.$page, 10, function(){
+        $articles = Cache::remember('articles_'.$page, 10, function(){
             return Article::with('tags')->paginate(10);
         });
         return view('front.home', ['articles'=>$articles]);
