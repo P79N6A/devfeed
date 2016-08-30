@@ -15,6 +15,8 @@
 <body>
 @include('front.partial.header')
 
+@section('main')
+@show
 
 @include('front.partial.footer')
 @yield('pageScript')
