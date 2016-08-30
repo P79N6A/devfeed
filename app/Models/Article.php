@@ -5,6 +5,7 @@ namespace Fedn\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Builder;
+use Carbon\Carbon;
 
 /**
  * Fedn\Models\Article
@@ -69,6 +70,12 @@ class Article extends Model
             $host = parse_url($this->source_url, PHP_URL_HOST);
             return $host ? "来自 <a href=\"$this->source_url\" rel=\"external\">$host</a>" : '转载自网络';
         }
+    }
+
+    public function getPublishTimeAttribute() {
+        Carbon::setLocale('zh');
+
+        return Carbon::parse($this->created_at)->diffForHumans();
     }
 
 }
