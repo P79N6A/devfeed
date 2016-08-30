@@ -34,10 +34,10 @@
                     </h3>
                     <div class="ac-info">
                         <span>{{ $item->publishTime }} {!! $item->sourceSite !!}</span>
-                        <span class="ds-thread-count" data-thread-key="$item->id"></span>
+                        <span class="ds-thread-count" data-thread-key="{{$item->id}}"></span>
                     </div>
                     <div class="ac-detail">
-                        {{ $item->description }}
+                        {{ $item->summary }}
                     </div>
 
                 </div>
@@ -65,7 +65,6 @@
 @endsection
 
 @section('pageScript')
-<script src="{{ asset('js/nav.js') }}"></script>
 <script type="text/javascript">
     var duoshuoQuery = {short_name: "webdn"};
     (function () {

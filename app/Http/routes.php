@@ -12,9 +12,7 @@
 
 
 
-Route::group(['namespace'=>'Front', 'as'=>'front.'], function(){
-    Route::get('/', ['as'=>'home', 'uses'=>'HomeController@index']);
-});
+
 
 /** public */
 Route::get('/login/qq', 'Auth\AuthController@loginWithQQ');
@@ -23,7 +21,9 @@ Route::get('/auth/social', 'Auth\AuthController@socialBind');
 Route::post('/auth/bind', 'Auth\AuthController@bindAccount');
 
 /** front-end */
-
+Route::group(['namespace' => 'Front', 'as' => 'front.'], function () {
+    Route::get('/', ['as' => 'home', 'uses' => 'HomeController@index']);
+});
 /** backend */
 
 Route::group(['prefix'=>'admin', 'namespace'=>'Admin', 'as'=>'admin.', 'middleware'=>'admin'], function(){
