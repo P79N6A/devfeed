@@ -2,11 +2,11 @@
     <div class="container">
         <div class="row">
             <div class="col-md-2">
-                <h1 class="logo"><a href="/" title="FEDN.it官网首页">FEDN.it</a></h1>
+                <h1 class="logo"><a href="{{ route('front.home') }}" title="FEDN.it官网首页">FEDN.it</a></h1>
             </div>
             <div class="col-md-7 nav-area" id="navArea">
                 <ul class="header_nav">
-                    <li class="current"><a href="#" title="首页">首页</a></li>
+                    <li class="current"><a href="{{ route('front.home') }}" title="首页">首页</a></li>
                     <li><a href="#" title="专题">专题</a></li>
                     <li><a href="#" title="标签">标签</a></li>
                     <li><a href="#" title="前端聚合">前端聚合</a></li>
