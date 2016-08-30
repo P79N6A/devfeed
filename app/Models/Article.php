@@ -4,19 +4,11 @@ namespace Fedn\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
-
+use Illuminate\Database\Eloquent\Builder;
 
 /**
  * Fedn\Models\Article
  *
- * @property integer $id
- * @property integer $userId
- * @property string $title
- * @property string $summary
- * @property string $content
- * @property \Carbon\Carbon $createdAt
- * @property \Carbon\Carbon $updatedAt
- * @property string $deleted_at
  * @property-read \Fedn\Models\User $user
  * @property-read \Illuminate\Database\Eloquent\Collection|\Fedn\Models\Category[] $categories
  * @property-read \Illuminate\Database\Eloquent\Collection|\Fedn\Models\Tag[] $tags
@@ -29,6 +21,20 @@ class Article extends Model
     protected $attributes = [
         'status' => 'draft'
     ];
+
+    /**
+     * The "booting" method of the model.
+     *
+     * @return void
+     */
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::addGlobalScope('published', function (Builder $builder) {
+            $builder->where('status', '=', 'publish');
+        });
+    }
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo

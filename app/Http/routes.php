@@ -10,10 +10,11 @@
 |
 */
 
-Route::get('/','HomeController@index');
-Route::get('/home', 'HomeController@index');
 
 
+Route::group(['namespace'=>'Front', 'as'=>'front.'], function(){
+    Route::get('/', ['as'=>'home', 'uses'=>'HomeController@index']);
+});
 
 /** public */
 Route::get('/login/qq', 'Auth\AuthController@loginWithQQ');
@@ -71,9 +72,8 @@ Route::get('update', ['middleware'=>'auth', function(){
     }
 }]);
 
-Route::get('test', function(){
-    $roles = Fedn\Models\Role::all();
-    dd($roles->implode('title',','));
+Route::get('/home', function () {
+    return redirect('/');
 });
 
 Route::auth();
