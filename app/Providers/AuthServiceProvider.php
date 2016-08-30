@@ -7,6 +7,7 @@ use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvid
 
 use Fedn\Models\Article;
 use Fedn\Policies\ArticlePolicy;
+use Fedn\Models\User;
 
 class AuthServiceProvider extends ServiceProvider
 {
@@ -30,6 +31,9 @@ class AuthServiceProvider extends ServiceProvider
         $this->registerPolicies($gate);
 
         $gate->define('create-article', 'Fedn\Policies\ArticlePolicy@add');
+        $gate->define('admin', function(User $user){
+            return $user->inRoles([1, 2, 3]);
+        });
     }
 
 

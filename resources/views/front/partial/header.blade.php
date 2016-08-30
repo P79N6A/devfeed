@@ -10,6 +10,9 @@
                     <li><a href="#" title="专题">专题</a></li>
                     <li><a href="#" title="标签">标签</a></li>
                     <li><a href="#" title="前端聚合">前端聚合</a></li>
+                    @if(Auth::user()->can('admin'))
+                        <li>{{ link_to_route('admin.home', '后台管理') }}</li>
+                    @endif
                 </ul>
             </div>
             <div class="col-md-3 search">
