@@ -21,6 +21,7 @@
                            @if($art->author_url) <a href="{{ $art->author_url }}" rel="external" target="_blank"> @endif
                            <span class="author">{{ $art->author }}</span>
                            @if($art->author_url) </a> @endif
+                       @endif
                        <span class="read">{{ $art->click_count }}</span>次阅读
                     </p>
                 </div>
