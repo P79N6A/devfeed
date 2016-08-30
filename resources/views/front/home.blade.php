@@ -20,35 +20,35 @@
     <div class="list-col container">
         @forelse($articles as $item)
         <div class="row">
-            @if(empty($art->figure))
+            @if(empty($item->figure))
             <div class="col-md-12">
             @else
             <div class="col-md-8">
             @endif
                 <div class="artical-col">
                     <h3 class="ac-title">
-                        {{ link_to('/article/'.$art->id, $art->title) }}
-                        @foreach($art->tags as $tag)
+                        {{ link_to('/article/'.$item->id, $item->title) }}
+                        @foreach($item->tags as $tag)
                         <span class="ac-list-tag tag-bg-{{ ['red','blue','org'][random_int(0,2)] }}">{{ $tag->title }}</span>
                         @endforeach
                     </h3>
                     <div class="ac-info">
-                        @if($art->isLink)
-                        <span>{{ $art->updated_at }} 来自 {{ link_to($art->source_url) }}</span>
+                        @if($item->isLink)
+                        <span>{{ $item->updated_at }} 来自 {{ link_to($item->source_url) }}</span>
                         @else
-                        <span>{{ $art->updated_at }} 本站原创</span>
+                        <span>{{ $item->updated_at }} 本站原创</span>
                         @endif
                         <span><a href="#comments" title="点击立刻发表评论">暂无评论</a></span>
                     </div>
                     <div class="ac-detail">
-                        {{ $art->description }}
+                        {{ $item->description }}
                     </div>
 
                 </div>
             </div>
-            @if(!empty($art->figure))
+            @if(!empty($item->figure))
             <div class="col-md-4">
-                <a href="{{ url('/article/'.$art->id) }}"><img src="{{ asset($art->figure) }}" alt="$art->title"></a>
+                <a href="{{ url('/article/'.$item->id) }}"><img src="{{ asset($item->figure) }}" alt="$item->title"></a>
             </div>
             @endif
         </div>
