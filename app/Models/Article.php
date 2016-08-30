@@ -54,12 +54,21 @@ class Article extends Model
         return $this->morphToMany(Tag::class, 'taggable');
     }
 
-    public function metas() {
+/*    public function metas() {
         return $this->hasMany(ArticleMeta::class);
-    }
+    }*/
 
     public function getIsLinkAttribute() {
         return !empty($this->source_url);
+    }
+
+    public function getSourceSite() {
+        if(empty($this->source_url)){
+            return "本站原创";
+        } else {
+            $host = parse_url($this->source_url, PHP_URL_HOST);
+            return $host ? $host : '网络转载';
+        }
     }
 
 }
