@@ -16,8 +16,13 @@
             <div class="article">
                 <div class="article-tt">
                     <h3>{{ $art->title }}</h3>
-                    <p><span class="date">{{ $art->publishTime }}</span>by
-                        <span class="author">{{ $art->author }}</span>(<span class="read">{{ $art->click_count }}</span>次阅读)</p>
+                    <p><span class="date">{{ $art->publishTime }}</span>
+                       @if($art->author) by
+                           @if($art->author_url) <a href="{{ $art->author_url }}" rel="external" target="_blank"> @endif
+                           <span class="author">{{ $art->author }}</span>
+                           @if($art->author_url) </a> @endif
+                       <span class="read">{{ $art->click_count }}</span>次阅读
+                    </p>
                 </div>
                 <div class="article-con">
                     <div class="article-intro">

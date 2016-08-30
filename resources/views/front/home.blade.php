@@ -34,7 +34,7 @@
                     </h3>
                     <div class="ac-info">
                         <span>{{ $item->publishTime }} {!! $item->sourceSite !!}</span>
-                        <span class="ds-thread-count" data-thread-key="{{$item->id}}"></span>
+                        <a href="{{ url('article/'.$item->id.'#comments') }}"><span class="ds-thread-count" data-thread-key="{{$item->id}}">暂无评论</span></a>
                     </div>
                     <div class="ac-detail">
                         {{ $item->summary }}
