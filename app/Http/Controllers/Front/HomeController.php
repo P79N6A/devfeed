@@ -25,11 +25,11 @@ class HomeController extends Controller
         $articles = Cache::tags(['article','home'])->remember('articles_'.$page, 10, function(){
             return Article::with('tags')->paginate(10);
         });
-        return view('home', ['articles'=>$articles]);
+        return view('front.home', ['articles'=>$articles]);
     }
 
     public function redirectToIndex()
     {
-        
+
     }
 }
