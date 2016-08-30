@@ -34,7 +34,7 @@
                     </h3>
                     <div class="ac-info">
                         <span>{{ $item->publishTime }} {!! $item->sourceSite !!}</span>
-                        <span><a href="#comments" title="点击立刻发表评论">暂无评论</a></span>
+                        <span class="ds-thread-count" data-thread-key="$item->id"></span>
                     </div>
                     <div class="ac-detail">
                         {{ $item->description }}
@@ -66,4 +66,15 @@
 
 @section('pageScript')
 <script src="{{ asset('js/nav.js') }}"></script>
+<script type="text/javascript">
+    var duoshuoQuery = {short_name: "webdn"};
+    (function () {
+        var ds = document.createElement('script');
+        ds.type = 'text/javascript';
+        ds.async = true;
+        ds.src = 'http://static.duoshuo.com/embed.js';
+        ds.charset = 'UTF-8';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+</script>
 @endsection
