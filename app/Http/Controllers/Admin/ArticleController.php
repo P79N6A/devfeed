@@ -45,7 +45,7 @@ class ArticleController extends Controller
         if(!is_numeric($id)) {
             throw new InvalidParameterException('非法参数');
         }
-        $article = Article::with(['categories','tags', 'metas'])->find($id);
+        $article = Article::with(['categories','tags'])->find($id);
         if(!$article) {
             throw new ModelNotFoundException('文章不存在！');
         }
