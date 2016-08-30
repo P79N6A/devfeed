@@ -60,7 +60,7 @@
     </div>
     <!-- 文章列表END -->
 
-    <div class="container page_container">s
+    <div class="container page_container">
         <nav>
             {{ $articles->links() }}
         </nav>
