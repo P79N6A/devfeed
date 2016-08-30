@@ -21,7 +21,7 @@ class ArticleController extends Controller
 {
     public function getIndex()
     {
-        $articles = Article::orderBy('id','desc')->with(['user', 'categories','tags'])->paginate(10);
+        $articles = Article::withoutGlobalScope('published')->orderBy('id','desc')->with(['user', 'categories','tags'])->paginate(10);
 
         return view('backend.article-list', compact('articles'));
     }
@@ -45,7 +45,7 @@ class ArticleController extends Controller
         if(!is_numeric($id)) {
             throw new InvalidParameterException('非法参数');
         }
-        $article = Article::with(['categories','tags'])->find($id);
+        $article = Article::withoutGlobalScope('published')->with(['categories','tags'])->find($id);
         if(!$article) {
             throw new ModelNotFoundException('文章不存在！');
         }
@@ -61,7 +61,7 @@ class ArticleController extends Controller
     {
         $data = $request->all();
 
-        $article = Article::with('categories')->findOrNew($id);
+        $article = Article::withoutGlobalScope('published')->with('categories')->findOrNew($id);
 
         if($article->exists){
             $this->authorize('update', $article);
