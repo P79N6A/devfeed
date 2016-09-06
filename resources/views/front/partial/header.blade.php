@@ -6,11 +6,15 @@
             </div>
             <div class="col-md-7 nav-area" id="navArea">
                 <ul class="header_nav">
-                    <li class="current"><a href="{{ route('front.home') }}" title="首页">首页</a></li>
-                    <li><a href="#" title="专题">专题</a></li>
-                    <li><a href="#" title="标签">标签</a></li>
+                    <li class="{{ URL::current() == route('front.home') ? 'current' : ' ' }}"><a href="{{ route('front.home') }}" title="首页">首页</a></li>
+                    {{--<li><a href="#" title="专题">专题</a></li>--}}
+                    @if(isset($nowID))
+                        <li class="{{ URL::current() == route('front.tag.index') || URL::current() == route('front.tag.index').'/'.$nowID ? 'current' : ' ' }}"><a href="{{route('front.tag.index')}}" title="标签">标签</a></li>
+                        @else
+                        <li class="{{ URL::current() == route('front.tag.index') ? 'current' : ' ' }}"><a href="{{route('front.tag.index')}}" title="标签">标签</a></li>
+                        @endif
                     <li><a href="#" title="前端聚合">前端聚合</a></li>
-                    @can('admin'))
+                    @can('admin')
                         <li>{{ link_to_route('admin.home', '后台管理') }}</li>
                     @endcan
                 </ul>

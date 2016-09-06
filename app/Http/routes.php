@@ -26,6 +26,10 @@ Route::group(['namespace' => 'Front', 'as' => 'front.'], function () {
     Route::group(['as'=>'article.', 'prefix'=>'article'], function(){
        Route::get('/{id}', ['as'=>'view', 'uses'=>'ArticleController@view']);
     });
+    Route::group(['as'=>'tag.', 'prefix'=>'tag'], function(){
+        Route::get('/', ['as'=>'index', 'uses'=>'TagController@index']);
+        Route::get('/{id}', ['as'=>'tagdetail', 'uses'=>'TagController@detail']);
+    });
 });
 /** backend */
 

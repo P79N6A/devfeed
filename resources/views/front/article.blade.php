@@ -5,10 +5,17 @@
 @section('main')
     <div class="break-nav">
         <div class="container clearfix">
+
+            <div class="nav-link">
+                <a href="/" title="首页">首页</a><em>&gt;</em>
+                <span>{{$art->title}}</span>
+            </div>
+
             <div class="vote">
                 <a href="" title="投稿给FEDN" class="contribution"><i class="contribution_ico"></i>我要投稿</a>
             </div>
-        </div>
+         </div>
+
     </div>
     <!-- subnav end -->
     <div class="main-con container clearfix">
@@ -27,10 +34,19 @@
                 </div>
                 <div class="article-con">
                     <div class="article-intro">
-                        <blockquote>{{ $art->summary }}</blockquote>
+                        <blockquote>{{ $art->summary }}
+                            @if($art->source_url != '')
+                                <p class="see_souce_link"><a href="{{ $art->source_url }}" target="_blank">访问 《{{ $art->title }}》原文</a></p>
+                            @endif
+
+                        </blockquote>
                     </div>
                     <div class="article-detail">
-                        {!! $art->content !!}
+                            @if($art->source_url == '')
+                                   {!! $art->content !!}
+                                @endif
+
+
                     </div>
                 </div>
                 <a href="#comment" class="comment-btn"><span class="ds-thread-count comment-num" data-thread-key="{{ $art->id }}" data-count-type="comments">暂无评论</span></a>
@@ -46,21 +62,17 @@
             <div class="new-article">
                 <h3 class="article-side-tt">最新文章</h3>
                 <ul class="newlist">
-                    <li><a href="javascript:void(0);" title="">flash科普小文</a></li>
-                    <li><a href="javascript:void(0);" title="">web前端缓存小结</a></li>
-                    <li><a href="javascript:void(0);" title="">Rect进阶——高复用性组件设计</a></li>
-                    <li><a href="javascript:void(0);" title="">基于highcharts实现实时数据动态展示基于highcharts实现实时数据动态展示</a></li>
-                    <li><a href="javascript:void(0);" title="">flash科普小文</a></li>
+                    @foreach($new as $key=> $n)
+                        <li><a href="/article/{{$n->id}}" title="{{$n->title}}">{{$n->title}}</a></li>
+                        @endforeach
                 </ul>
             </div>
             <div class="recommend">
                 <h3 class="article-side-tt">猜你喜欢</h3>
                 <ul class="recommendlist">
-                    <li><a href="javascript:void(0);" title="">flash科普小文</a></li>
-                    <li><a href="javascript:void(0);" title="">web前端缓存小结</a></li>
-                    <li><a href="javascript:void(0);" title="">Rect进阶——高复用性组件设计</a></li>
-                    <li><a href="javascript:void(0);" title="">基于highcharts实现实时数据动态展示</a></li>
-                    <li><a href="javascript:void(0);" title="">flash科普小文</a></li>
+                    @foreach($like as $key=> $l)
+                        <li><a href="/article/{{$l->id}}" title="{{$l->title}}">{{$l->title}}</a></li>
+                    @endforeach
                 </ul>
             </div>
         </div>

@@ -6,8 +6,8 @@
             <div class="row">
                 <div class="col-md-9">
                     <ul class="subway_nav">
-                        <li class="current"><a href="#" title="最新">最新</a><span class="cor"></span></li>
-                        <li><a href="#" title="最新">最新</a></li>
+                        <li class="current"><a href="javascript:void('')" title="最新">最新</a></li>
+                        {{--<li><a href="#" title="最新">最新</a></li>--}}
                     </ul>
                 </div>
                 <div class="col-md-3">
@@ -29,7 +29,7 @@
                     <h3 class="ac-title">
                         {{ link_to('/article/'.$item->id, $item->title) }}
                         @foreach($item->tags as $tag)
-                        <span class="ac-list-tag tag-bg-{{ ['red','blue','org'][random_int(0,2)] }}">{{ $tag->title }}</span>
+                        <a class="ac-list-tag tag-bg-{{ ['red','blue','org'][random_int(0,2)] }}" href="{{route('front.tag.index')}}/{{$tag->id}}">{{ $tag->title }}</a>
                         @endforeach
                     </h3>
                     <div class="ac-info">

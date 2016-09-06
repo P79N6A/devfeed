@@ -3,6 +3,9 @@
 namespace Fedn\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Database\Eloquent\Builder;
+use Carbon\Carbon;
 
 /**
  * Fedn\Models\Tag
@@ -26,6 +29,21 @@ class Tag extends Model
     protected $guarded = ['id'];
     
     public function articles() {
-        return $this->morphedByMany('Fedn\Models\Article', 'taggable');
+        return $this->morphedByMany(Article::class, 'taggable');
     }
+    public function getSourceSiteAttribute() {
+        if(empty($this->source_url)){
+            return "本站原创";
+        } else {
+            $host = parse_url($this->source_url, PHP_URL_HOST);
+            return $host ? "来自 <a href=\"$this->source_url\" rel=\"external\">$host</a>" : '转载自网络';
+        }
+    }
+    public function getPublishTimeAttribute() {
+        Carbon::setLocale('zh');
+        return Carbon::parse($this->created_at)->diffForHumans();
+    }
+
+
+
 }

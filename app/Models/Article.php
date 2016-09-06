@@ -55,9 +55,7 @@ class Article extends Model
         return $this->morphToMany(Tag::class, 'taggable');
     }
 
-/*    public function metas() {
-        return $this->hasMany(ArticleMeta::class);
-    }*/
+/*public function metas() {return $this->hasMany(ArticleMeta::class); }*/
 
     public function getIsLinkAttribute() {
         return !empty($this->source_url);
@@ -68,7 +66,7 @@ class Article extends Model
             return "本站原创";
         } else {
             $host = parse_url($this->source_url, PHP_URL_HOST);
-            return $host ? "来自 <a href=\"$this->source_url\" rel=\"external\">$host</a>" : '转载自网络';
+            return $host ? "来自 <a href=\"$this->source_url\" rel=\"external\" target='_blank'>$host</a>" : '转载自网络';
         }
     }
 
