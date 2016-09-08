@@ -47,7 +47,15 @@
                             @endforeach
                         </td>
                         <td>{{ count($art->comments) }}</td>
-                        <td>{{ $art->status }} <br> {{ $art->updated_at }}</td>
+                        <td>@if($art->status == 'draft')
+                                     <span style="color:red">草稿</span>
+                                @elseif($art->status == 'publish')
+                                     已发布
+                                @else
+                                {{ $art->status }}
+                                @endif
+
+                            <br> {{ $art->updated_at }}</td>
                         <td>{{ $art->user->name }}</td>
                     </tr>
                 @empty
