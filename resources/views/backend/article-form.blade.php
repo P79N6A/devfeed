@@ -99,13 +99,22 @@
                             <p class="help-block">多个标签用半角逗号分隔</p>
                             <div id="tags" class="tags">
                                 @foreach($article->tags as $tag)
-                                <span class="tag">{{ $tag->title }}<button class="tag-close" aria-label="Close">&times;</button></span>
+                                   <span class="tag">{{ $tag->title }}<button class="tag-close" aria-label="Close">&times;</button></span>
                                 @endforeach
                             </div>
+
                             <input type="hidden" name="tags" value="{{ $article->tags->implode('title',',') }}">
                         </div>
                     </div>
+                    <div class="fedn-line">
+                        <span class="fedn-label">现有标签：</span>
+                        <div class="fedn-controls">
+                            @foreach($Tags as $t)
+                                <span class="now_tag">{{$t->title}}</span>
+                            @endforeach
 
+                            </div>
+                    </div>
                 </div>
             </div>
             <div class="panel panel-default">
@@ -265,11 +274,20 @@
                     });
                     $(this).val('').blur();
                 });
+                $('#articleForm').on('click', '.now_tag', function(){
+                    console.info($(this).text())
+                    var tag = $(this).text();
+                    $('#tags')[0].appendChild(makeTag(tag));
+                    $('input[name=tags]')[0].value += ','+tag;
+                });
                 $('#articleForm').on('click', '.tag', function(){
                     let tag = this.textContent.replace('×', '');
                     $(this).remove();
                     $('input[name=tags]')[0].value = $('input[name=tags]')[0].value.replace(tag,'');
                 });
+
+
+
             };
             $(onReady);
         }(jQuery))

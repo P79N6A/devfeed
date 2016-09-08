@@ -33,8 +33,8 @@ class ArticleController extends Controller
         }
 
         $article = new Article;
-
-        return view('backend.article-form', ['article' => $article]);
+        $Tags = Tag::all();
+        return view('backend.article-form', ['article' => $article,'Tags'=>$Tags]);
     }
 
     /**
