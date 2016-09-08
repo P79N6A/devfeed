@@ -71,7 +71,7 @@
             @endforeach
         </div>
     @endif
-        {{ Form::model($article,['action'=>['Admin\ArticleController@save', $article->id],'class'=>'article-form', 'id'=>'articleForm', 'enctype'=>'multipart/form-data']) }}
+        {{ Form::model($article,['action'=>['Admin\ArticleController@del', $article->id],'class'=>'article-form', 'id'=>'articleForm', 'enctype'=>'multipart/form-data']) }}
         <div class="article-ext">
             <div class="panel panel-default">
                 <div class="panel-heading">属性:</div>

@@ -51,11 +51,15 @@ class ArticleController extends Controller
         }
 
         $this->authorize('update', $article);
-
-        return view('backend.article-form', ['article'=>$article]);
+        $Tags = Tag::all();
+        return view('backend.article-form', ['article'=>$article,'Tags'=>$Tags]);
     }
+    //文章删除
+    public function del(ArticleFormRequest $request)
+    {
 
 
+    }
 
     public function save(ArticleFormRequest $request, $id = 0)
     {

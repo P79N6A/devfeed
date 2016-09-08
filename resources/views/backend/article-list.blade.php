@@ -30,6 +30,7 @@
                 </tr>
                 </thead>
                 <tbody>
+                {{ Form::model(['action'=>['Admin\ArticleController@del'],'class'=>'article-form', 'id'=>'articleForm', 'enctype'=>'multipart/form-data']) }}
                 @forelse($articles as $art)
                     <tr>
                         <td><input id="ckb-{{$art->id}}" type="checkbox" value="{{ $art->id }}"></td>
@@ -43,7 +44,7 @@
                         </td>
                         <td>
                             @foreach($art->tags as $tag)
-                                <a href="javascript:alert('尚未实现')">{{ $tag->title }}</a>
+                                <a href="{{'/tag/'.$tag->id}}">{{ $tag->title }}</a>
                             @endforeach
                         </td>
                         <td>{{ count($art->comments) }}</td>
@@ -63,6 +64,8 @@
                         <td colspan="8">当前还没有文章</td>
                     </tr>
                 @endforelse
+
+                <tr><td  colspan="9"> <a href="" class="btn btn-success">全选</a>  <a href="" class="btn btn-success">删除选中文章</a></td></tr>
                 </tbody>
             </table>
 
