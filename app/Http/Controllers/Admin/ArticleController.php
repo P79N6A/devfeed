@@ -68,7 +68,7 @@ class ArticleController extends Controller
         } else {
             if (Gate::denies('create-article')) {
                 return response('Unauthorized.', 403);
-            }
+        }
             $article->user_id = request()->user()->id;
         }
 
@@ -112,6 +112,11 @@ class ArticleController extends Controller
             Tag::firstOrCreate(['title' => $tag, 'slug' => urlencode($tag)]);
         }
         $tag_ids = Tag::whereIn('title', $tags)->pluck('id')->toArray();
+//        计算TAG相关文章数量
+//        $tagCount = Tag::findOrFail($tag_ids[0]);
+//        $tagCount ->count +=1;
+//        $tagCount ->save();
+
         $article->tags()->sync($tag_ids);
 
         // categories
