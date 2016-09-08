@@ -65,6 +65,13 @@
                 @endforelse
                 </tbody>
             </table>
+
+            <div class="container page_container">
+                <nav>
+                    {{$articles->render() }}
+                </nav>
+            </div>
+
         </div>
     </div>
 @endsection
