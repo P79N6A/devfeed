@@ -71,7 +71,7 @@
             @endforeach
         </div>
     @endif
-        {{ Form::model($article,['action'=>['Admin\ArticleController@del', $article->id],'class'=>'article-form', 'id'=>'articleForm', 'enctype'=>'multipart/form-data']) }}
+        {{ Form::model($article,['action'=>['Admin\ArticleController@save', $article->id],'class'=>'article-form', 'id'=>'articleForm', 'enctype'=>'multipart/form-data']) }}
         <div class="article-ext">
             <div class="panel panel-default">
                 <div class="panel-heading">属性:</div>
@@ -106,11 +106,11 @@
                             <input type="hidden" name="tags" value="{{ $article->tags->implode('title',',') }}">
                         </div>
                     </div>
-                    <div class="fedn-line">
+                    <div class="fedn-line" style="border-top:1px solid #DDDDDD;padding-top:10px">
                         <span class="fedn-label">现有标签：</span>
                         <div class="fedn-controls">
                             @foreach($Tags as $t)
-                                <span class="now_tag">{{$t->title}}</span>
+                                <span class="now_tag" style="background: #eee;padding:2px 5px;border-radius:2px;margin:2px;display: inline-block;cursor:pointer">{{$t->title}}</span>
                             @endforeach
 
                             </div>

@@ -22,7 +22,7 @@ class ArticleController extends Controller
     public function getIndex()
     {
         $articles = Article::withoutGlobalScope('published')->orderBy('id','desc')->with(['user', 'categories','tags'])->paginate(10);
-
+        Article::withTrashed()->restore();
         return view('backend.article-list', compact('articles'));
     }
 
@@ -49,24 +49,42 @@ class ArticleController extends Controller
         if(!$article) {
             throw new ModelNotFoundException('文章不存在！');
         }
-
         $this->authorize('update', $article);
         $Tags = Tag::all();
         return view('backend.article-form', ['article'=>$article,'Tags'=>$Tags]);
     }
     //文章删除
-    public function del(ArticleFormRequest $request)
+    public function destroy($id)
     {
 
-
+        $ar = Article::withoutGlobalScope('published')->find($id);
+        $ar->delete();
+        return redirect()->back();
     }
+    //文章发布
+    public function publish()
+    {
 
+        $id = $_POST['id'];
+
+        $Ar = Article::withoutGlobalScope('published')->find($id);
+        $Ar->status = 'publish';
+
+        if($Ar->save()){
+            $data = ['data'=>1];
+        }else{
+            $data = ['data'=>0];
+        }
+        return json_encode ($data);
+//        $ar = Article::withoutGlobalScope('published')->find($id);
+//
+//        return redirect()->back();
+    }
     public function save(ArticleFormRequest $request, $id = 0)
     {
+
         $data = $request->all();
-
         $article = Article::withoutGlobalScope('published')->with('categories')->findOrNew($id);
-
         if($article->exists){
             $this->authorize('update', $article);
         } else {

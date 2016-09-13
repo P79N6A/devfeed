@@ -18,7 +18,6 @@
             <table class="table table-bordered">
                 <thead class="bg-primary">
                 <tr>
-                    <td id="cb"><input type="checkbox" id="cbSelectAll"></td>
                     <th>标题</th>
                     <th>类型</th>
                     <th>作者</th>
@@ -27,13 +26,13 @@
                     <th>评论</th>
                     <th>日期</th>
                     <th>录入</th>
+                    <th>操作</th>
                 </tr>
                 </thead>
                 <tbody>
-                {{ Form::model(['action'=>['Admin\ArticleController@del'],'class'=>'article-form', 'id'=>'articleForm', 'enctype'=>'multipart/form-data']) }}
                 @forelse($articles as $art)
                     <tr>
-                        <td><input id="ckb-{{$art->id}}" type="checkbox" value="{{ $art->id }}"></td>
+
                         <td>{{ Html::Link('admin/article/'.$art->id, $art->title) }}</td>
                         <td>{{ $art->isLink ? '转载': '原创' }}</td>
                         <td>{{ $art->author }}</td>
@@ -44,7 +43,7 @@
                         </td>
                         <td>
                             @foreach($art->tags as $tag)
-                                <a href="{{'/tag/'.$tag->id}}">{{ $tag->title }}</a>
+                                <a href="{{'/tag/'.$tag->id}}" target="_blank">{{ $tag->title }}</a>
                             @endforeach
                         </td>
                         <td>{{ count($art->comments) }}</td>
@@ -55,9 +54,14 @@
                                 @else
                                 {{ $art->status }}
                                 @endif
-
-                            <br> {{ $art->updated_at }}</td>
+                            <span style="color: #666666;font-size: 12px">({{ $art->created_at }})</span>
+                            <br>修改时间：  <span style="color: #666666;font-size: 12px">({{ $art->updated_at }})</span></td>
                         <td>{{ $art->user->name }}</td>
+                        <td><a href="/admin/article/destroy/{{$art->id}}" onclick="javascript:return destroy()" class="btn btn-small btn-default">删除</a>
+                            @if($art->status == 'draft')
+                                    <button class="btn btn-small btn-primary" data-type="publish"  data-id="{{$art->id}}" id="btn-publish">发布
+                            @endif
+                        </td>
                     </tr>
                 @empty
                     <tr>
@@ -65,7 +69,6 @@
                     </tr>
                 @endforelse
 
-                <tr><td  colspan="9"> <a href="" class="btn btn-success">全选</a>  <a href="" class="btn btn-success">删除选中文章</a></td></tr>
                 </tbody>
             </table>
 
@@ -77,4 +80,42 @@
 
         </div>
     </div>
+
+    <script src="//cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script>
+
+    <script>
+
+
+        $.ajaxSetup({ headers: { 'X-CSRF-TOKEN' : '{{ csrf_token() }}' } });
+
+        $(function(){
+            $("#btn-publish").click(function() {
+                var type = $(this).attr("data-type");
+                var id = $(this).attr("data-id");
+                var dataString = 'id='+id;
+//                var dataString = 'id='+id+'&type='+type+'&isStatus='+isStatus;
+                $.ajax({
+                    url: '/admin/article/publish',
+                    type: 'post',
+                    data:dataString,
+                    dataType: 'json',
+                    success:function(data){
+                        if(data){
+                            alert('发布成功！');
+                            window.location.reload();
+                        }
+                    }
+                });
+
+            });
+        })
+        function destroy(){
+            var msg = "您真的确定要删除吗？\n\n请确认！";
+            if (confirm(msg)==true){
+                return true;
+            }else{
+                return false;
+            }
+        };
+    </script>
 @endsection
