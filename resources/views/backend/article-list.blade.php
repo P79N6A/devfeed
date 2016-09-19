@@ -59,7 +59,7 @@
                         <td>{{ $art->user->name }}</td>
                         <td><a href="/admin/article/destroy/{{$art->id}}" onclick="javascript:return destroy()" class="btn btn-small btn-default">删除</a>
                             @if($art->status == 'draft')
-                                    <button class="btn btn-small btn-primary" data-type="publish"  data-id="{{$art->id}}" id="btn-publish">发布
+                                    <button class="btn btn-small btn-primary btn-publish" data-type="publish"  data-id="{{$art->id}}">发布
                             @endif
                         </td>
                     </tr>
@@ -89,10 +89,12 @@
         $.ajaxSetup({ headers: { 'X-CSRF-TOKEN' : '{{ csrf_token() }}' } });
 
         $(function(){
-            $("#btn-publish").click(function() {
+            $(".btn-publish").click(function() {
                 var type = $(this).attr("data-type");
                 var id = $(this).attr("data-id");
                 var dataString = 'id='+id;
+                var __this = $(this);
+
 //                var dataString = 'id='+id+'&type='+type+'&isStatus='+isStatus;
                 $.ajax({
                     url: '/admin/article/publish',
@@ -102,7 +104,7 @@
                     success:function(data){
                         if(data){
                             alert('发布成功！');
-                            window.location.reload();
+                            __this.remove();
                         }
                     }
                 });

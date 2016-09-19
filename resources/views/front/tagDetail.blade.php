@@ -18,6 +18,7 @@
     </div>
 
     <div class="banner">
+        <div id="tag_banner_canvas" class="tag_banner_gradient"></div>
         <div class="container">
             <div class="row">
 
@@ -112,8 +113,33 @@
         </div>
     </div>
 
+        <style>
+            #tag_banner_canvas{
+                width:100%;
+                height:100%;
+                overflow: hidden;
+                position:absolute;
+                top:0;
+                left:0;
+                background-color: #1a1724;
+            }
+        </style>
+
+
+
 @endsection
         @section('pageScript')
+            <!-- Main library -->
+                <script src="{{asset('js/three/three.min.js')}}"></script>
+
+                <!-- Helpers -->
+                <script src="{{asset('js/three/projector.js')}}"></script>
+                <script src="{{asset('js/three/canvas-renderer.js')}}"></script>
+                <!-- Visualitzation adjustments -->
+                <script src="{{asset('js/three/3d-lines-animation.js')}}"></script>
+
+                <!-- Animated background color -->
+                <script src="{{asset('js/three/color.js')}}"></script>
             <script type="text/javascript">
                 var duoshuoQuery = {short_name: "webdn"};
                 (function () {
