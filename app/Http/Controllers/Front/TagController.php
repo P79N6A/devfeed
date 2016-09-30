@@ -19,6 +19,6 @@ class TagController extends Controller
         $allTags = Tag::orderBy(\DB::raw('RAND()'))->take(5)->get();
         $Tags = Tag::find($id);
         $Arts =  $Tags->articles()->paginate(10);
-        return view('front.tagDetail', ['Tags'=>$Tags,'nowID'=>$id,'Arts'=>$Arts,'allTags'=>$allTags]);
+        return view('front.tagDetail', ['Tags'=>$Tags,'nowId'=>$id,'Arts'=>$Arts,'allTags'=>$allTags]);
     }
 }

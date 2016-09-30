@@ -28,11 +28,14 @@ Route::group(['namespace' => 'Front', 'as' => 'front.'], function () {
     });
     Route::group(['as'=>'tag.', 'prefix'=>'tag'], function(){
         Route::get('/', ['as'=>'index', 'uses'=>'TagController@index']);
-        Route::get('/{id}', ['as'=>'tagdetail', 'uses'=>'TagController@detail']);
+        Route::get('/{id}', ['as'=>'detail', 'uses'=>'TagController@detail']);
     });
 
-    Route::get('/feeds', 'FeedController@list');
-    Route::get('/feed/{id}', 'FeedController@view');
+    Route::group(['as'=>'feed.'], function(){
+        Route::get('/feeds', ['as'=>'list', 'uses'=>'FeedController@list']);
+        Route::get('/feed/{id}', ['as' => 'view', 'uses' => 'FeedController@view']);
+    });
+
 });
 /** backend */
 

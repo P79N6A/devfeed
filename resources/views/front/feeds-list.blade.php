@@ -1,5 +1,7 @@
 @extends('front.layout')
 
+@section('pageTitle', '前端文章聚合')
+
 @section('main')
     <div class="subway_wp">
         <div class="container">

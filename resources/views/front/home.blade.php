@@ -29,7 +29,7 @@
                     <h3 class="ac-title">
                         {{ link_to('/article/'.$item->id, $item->title) }}
                         @foreach($item->tags as $tag)
-                        <a class="ac-list-tag tag-bg-{{ ['red','blue','org'][random_int(0,2)] }}" href="{{route('front.tag.index')}}/{{$tag->id}}">{{ $tag->title }}</a>
+                        <a class="ac-list-tag tag-bg-{{ ['red','blue','org'][random_int(0,2)] }}" href="{{route('front.tag.detail', $tag->id)}}">{{ $tag->title }}</a>
                         @endforeach
                     </h3>
                     <div class="ac-info">

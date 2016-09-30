@@ -27,6 +27,6 @@ class FeedController extends Controller
         $newFeeds = Feed::where('id', '!=', $id)->orderBy('id', 'desc')->take(5)->get();
         $feed = Feed::findOrFail($id);
 
-        return view('front.feed', ['art' => $feed, 'new' => $newFeeds]);
+        return view('front.feed', ['art' => $feed, 'new' => $newFeeds, 'nowId' => $id]);
     }
 }
