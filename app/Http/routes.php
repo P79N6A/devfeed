@@ -30,6 +30,9 @@ Route::group(['namespace' => 'Front', 'as' => 'front.'], function () {
         Route::get('/', ['as'=>'index', 'uses'=>'TagController@index']);
         Route::get('/{id}', ['as'=>'tagdetail', 'uses'=>'TagController@detail']);
     });
+
+    Route::get('/feeds', 'FeedController@list');
+    Route::get('/feed/{id}', 'FeedController@view');
 });
 /** backend */
 
