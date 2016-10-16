@@ -5,20 +5,18 @@ import MySQLdb
 
 
 
-def insertBlogs( title, content, author, userHome):
+def insertBlogs( title, content, author, userHome, website, source):
 
-	_db = MySQLdb.connect("127.0.0.1","root","","spider")
+	db = MySQLdb.connect("127.0.0.1","root","","spider")
 
-	_cursor = _db.cursor()
+	cursor = db.cursor()
 
-	_sql = "INSERT INTO `spider`(`id`, `title`, `content`, `author`, `userHome`) VALUES ( null, '%s', '%s', '%s', '%s') " % ( title.encode('utf-8'), MySQLdb.escape_string(content.encode('utf-8')), author.encode('utf-8'), userHome.encode('utf-8') )
-
-	
+	sql = "INSERT INTO `spider`(`id`, `title`, `content`, `author`, `userHome`, `website`, `source`) VALUES ( null, '%s', '%s', '%s', '%s', '%s', '%s') " % ( title.encode('utf-8'), MySQLdb.escape_string(content.encode('utf-8')), author.encode('utf-8'), userHome.encode('utf-8'), website, source)
 
 	try:
-		_cursor.execute(_sql)
+		cursor.execute(sql)
 
-		_db.commit()
+		db.commit()
 
 	except MySQLdb.Error, e:
 		try:
@@ -26,7 +24,7 @@ def insertBlogs( title, content, author, userHome):
 			print e
 		except IndexError:
 			print srt(e)
-	_db.close()
+	db.close()
 
 	return
 
@@ -34,7 +32,7 @@ def insertBlogs( title, content, author, userHome):
 
 
 # get list
-def insert(title, content, author, userHome):
+def insert(title, content, author, userHome, website, source):
 
 	db = MySQLdb.connect("127.0.0.1","root","","spider")
 
@@ -43,7 +41,7 @@ def insert(title, content, author, userHome):
 	stutas = 1
 
 	try:
-
+		# checke article title
 		cursor.execute("INSERT INTO `unique` VALUES (null,'%s')" % (title.encode('utf-8')))
 
 		db.commit()
@@ -54,7 +52,7 @@ def insert(title, content, author, userHome):
 			# print e[0] == 1062
 			if e[0] == 1062:
 				stutas = 0
-				print title + 'is a duplicate of data'
+				print title + ' is a duplicate of data'
 
 		except IndexError:
 			print srt(e)
@@ -62,9 +60,9 @@ def insert(title, content, author, userHome):
 
 	db.close()
 
-
+	# if stutas is 1, this data no repeat
 	if stutas == 1:
-		insertBlogs(title, content, author, userHome)
+		insertBlogs(title, content, author, userHome, website, source)
 	return
 
 

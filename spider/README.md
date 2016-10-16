@@ -25,3 +25,8 @@ spider
 ### 使用方法
 
 #### python main.py
+
+16/10/15
+========
+
+添加字段 website 和 source 用于记录爬去网站和文章地址
