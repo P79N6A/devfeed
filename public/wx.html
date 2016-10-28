@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <title>禁用分享到朋友圈</title>
+    <style>
+        html,body {
+            font-size:16px;
+        }
+        p {
+            margin:2rem;
+        }
+    </style>
+</head>
+<body>
+    <p> 本 Demo 测试分享到朋友圈时自动改成分享给好友。</p>
+    <script src="https://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+    <script>
+    function onBridgeReady() {
+     WeixinJSBridge.on('menu:share:timeline', function(argv) {
+         WeixinJSBridge.invoke("sendAppMessage",{
+             "link":"https://fedn.it/wx.html",
+             "img_url":"https://fedn.it/img/logo.png",
+             "img_width":"158",
+            "img_height":"32",
+            "desc":"这个页面不能分享到朋友圈，不信你试试",
+            "title":"这个页面不能分享到朋友圈"
+            }, function(e){}
+        );
+    });
+}
+
+if (typeof WeixinJSBridge === "undefined"){
+    if (document.addEventListener){
+        document.addEventListener('WeixinJSBridgeReady', onBridgeReady, false);
+    }
+}else{
+    onBridgeReady();
+}
+    </script>
+</body>
+</html>
