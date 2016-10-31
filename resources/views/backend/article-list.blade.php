@@ -57,9 +57,9 @@
                             <span style="color: #666666;font-size: 12px">({{ $art->created_at }})</span>
                             <br>修改时间：  <span style="color: #666666;font-size: 12px">({{ $art->updated_at }})</span></td>
                         <td>{{ $art->user->name }}</td>
-                        <td><a href="/admin/article/destroy/{{$art->id}}" onclick="javascript:return destroy()" class="btn btn-small btn-default">删除</a>
+                        <td><a href="/admin/article/destroy/{{$art->id}}" data-id="{{$art->id}}" class="btn btn-small btn-default btn-delete">删除</a>
                             @if($art->status == 'draft')
-                                    <button class="btn btn-small btn-primary btn-publish" data-type="publish"  data-id="{{$art->id}}">发布
+                                    <button class="btn btn-small btn-primary btn-publish" data-id="{{$art->id}}">发布
                             @endif
                         </td>
                     </tr>
@@ -80,44 +80,51 @@
 
         </div>
     </div>
+@endsection
 
-    <script src="//cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script>
+@section('pageScript')
+<script src="//cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script>
 
-    <script>
+<script>
+    $.ajaxSetup({headers: {'X-CSRF-TOKEN': '{{ csrf_token() }}'}});
+    $(function () {
+        var id, _this;
+        $(".btn-publish").on('click', function () {
+            id = $(this).data("id");
+            _this = $(this).closest('tr');
+            $.ajax({
+                url: '/admin/article/publish/'+id,
+                type: 'POST',
+                data: {},
+                dataType: 'json',
+                success: function (data) {
+                    if (data) {
+                        alert('发布成功！');
+                        location.reload();
+                    }
+                }
+            });
 
-
-        $.ajaxSetup({ headers: { 'X-CSRF-TOKEN' : '{{ csrf_token() }}' } });
-
-        $(function(){
-            $(".btn-publish").click(function() {
-                var type = $(this).attr("data-type");
-                var id = $(this).attr("data-id");
-                var dataString = 'id='+id;
-                var __this = $(this);
-
-//                var dataString = 'id='+id+'&type='+type+'&isStatus='+isStatus;
+        });
+        $(".btn-delete").on('click', function(){
+            id = $(this).data('id');
+            _this = $(this).closest('tr');
+            var msg = "您真的确定要删除吗？\n\n请确认！";
+            if (confirm(msg) == true) {
                 $.ajax({
-                    url: '/admin/article/publish',
-                    type: 'post',
-                    data:dataString,
+                    url: '/admin/article/'+id,
+                    type: 'DELETE',
+                    data: {},
                     dataType: 'json',
-                    success:function(data){
-                        if(data){
-                            alert('发布成功！');
-                            __this.remove();
+                    success: function(data) {
+                        if (data) {
+                            alert('删除成功！');
+                            location.reload();
                         }
                     }
                 });
-
-            });
-        })
-        function destroy(){
-            var msg = "您真的确定要删除吗？\n\n请确认！";
-            if (confirm(msg)==true){
-                return true;
-            }else{
-                return false;
             }
-        };
-    </script>
+        });
+    });
+</script>
 @endsection

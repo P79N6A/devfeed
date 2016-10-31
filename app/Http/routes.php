@@ -56,8 +56,8 @@ Route::group(['prefix'=>'admin', 'namespace'=>'Admin', 'as'=>'admin.', 'middlewa
     Route::get('article/{id}', ['as'=>'article.edit', 'uses'=>'ArticleController@edit'])->where('id', '[0-9]+');
     Route::get('article', ['as' => 'article.add', 'uses' => 'ArticleController@new']);
     Route::post('article/{id?}', ['as'=>'article.save','uses'=>'ArticleController@save'])->where('id', '[0-9]+');
-    Route::get('article/destroy/{id}', ['as'=>'article.destroy','uses'=>'ArticleController@destroy']);
-    Route::post('article/publish', ['as'=>'article.publish','uses'=>'ArticleController@publish']);
+    Route::delete('article/{id}', ['as'=>'article.delete','uses'=>'ArticleController@destroy']);
+    Route::post('article/publish/{id}', ['as'=>'article.publish','uses'=>'ArticleController@publish']);
 
     // tags
     Route::get('tags', ['as'=>'tags', 'uses'=>'TagController@list']);
