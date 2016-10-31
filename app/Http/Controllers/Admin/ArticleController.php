@@ -22,7 +22,7 @@ class ArticleController extends Controller
     public function getIndex()
     {
         $articles = Article::withoutGlobalScope('published')->orderBy('id','desc')->with(['user', 'categories','tags'])->paginate(10);
-        Article::withTrashed()->restore();
+        //Article::withTrashed()->restore();
         return view('backend.article-list', compact('articles'));
     }
 
@@ -58,27 +58,25 @@ class ArticleController extends Controller
     {
 
         $ar = Article::withoutGlobalScope('published')->find($id);
-        $ar->delete();
+        if($ar) {
+            $ar->delete();
+        }
+        
         return redirect()->back();
     }
     //文章发布
-    public function publish()
+    public function publish($id)
     {
-
-        $id = $_POST['id'];
-
+        $result = 0;
         $Ar = Article::withoutGlobalScope('published')->find($id);
-        $Ar->status = 'publish';
-
-        if($Ar->save()){
-            $data = ['data'=>1];
-        }else{
-            $data = ['data'=>0];
+        if($Ar){
+            $Ar->status = 'publish';
+            if($Ar->save()) {
+                $result = 1;
+            }
         }
-        return json_encode ($data);
-//        $ar = Article::withoutGlobalScope('published')->find($id);
-//
-//        return redirect()->back();
+
+        return json_encode (['data'=> $result]);
     }
     public function save(ArticleFormRequest $request, $id = 0)
     {
