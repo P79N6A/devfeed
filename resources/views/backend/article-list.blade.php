@@ -113,8 +113,8 @@
             if (confirm(msg) == true) {
                 $.ajax({
                     url: '/admin/article/'+id,
-                    type: 'DELETE',
-                    data: {},
+                    type: 'POST',
+                    data: {"_method" : "DELETE"},
                     dataType: 'json',
                     success: function(data) {
                         if (data) {
