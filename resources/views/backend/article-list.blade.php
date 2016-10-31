@@ -57,9 +57,9 @@
                             <span style="color: #666666;font-size: 12px">({{ $art->created_at }})</span>
                             <br>修改时间：  <span style="color: #666666;font-size: 12px">({{ $art->updated_at }})</span></td>
                         <td>{{ $art->user->name }}</td>
-                        <td><button data-id="{{$art->id}}" class="btn btn-small btn-default btn-delete">删除</button>
+                        <td><button data-id="{{$art->id}}" class="btn btn-small btn-danger btn-delete">删除</button>
                             @if($art->status == 'draft')
-                                    <button class="btn btn-small btn-primary btn-publish" data-id="{{$art->id}}">发布
+                                    <button class="btn btn-small btn-success btn-publish" data-id="{{$art->id}}">发布
                             @endif
                         </td>
                     </tr>
