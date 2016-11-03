@@ -1,0 +1,10 @@
+{
+    "status": 1,
+    "site": {
+    "site_name": "TGideas",
+        "site_logo": "https://cdn-images-1.medium.com/fit/c/36/36/0*tFLRvVLDlf7j_M-7.jpg",
+        "last_update": "2015-10-31",
+        "num": 28,
+        "desc": "只有在用户将公众号绑定到微信开放平台帐号后，才会出现该字段。详见：获取用户个人信息（UnionID机制）"
+}
+}
