@@ -7,6 +7,7 @@ spider
 2. pyquery
 3. MySQLdb
 4. gzip
+5. redis-py
 
 ### 更新
 
@@ -30,3 +31,14 @@ spider
 ========
 
 添加字段 website 和 source 用于记录爬去网站和文章地址
+
+10/11/06
+========
+
+改用 redis 去重
+添加 r.py 文件
+引用 redis-py
+
+
+
+

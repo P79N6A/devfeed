@@ -3,15 +3,23 @@
 
 import MySQLdb
 
-
-
 def insertBlogs( title, content, author, userHome, website, source):
 
 	db = MySQLdb.connect("127.0.0.1","root","","spider")
 
 	cursor = db.cursor()
 
-	sql = "INSERT INTO `spider`(`id`, `title`, `content`, `author`, `userHome`, `website`, `source`) VALUES ( null, '%s', '%s', '%s', '%s', '%s', '%s') " % ( title.encode('utf-8'), MySQLdb.escape_string(content.encode('utf-8')), author.encode('utf-8'), userHome.encode('utf-8'), website, source)
+	try:
+
+		dataTitle = title.encode('utf-8')
+		dataContent = content.encode('utf-8')
+		dataAuthor = author.encode('utf-8')
+		dataUserHome = userHome.encode('utf-8')
+
+		sql = "INSERT INTO `spider`(`id`, `title`, `content`, `author`, `userHome`, `website`, `source`) VALUES ( null, '%s', '%s', '%s', '%s', '%s', '%s') " % ( MySQLdb.escape_string(dataTitle), MySQLdb.escape_string(dataContent), MySQLdb.escape_string(dataAuthor), MySQLdb.escape_string(dataUserHome), website, source)
+
+	except error:
+		print 'sql error'
 
 	try:
 		cursor.execute(sql)
@@ -24,14 +32,14 @@ def insertBlogs( title, content, author, userHome, website, source):
 			print e
 		except IndexError:
 			print srt(e)
+
 	db.close()
 
 	return
 
-
-
-
 # get list
+# unique title
+# discarded
 def insert(title, content, author, userHome, website, source):
 
 	db = MySQLdb.connect("127.0.0.1","root","","spider")
@@ -40,9 +48,11 @@ def insert(title, content, author, userHome, website, source):
 
 	stutas = 1
 
+	dataTitle = title.encode('utf-8')
+
 	try:
 		# checke article title
-		cursor.execute("INSERT INTO `unique` VALUES (null,'%s')" % (title.encode('utf-8')))
+		cursor.execute("INSERT INTO `unique` VALUES (null,'%s')" % (MySQLdb.escape_string(dataTitle)))
 
 		db.commit()
 

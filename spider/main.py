@@ -11,8 +11,6 @@ import segmentfault
 
 # divioTop = divio.list('1')
 # divioTop.article
-
-
 # segmentfault topic list
 
 segmentfaultJavascript = segmentfault.list('javascript')
@@ -21,7 +19,6 @@ segmentfaultHtml5 = segmentfault.list('html5')
 segmentfaultCSS = segmentfault.list('css')
 segmentfaultCSS3 = segmentfault.list('css3')
 
-segmentfault 
 segmentfaultJavascript.article
 segmentfaultNodejs.article
 segmentfaultHtml5.article
