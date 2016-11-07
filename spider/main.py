@@ -6,11 +6,16 @@ import sys
 sys.path.insert(0, './site')
 
 import segmentfault
-# import divio
+import divio
 
 
-# divioTop = divio.list('1')
-# divioTop.article
+# divioTop 
+# url: div.io/pro/index
+
+divioTop = divio.list('1')
+divioTop.article
+
+
 # segmentfault topic list
 
 segmentfaultJavascript = segmentfault.list('javascript')
