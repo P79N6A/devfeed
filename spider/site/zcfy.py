@@ -23,27 +23,27 @@ class article(object):
 
 	@property
 	def title(self):
-		result = self.dom('#articleTitle a').text()
+		result = self.dom('.title').text()
 		return result
 
 	@property
 	def content(self):
-		return self.dom('.article').html()
+		return self.dom('#text-area').html()
 
 	@property
 	def author(self):
-		return self.dom('.article__author > a > strong').text()
+		return self.dom('.post-meta2 > li > a').eq(0).attr('title')
 
 	@property
 	def userHome(self):
-		return self.dom('.article__author > a').attr('href')
+		return self.dom('.post-meta2 > li > a').eq(0).attr('href')
 
 
 # get list
 class list(object):
 	
 	def __init__(self, page):
-		self.url = 'http://segmentfault.com/t/' + page + '/blogs'
+		self.url = 'http://www.zcfy.cc/?page=1' + page
 		self._dom = None
 
 	@property 
@@ -56,17 +56,17 @@ class list(object):
 
 	@property 
 	def article(self):
-		for link in self.dom('.title a'):
+		for link in self.dom('.zcfy-card-main-link.zcfy-card-feature'):
 			l = link.attrib['href']
-			s = article('https://segmentfault.com'+l)
+			s = article('http://www.zcfy.cc'+l)
 
-			# print s.title
+			# print s.userHome
 
 			result = r.checkTitle( s.title, l)
 
 			if result == 1:
 
-				mysql.insertBlogs( s.title, s.content, s.author, 'https://segmentfault.com' + s.userHome, 'https://segmentfault.com', 'http://www.segmentfault.com'+l)	
+				mysql.insertBlogs( s.title, s.content, s.author, 'http://www.zcfy.cc'+s.userHome, 'https://zcfy.cc', 'http://www.zcfy.cc'+l)	
 				
 				print s.title+' is not repeat'
 

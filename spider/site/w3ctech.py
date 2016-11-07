@@ -23,27 +23,27 @@ class article(object):
 
 	@property
 	def title(self):
-		result = self.dom('#articleTitle a').text()
+		result = self.dom('h1').text()
 		return result
 
 	@property
 	def content(self):
-		return self.dom('.article').html()
+		return self.dom('.topic_detail').html()
 
 	@property
 	def author(self):
-		return self.dom('.article__author > a > strong').text()
+		return self.dom('.latest > img').attr('title')
 
 	@property
 	def userHome(self):
-		return self.dom('.article__author > a').attr('href')
+		return self.dom('.latest').attr('href')
 
 
 # get list
 class list(object):
 	
 	def __init__(self, page):
-		self.url = 'http://segmentfault.com/t/' + page + '/blogs'
+		self.url = 'https://www.w3ctech.com' + page
 		self._dom = None
 
 	@property 
@@ -56,17 +56,17 @@ class list(object):
 
 	@property 
 	def article(self):
-		for link in self.dom('.title a'):
+		for link in self.dom('.title'):
 			l = link.attrib['href']
-			s = article('https://segmentfault.com'+l)
+			s = article('https://www.w3ctech.com'+l)
 
-			# print s.title
+			# print 'https://www.w3ctech.com'+s.userHome
 
 			result = r.checkTitle( s.title, l)
 
 			if result == 1:
 
-				mysql.insertBlogs( s.title, s.content, s.author, 'https://segmentfault.com' + s.userHome, 'https://segmentfault.com', 'http://www.segmentfault.com'+l)	
+				mysql.insertBlogs( s.title, s.content, s.author, 'https://www.w3ctech.com'+s.userHome, 'https://www.w3ctech.com', 'https://www.w3ctech.com'+l)	
 				
 				print s.title+' is not repeat'
 
