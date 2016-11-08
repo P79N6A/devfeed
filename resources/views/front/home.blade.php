@@ -37,7 +37,7 @@
                         <a href="{{ url('article/'.$item->id.'#comments') }}"><span class="ds-thread-count" data-thread-key="{{$item->id}}">暂无评论</span></a>
                     </div>
                     <div class="ac-detail">
-                        {{ $item->summary }}
+                        {{ mb_substr(strip_tags($item->content), 0, 500) }}
                     </div>
 
                 </div>

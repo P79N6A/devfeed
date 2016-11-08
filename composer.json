@@ -11,7 +11,8 @@
         "laravel/socialite": "~2.0",
         "laravelcollective/html": "^5.2",
         "baum/baum": "^1.1",
-        "predis/predis": "~1.0"
+        "predis/predis": "~1.0",
+        "simplepie/simplepie": "^1.4"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",

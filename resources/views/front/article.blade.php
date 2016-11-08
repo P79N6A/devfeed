@@ -34,19 +34,15 @@
                 </div>
                 <div class="article-con">
                     <div class="article-intro">
-                        <blockquote>{{ $art->summary }}
+
                             @if($art->source_url != '')
                                 <p class="see_souce_link"><a href="{{ $art->source_url }}" target="_blank">访问 《{{ $art->title }}》原文</a></p>
                             @endif
 
-                        </blockquote>
+
                     </div>
                     <div class="article-detail">
-                            @if($art->source_url == '')
-                                   {!! $art->content !!}
-                                @endif
-
-
+                         {!! $art->content !!}
                     </div>
                 </div>
                 <a href="#comment" class="comment-btn"><span class="ds-thread-count comment-num" data-thread-key="{{ $art->id }}" data-count-type="comments">暂无评论</span></a>

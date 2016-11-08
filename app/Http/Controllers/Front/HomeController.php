@@ -23,7 +23,7 @@ class HomeController extends Controller
             $page = 1;
         }
         $articles = Cache::remember('articles_'.$page, 10, function(){
-            return Article::with('tags')->paginate(10);
+            return Article::orderBy('id', 'desc')->with('tags')->paginate(10);
         });
         return view('front.home', ['articles'=>$articles]);
     }

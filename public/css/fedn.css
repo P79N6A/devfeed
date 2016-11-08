@@ -136,7 +136,7 @@ body .page_container a{width:40px;height:40px;line-height:40px !important;paddin
 .comment-btn{background-color: #000000;width:50px;color: #9a9a9a;position: absolute;top: 26px;left: -50px;text-align: center;line-height:16px;padding: 6px 0}
 .comment-btn .comment-num{display: block;font-weight: bold;color: #}
 
-.comment{background-color: #fff;box-shadow: 0 1px 1px rgba(0,0,0,.2);padding: 15px;margin-top: 18px;margin-bottom: 40px}
+/*.comment{background-color: #fff;box-shadow: 0 1px 1px rgba(0,0,0,.2);padding: 15px;margin-top: 18px;margin-bottom: 40px}*/
 
 .article-side-tt{font-size: 16px;margin: 0;padding-bottom: 10px;border-bottom: 1px solid #C9CACC;margin-bottom: 16px;color: #3f3f3f}
 .new-article{margin-bottom: 40px}
@@ -168,8 +168,17 @@ a.qq_login_btn{width:108px;height:32px;background:url('../img/qq_login_btn.png')
 .form-control{border:2px solid #BDC3C7;padding:20px 12px;margin-bottom:10px}
 .control-label{font-weight:normal;padding-top:20px}
 
+blockquote {
+  font-size:inherit;
+}
+.article-detail ul, .article-detail ul li {
+  list-style:disc;
+  margin-left:1em;
+  margin-bottom:1em;
+}
+
 /* 中等屏幕（桌面显示器，小于等于 991px） */
-@media(max-width:991px){ 
+@media(max-width:991px){
     .header_search_box{float:none;margin:20px auto ; }
     .header_nav li{width:25%}
     .list-col .col-md-4{text-align:center;}
@@ -178,11 +187,11 @@ a.qq_login_btn{width:108px;height:32px;background:url('../img/qq_login_btn.png')
     .header_search_box{width: 80%}
 }
 
-@media (min-width:768px) and (max-width:991px){ 
-   	
+@media (min-width:768px) and (max-width:991px){
+
 }
 
-@media(max-width:640px){ 
+@media(max-width:640px){
    .header_wp .container{position: relative;height: 60px;position: relative;}
    .header_wp .col-md-2{width: 20%;float: left;margin-top: 20px;padding: 0;margin-left: 2%}
    .header_wp .logo{width: 100%;margin: 0;background-size:100%;line-height: 1;text-indent: -999em;height: 32px;}
@@ -197,6 +206,6 @@ a.qq_login_btn{width:108px;height:32px;background:url('../img/qq_login_btn.png')
    .header_wp .nav-area li{height: 30px;line-height: 30px;float: none;width: 100%;font-size: 14px}
    .header_search_box{width: 100%}
 }
-@media (min-width:992px) and (max-width:1200px){ 
-    
+@media (min-width:992px) and (max-width:1200px){
+
 }
