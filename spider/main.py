@@ -1,5 +1,5 @@
-#!/usr/bin/python
-# -*- coding: UTF-8 -*-
+# #!/usr/bin/python
+# # -*- coding: UTF-8 -*-
 
 import sys
 
@@ -10,13 +10,13 @@ import divio
 import w3ctech
 import zcfy
 import imweb
-
+import github
 
 # divioTop index
 # url: div.io/pro/index
 
-# divioTop = divio.list('1')
-# divioTop.article
+divioTop = divio.list('1')
+divioTop.article
 
 
 # segmentfault topic list
@@ -33,48 +33,73 @@ segmentfaultHtml5.article
 segmentfaultCSS.article
 segmentfaultCSS3.article
 
-# # w3ctech 
-# # hot article : www.w3ctech.com
-# # javascript article : wwww.w3ctech.com/category/1
-# # react article : wwww.w3ctech.com/category/16
-# # frondEnd tool article : wwww.w3ctech.com/category/7
-# # frondEnd preformance optimiztion article : wwww.w3ctech.com/category/8
-# # css article : wwww.w3ctech.com/category/5
-# # frondEnd engineering : wwww.w3ctech.com/category/6
-# # do not worry frondEnd : wwww.w3ctech.com/category/14
+# w3ctech 
+# hot article : www.w3ctech.com
+# javascript article : wwww.w3ctech.com/category/1
+# react article : wwww.w3ctech.com/category/16
+# frondEnd tool article : wwww.w3ctech.com/category/7
+# frondEnd preformance optimiztion article : wwww.w3ctech.com/category/8
+# css article : wwww.w3ctech.com/category/5
+# frondEnd engineering : wwww.w3ctech.com/category/6
+# do not worry frondEnd : wwww.w3ctech.com/category/14
 
-# w3ctechHot = w3ctech.list('')
-# w3ctechJS = w3ctech.list('/category/1')
-# w3ctechReact = w3ctech.list('/category/16')
-# w3ctechFT = w3ctech.list('/category/7')
-# w3ctechFPO = w3ctech.list('/category/8')
-# w3ctechCSS = w3ctech.list('/category/5')
-# w3ctechFE = w3ctech.list('/category/6')
-# w3ctechDNWF = w3ctech.list('/category/14')
+w3ctechHot = w3ctech.list('')
+w3ctechJS = w3ctech.list('/category/1')
+w3ctechReact = w3ctech.list('/category/16')
+w3ctechFT = w3ctech.list('/category/7')
+w3ctechFPO = w3ctech.list('/category/8')
+w3ctechCSS = w3ctech.list('/category/5')
+w3ctechFE = w3ctech.list('/category/6')
+w3ctechDNWF = w3ctech.list('/category/14')
 
-# w3ctechHot.article
-# w3ctechJS.article
-# w3ctechReact.article
-# w3ctechFT.article
-# w3ctechFPO.article
-# w3ctechCSS.article
-# w3ctechFE.article
-# w3ctechDNWF.article
+w3ctechHot.article
+w3ctechJS.article
+w3ctechReact.article
+w3ctechFT.article
+w3ctechFPO.article
+w3ctechCSS.article
+w3ctechFE.article
+w3ctechDNWF.article
 
-# # zcfy.cc
-# # translate article
+# zcfy.cc
+# translate article
 
-# zcfyNew = zcfy.list('')
-# zcfyNew.article
+zcfyNew = zcfy.list('')
+zcfyNew.article
 
-# # imweb
-# # imweb.io list : http://imweb.io
+# imweb
+# imweb.io list : http://imweb.io
 
-# imweb = imweb.list('')
-# imweb.article
+imweb = imweb.list('')
+imweb.article
 
+# github blog issues
+# fouber (张云龙)
+# amfe (阿里无线前端)
+# camsong (会影)
+# xufei (徐飞)
+# livoras (戴嘉华)
+# lishengzxc
+# cssmagic (css魔法)
 
+fouber = github.list('/fouber/blog/issues')
+fouber.article
 
+amfe = github.list('/amfe/article/issues')
+amfe.article
 
+camsong = github.list('/camsong/blog/issues')
+camsong.article
 
+xufei = github.list('/xufei/blog/issues')
+xufei.article
+
+livoras = github.list('/livoras/blog/issues')
+livoras.article
+
+lishengzxc = github.list('/lishengzxc/bblog/issues')
+lishengzxc.article
+
+cssmagic = github.list('/cssmagic/blog/issues')
+cssmagic.article
 

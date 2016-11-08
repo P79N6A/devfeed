@@ -44,6 +44,24 @@ spider
 
 添加 div.io w3ctech.com imweb.io zcfy.cc
 
+16/11/08
+========
+
+添加 github issues 抓取功能
+
+添加 blog fouber (张云龙)
+添加 blog amfe (阿里无线前端)
+添加 blog camsong (会影)
+添加 blog xufei (徐飞)
+添加 blog livoras (戴嘉华)
+添加 blog lishengzxc
+添加 blog cssmagic (css魔法)
+
+修复 mysql.py bug
+
+更新 spider.sql
+
+
 
 
 

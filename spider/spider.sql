@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: 2016-09-02 05:44:36
+-- Generation Time: 2016-11-08 09:02:21
 -- 服务器版本： 5.6.20
 -- PHP Version: 5.5.15
 
@@ -31,8 +31,10 @@ CREATE TABLE IF NOT EXISTS `spider` (
   `title` varchar(200) DEFAULT NULL,
   `content` text,
   `author` varchar(200) DEFAULT NULL,
-  `userHome` varchar(200) DEFAULT NULL
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=384 ;
+  `userHome` varchar(200) DEFAULT NULL,
+  `website` varchar(128) NOT NULL,
+  `source` text NOT NULL
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1778 ;
 
 --
 -- Indexes for dumped tables
