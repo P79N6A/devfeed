@@ -18,7 +18,7 @@ def insertBlogs( title, content, author, userHome, website, source):
 
 		sql = "INSERT INTO `spider`(`id`, `title`, `content`, `author`, `userHome`, `website`, `source`) VALUES ( null, '%s', '%s', '%s', '%s', '%s', '%s') " % ( MySQLdb.escape_string(dataTitle), MySQLdb.escape_string(dataContent), MySQLdb.escape_string(dataAuthor), MySQLdb.escape_string(dataUserHome), website, source)
 
-	except error:
+	except:
 		print 'sql error'
 
 	try:

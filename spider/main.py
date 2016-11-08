@@ -1,5 +1,5 @@
-#!/usr/bin/python
-# -*- coding: UTF-8 -*-
+# #!/usr/bin/python
+# # -*- coding: UTF-8 -*-
 
 import sys
 
@@ -10,7 +10,7 @@ import divio
 import w3ctech
 import zcfy
 import imweb
-
+import github
 
 # divioTop index
 # url: div.io/pro/index
@@ -73,8 +73,33 @@ zcfyNew.article
 imweb = imweb.list('')
 imweb.article
 
+# github blog issues
+# fouber (张云龙)
+# amfe (阿里无线前端)
+# camsong (会影)
+# xufei (徐飞)
+# livoras (戴嘉华)
+# lishengzxc
+# cssmagic (css魔法)
 
+fouber = github.list('/fouber/blog/issues')
+fouber.article
 
+amfe = github.list('/amfe/article/issues')
+amfe.article
 
+camsong = github.list('/camsong/blog/issues')
+camsong.article
 
+xufei = github.list('/xufei/blog/issues')
+xufei.article
+
+livoras = github.list('/livoras/blog/issues')
+livoras.article
+
+lishengzxc = github.list('/lishengzxc/bblog/issues')
+lishengzxc.article
+
+cssmagic = github.list('/cssmagic/blog/issues')
+cssmagic.article
 
