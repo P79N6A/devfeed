@@ -29,8 +29,7 @@
                     </h3>
                     <div class="ac-info">
                         <span>作者：</span>
-                        {{ link_to($item->userHome, $item->author) }}
-
+                        {{ link_to($item->userHome, $item->author) }}&nbsp;&nbsp;&nbsp;&nbsp;{!! $item->sourceSite !!}
                     </div>
                     <div class="ac-detail">
                         {{ mb_substr(strip_tags($item->content), 0, 500) }}

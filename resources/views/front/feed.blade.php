@@ -34,6 +34,14 @@
 
                 </div>
                 <div class="article-con">
+                    <div class="article-intro">
+
+                        @if($art->source != '')
+                            <p class="see_souce_link">
+                                <a href="{{ $art->source }}" target="_blank">访问 《{{ $art->title }}》原文</a></p>
+                        @endif
+
+                    </div>
                     <div class="article-detail">
                         {!! $art->content !!}
                     </div>
