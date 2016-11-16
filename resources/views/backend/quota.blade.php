@@ -48,8 +48,8 @@
 @endsection
 
 @section('pageScript')
-    <script src="https://unpkg.com/vue/dist/vue.js"></script>
-    <script src="http://cdn.bootcss.com/vue-resource/1.0.3/vue-resource.js"></script>
+    <script src="//cdn.bootcss.com/vue/2.0.6/vue.min.js"></script>
+    <script src="//cdn.bootcss.com/vue-resource/1.0.3/vue-resource.js"></script>
     <script>
         const api = '{{ route('api.quota.list') }}'
         var app = new Vue({
