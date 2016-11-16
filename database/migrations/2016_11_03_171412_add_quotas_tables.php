@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class AddQuatasTables extends Migration
+class AddQuotasTables extends Migration
 {
     /**
      * Run the migrations.
