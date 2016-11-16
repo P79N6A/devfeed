@@ -58,6 +58,8 @@ Route::group(['prefix'=>'admin', 'namespace'=>'Admin', 'as'=>'admin.', 'middlewa
     // tags
     Route::get('tags', ['as'=>'tags', 'uses'=>'TagController@list']);
 
+    Route::get('quotas', ['as'=>'quotas', 'uses' => 'QuotaController@list']);
+
 });
 
 Route::group(['prefix'=>'api/v1', 'as'=>'api.'], function(){
@@ -69,6 +71,9 @@ Route::group(['prefix'=>'api/v1', 'as'=>'api.'], function(){
     Route::group(['namespace'=>'Common'], function(){
         Route::post('upload/{type}', ['as' => 'upload', 'uses' => 'FileController@upload'])
             ->where('type', '(cover|pic)');
+    });
+    Route::group(['namespace'=>'Api'], function(){
+        Route::get('quotas', ['as' => 'quota.list', 'uses' => 'QuotaController@list']);
     });
 });
 

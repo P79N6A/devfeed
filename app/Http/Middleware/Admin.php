@@ -30,6 +30,9 @@ class Admin
      */
     public function handle($request, Closure $next)
     {
+        if (app()->environment() === "local") {
+            return $next($request);
+        }
         if ($this->auth->guest()) {
             if ($request->ajax()) {
                 return response('Unauthorized.', 401);
@@ -41,6 +44,7 @@ class Admin
         if($request->user()->inRoles([1,2,3])) {
             return $next($request);
         }
+
 
         return response('Unauthorized.', 403);
     }
