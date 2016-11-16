@@ -12,12 +12,16 @@ class AddFeedsRelatedTables extends Migration
      */
     public function up()
     {
-        Schema::create('feeds', function (Blueprint $table) {
+        Schema::create('quotas', function (Blueprint $table) {
             $table->increments('id');
+            $table->string('url', 100);
+            $table->string('title');
+            $table->text('content');
+            $table->string('tags')->nullable();
             $table->string('site_name');
             $table->string('site_url');
-            $table->string('feed_url');
-            $table->unsignedInteger('last_capture');
+            $table->string('author_name')->nullable();
+            $table->string('author_url')->nullable();
             $table->nullableTimestamps();
         });
     }
@@ -29,6 +33,6 @@ class AddFeedsRelatedTables extends Migration
      */
     public function down()
     {
-        Schema::drop('feeds');
+        Schema::drop('quotas');
     }
 }
