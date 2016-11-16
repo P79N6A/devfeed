@@ -47,7 +47,7 @@
                 <a class="list-group-item{{ request()->is('admin/tag*') ? ' active':null }}" href="{{ url('admin/tags') }}">标签</a>
             </div>
             <div class="list-group">
-                <a class="list-group-item" href="{{ url('admin/spider') }}">采集</a>
+                <a class="list-group-item" {{ request()->is('admin/quotas') ? ' active':null }} href="{{ url('admin/quotas') }}">采集</a>
                 <a class="list-group-item" href="{{ url('admin/sources') }}">源站</a>
                 <a class="list-group-item" href="{{ url('admin/authors') }}">作者</a>
             </div>
