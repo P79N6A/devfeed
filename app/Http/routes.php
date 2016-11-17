@@ -73,7 +73,9 @@ Route::group(['prefix'=>'api/v1', 'as'=>'api.'], function(){
             ->where('type', '(cover|pic)');
     });
     Route::group(['namespace'=>'Api'], function(){
-        Route::get('quotas', ['as' => 'quota.list', 'uses' => 'QuotaController@list']);
+        Route::post('quotas/list', ['as' => 'quota.list', 'uses' => 'QuotaController@list']);
+        Route::get('quotas/sites', ['as' => 'quota.sites', 'uses' => 'QuotaController@sites']);
+        Route::get('quotas/tags', ['as' => 'quota.tags', 'uses' => 'QuotaController@tags']);
     });
 });
 
@@ -93,3 +95,9 @@ Route::get('/home', function () {
 });
 
 Route::auth();
+
+if(App::environment() === 'local') {
+    Route::group(['prefix'=>'test'], function(){
+       Route::get('html', 'DevController@htmlTest');
+    });
+}
