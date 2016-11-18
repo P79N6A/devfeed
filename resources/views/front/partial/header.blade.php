@@ -10,6 +10,9 @@
                     {{--<li><a href="#" title="专题">专题</a></li>--}}
                     <li class="{{ URL::current() == route('front.tag.index') || URL::current() == @route('front.tag.detail', $nowId) ? 'current' : ' ' }}"><a href="{{route('front.tag.index')}}" title="标签">标签</a></li>
                     <li class="{{ URL::current() == route('front.feed.list') || URL::current() == @route('front.feed.view', $nowId) ? 'current' : ' '  }}"><a href="{{route('front.feed.list')}}" title="前端聚合">前端聚合</a></li>
+                    @if (Auth::guest())
+                        <li>{{ link_to('/login', '登录') }}</li>
+                    @endif
                     @can('admin')
                         <li>{{ link_to_route('admin.home', '后台管理') }}</li>
                     @endcan
