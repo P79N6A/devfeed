@@ -10,9 +10,9 @@
                         {{--<li><a href="#" title="最新">最新</a></li>--}}
                     </ul>
                 </div>
-                <div class="col-md-3">
+                {{--<div class="col-md-3">
                     <a href="" title="投稿给FEDN" class="contribution"><i class="contribution_ico"></i>我要投稿</a>
-                </div>
+                </div>--}}
             </div>
         </div>
     </div>
