@@ -8,6 +8,7 @@ use Fedn\Http\Requests;
 use Fedn\Http\Controllers\Controller;
 use Fedn\Models\Quota;
 use Fedn\Utils\QuotaUtils;
+use Symfony\Component\Routing\Exception\InvalidParameterException;
 
 class QuotaController extends Controller
 {
@@ -22,11 +23,25 @@ class QuotaController extends Controller
         if($site) {
             $quotas = $quotas->where('site_name', $site);
         }
+        $quotas->select('id','title','url','tags','site_url','site_name','author_url','author_name','created_at','updated_at');
         $data = $quotas->paginate($size);
         return QuotaUtils::JsonResult($data);
     }
 
+    public function detail(Request $req) {
+        $id = $req->get('id', 0);
 
+        if(!is_numeric($id) || (int)$id != $id) {
+            return QuotaUtils::JsonResult(null, 40035, 'Invalid parameters.');
+        }
+
+        $quota = Quota::find($id);
+        if(!$quota) {
+            return QuotaUtils::JsonResult(null, 46001, 'Article not found.');
+        } else {
+            return QuotaUtils::JsonResult($quota);
+        }
+    }
 
     public function sites() {
         $rows = Quota::select('site_name')->distinct()->get();

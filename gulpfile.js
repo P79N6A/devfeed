@@ -1,4 +1,6 @@
-var elixir = require('laravel-elixir');
+const elixir = require('laravel-elixir')
+
+require('laravel-elixir-vue-2')
 
 /*
  |--------------------------------------------------------------------------
@@ -11,7 +13,9 @@ var elixir = require('laravel-elixir');
  |
  */
 
-elixir(function(mix) {
-  mix.sass('app.scss');
-  mix.sass('backend.scss');
-});
+elixir.config.sourcemaps = false
+
+elixir((mix) => {
+  'use strict'
+  mix.webpack('quotas.js')
+})

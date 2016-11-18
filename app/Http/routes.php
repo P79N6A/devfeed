@@ -76,6 +76,7 @@ Route::group(['prefix'=>'api/v1', 'as'=>'api.'], function(){
         Route::post('quotas/list', ['as' => 'quota.list', 'uses' => 'QuotaController@list']);
         Route::get('quotas/sites', ['as' => 'quota.sites', 'uses' => 'QuotaController@sites']);
         Route::get('quotas/tags', ['as' => 'quota.tags', 'uses' => 'QuotaController@tags']);
+        Route::get('quotas/detail', ['as' => 'quota.detail', 'uses' => 'QuotaController@detail']);
     });
 });
 

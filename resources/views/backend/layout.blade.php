@@ -55,6 +55,7 @@
         <div class="main">
             @section('content')
             <h1 class="page-header">Dashboard</h1>
+            {{--
             <div class="row">
                 <div class="col-xs-6 col-sm-3 placeholder">
                     <img src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" width="200" height="200" class="img-responsive" alt="Generic placeholder thumbnail">
@@ -206,6 +207,7 @@
                     </table>
                 </div>
             </div>
+            --}}
             @show
         </div>
     </div>

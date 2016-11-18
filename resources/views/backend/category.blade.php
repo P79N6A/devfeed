@@ -57,7 +57,7 @@
                     <td colspan="5">
                         <button class="btn btn-danger" @click="delCategories">删除选中分类</button>
                         <p class="help-block">注：删除分类不会删除该分类下的文章</p></td>
-                </tr
+                </tr>
                 </tfoot>
                 <tbody>
                 <tr is="vue-tr" v-for="cate in categories" :item="cate"></tr>
