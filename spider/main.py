@@ -55,11 +55,11 @@ w3ctechDNWF = w3ctech.list('/category/14')
 w3ctechHot.article
 w3ctechJS.article
 w3ctechReact.article
-w3ctechFT.article
-w3ctechFPO.article
+# w3ctechFT.article
+# w3ctechFPO.article
 w3ctechCSS.article
-w3ctechFE.article
-w3ctechDNWF.article
+# w3ctechFE.article
+# w3ctechDNWF.article
 
 # zcfy.cc
 # translate article
@@ -81,6 +81,7 @@ imweb.article
 # livoras (戴嘉华)
 # lishengzxc
 # cssmagic (css魔法)
+# joeyguo (郭林烁)
 
 fouber = github.list('/fouber/blog/issues')
 fouber.article
@@ -102,4 +103,8 @@ lishengzxc.article
 
 cssmagic = github.list('/cssmagic/blog/issues')
 cssmagic.article
+
+joeyguo = github.list('/joeyguo/blog/issues')
+joeyguo.article
+
 

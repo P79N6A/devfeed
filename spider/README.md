@@ -61,6 +61,15 @@ spider
 
 更新 spider.sql
 
+16/11/21
+========
+
+添加 blog joeyguo(郭林烁)
+
+去除部分 w3tech 的文章抓取
+
+添加 redis 同步持久化
+
 
 
 
