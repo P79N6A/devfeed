@@ -21,7 +21,6 @@
                     <th>标题</th>
                     <th>类型</th>
                     <th>作者</th>
-                    <th>分类</th>
                     <th>标签</th>
                     <th>评论</th>
                     <th>日期</th>
@@ -37,11 +36,6 @@
                         <td>{{ $art->isLink ? '转载': '原创' }}</td>
                         <td>{{ $art->author }}</td>
                         <td>
-                            @foreach($art->categories as $cate)
-                                <a href="javascript:alert('尚未实现')">{{ $cate->title }}</a>
-                            @endforeach
-                        </td>
-                        <td>
                             @foreach($art->tags as $tag)
                                 <a href="{{'/tag/'.$tag->id}}" target="_blank">{{ $tag->title }}</a>
                             @endforeach
@@ -56,7 +50,7 @@
                                 @endif
                             <span style="color: #666666;font-size: 12px">({{ $art->created_at }})</span>
                             <br>修改时间：  <span style="color: #666666;font-size: 12px">({{ $art->updated_at }})</span></td>
-                        <td>{{ $art->user->name }}</td>
+                        <td>{{ $art->user->name or ''}}</td>
                         <td><button data-id="{{$art->id}}" class="btn btn-small btn-danger btn-delete">删除</button>
                             @if($art->status == 'draft')
                                     <button class="btn btn-small btn-success btn-publish" data-id="{{$art->id}}">发布

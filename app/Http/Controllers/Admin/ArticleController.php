@@ -11,17 +11,18 @@ use Fedn\Http\Controllers\Controller;
 use Gate;
 use Fedn\Models\Article;
 use Fedn\Models\ArticleMeta;
-use Fedn\Models\Category;
+//use Fedn\Models\Category;
 use Symfony\Component\Routing\Exception\InvalidParameterException;
 use Fedn\Http\Requests\ArticleFormRequest;
 
 use DB;
+use Cache;
 
 class ArticleController extends Controller
 {
     public function getIndex()
     {
-        $articles = Article::withoutGlobalScope('published')->orderBy('id','desc')->with(['user', 'categories','tags'])->paginate(10);
+        $articles = Article::withoutGlobalScope('published')->orderBy('id','desc')->with(['user', 'tags'])->paginate(10);
         //Article::withTrashed()->restore();
         return view('backend.article-list', compact('articles'));
     }
@@ -45,7 +46,7 @@ class ArticleController extends Controller
         if(!is_numeric($id)) {
             throw new InvalidParameterException('非法参数');
         }
-        $article = Article::withoutGlobalScope('published')->with(['categories','tags'])->find($id);
+        $article = Article::withoutGlobalScope('published')->with(['tags'])->find($id);
         if(!$article) {
             throw new ModelNotFoundException('文章不存在！');
         }
@@ -61,7 +62,7 @@ class ArticleController extends Controller
         if($ar) {
             $ar->delete();
         }
-        
+        Cache::tags('articles')->flush();
         return redirect()->back();
     }
     //文章发布
@@ -75,20 +76,20 @@ class ArticleController extends Controller
                 $result = 1;
             }
         }
-
+        Cache::tags('articles')->flush();
         return json_encode (['data'=> $result]);
     }
     public function save(ArticleFormRequest $request, $id = 0)
     {
 
         $data = $request->all();
-        $article = Article::withoutGlobalScope('published')->with('categories')->findOrNew($id);
+        $article = Article::withoutGlobalScope('published')->findOrNew($id);
         if($article->exists){
             $this->authorize('update', $article);
         } else {
             if (Gate::denies('create-article')) {
                 return response('Unauthorized.', 403);
-        }
+            }
             $article->user_id = request()->user()->id;
         }
 
@@ -117,6 +118,10 @@ class ArticleController extends Controller
 
         $article->save();
 
+        if($article->wasRecentlyCreated) {
+            Cache::tags('articles')->flush();
+        }
+
         // metas
 
         // tags
@@ -140,7 +145,7 @@ class ArticleController extends Controller
         $article->tags()->sync($tag_ids);
 
         // categories
-        $article->categories()->sync($data['categories']);
+        //$article->categories()->sync($data['categories']);
 
         return redirect('admin/articles')->with('message', ['type' => 'success', 'text' => "文章《$article->title》已保存"]);
     }

@@ -44,13 +44,6 @@ class Article extends Model
         return $this->belongsTo(User::class);
     }
 
-    /**
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
-     */
-    public function categories() {
-        return $this->morphToMany(Category::class, 'classifiable');
-    }
-
     public function tags() {
         return $this->morphToMany(Tag::class, 'taggable');
     }

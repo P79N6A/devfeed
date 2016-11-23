@@ -27,7 +27,7 @@ class ArticleFormRequest extends Request
             'summary' => 'required',
             'source_url' => 'url',
             'status'  => 'required|in:draft,publish',
-            'categories' => 'required',
+            //'categories' => 'required',
             'figure' => 'image',
             'author_url' => 'url',
         ];

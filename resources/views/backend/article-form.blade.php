@@ -118,12 +118,6 @@
                 </div>
             </div>
             <div class="panel panel-default">
-                <div class="panel-heading">分类:</div>
-                <div class="panel-body">
-                    <vue-cate-list class="category-list" :categories="categories"></vue-cate-list>
-                </div>
-            </div>
-            <div class="panel panel-default">
                 <div class="panel-heading">配图:</div>
                 <div class="panel-body">
                     <div class="cover-wrap">
@@ -177,24 +171,24 @@
 @section('pageScript')
     <script src="//cdn.bootcss.com/jquery/2.2.4/jquery.js"></script>
     <script src="//cdn.bootcss.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
-    <script src="//cdn.bootcss.com/vue/1.0.25/vue.min.js"></script>
-    <script src="//cdn.bootcss.com/vue-resource/0.8.0/vue-resource.min.js"></script>
+    {{--<script src="//cdn.bootcss.com/vue/1.0.25/vue.min.js"></script>
+    <script src="//cdn.bootcss.com/vue-resource/0.8.0/vue-resource.min.js"></script>--}}
     <script src="{{ asset('ueditor/ueditor.config.js') }}"></script>
     <script src="{{ asset('ueditor/ueditor.all.js') }}"></script>
-    <template id="vueCateList">
+    {{--<template id="vueCateList">
         <ul>
             <li v-for="item in categories">
                 <input name="categories[]" type="checkbox" v-model="checkedIds" :value="item.id"> @{{ item.title }}
                 <vue-cate-list v-if="item.children" :categories="item.children"></vue-cate-list>
             </li>
         </ul>
-    </template>
+    </template>--}}
     <script>
         (function($){
             "use strict";
             const token = document.querySelector('meta[name=csrf-token]').getAttribute('content');
             let tags = [];
-            Vue.component('vueCateList', {
+            {{-- Vue.component('vueCateList', {
                 template: '#vueCateList',
                 props: ['categories'],
                 data: function () {
@@ -202,8 +196,8 @@
                         checkedIds: this.$parent.checkedIds
                     }
                 }
-            });
-            const vm = new Vue({
+            });--}}
+            {{--const vm = new Vue({
                 el: '#articleForm',
                 data: {
                     checkedIds: {{ json_encode($article->categories->modelKeys()) }}
@@ -213,7 +207,7 @@
                         this.$set('categories', response.data);
                     });
                 }
-            });
+            });--}}
             const onCoverChanged = function() {
                 let $coverFile = document.getElementById('coverFile').files[0];
                 if($coverFile) {
