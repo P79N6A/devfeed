@@ -23,8 +23,12 @@ class QuotaController extends Controller
         if($site) {
             $quotas = $quotas->where('site_name', $site);
         }
-        $quotas->select('id','title','url','tags','site_url','site_name','author_url','author_name','created_at','updated_at');
+        $quotas->select('id','title','content','url','tags','site_url','site_name','author_url','author_name','created_at','updated_at');
         $data = $quotas->paginate($size);
+
+        foreach($data as $item) {
+            $item->content = mb_substr(trim(strip_tags($item->content),"　 \t\n\r \v"), 0, 140, 'utf8');
+        }
         return QuotaUtils::JsonResult($data);
     }
 
