@@ -27,7 +27,9 @@ class QuotaController extends Controller
         $data = $quotas->paginate($size);
 
         foreach($data as $item) {
-            $item->content = mb_substr(trim(strip_tags($item->content),"　 \t\n\r \v"), 0, 140, 'utf8');
+            $content = trim(strip_tags($item->content), "　 \t\n\r\v");
+            $content = str_replace("\n","", $content);
+            $item->content = mb_substr($content, 0, 140, 'utf8');
         }
         return QuotaUtils::JsonResult($data);
     }
