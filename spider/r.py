@@ -25,6 +25,8 @@ def checkTitle(title, url):
 
 	result = r.sadd('title:unique', hash_value)
 
+	r.save()
+
 	# print result
 	# sdiff 'title:unique'
 

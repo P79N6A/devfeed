@@ -1,6 +1,6 @@
 body{background:#EFF1F3;font-family:\5FAE\8F6F\96C5\9ED1;}
 ul,li{margin:0;padding:0;list-style:none;}
-img{width: 100%;max-width: 100%}
+img{max-width: 100%}
 
 
 .header_nav:after,.clearfix:after{content:'\20';display:block;height:0;clear:both;}
@@ -128,7 +128,7 @@ body .page_container a{width:40px;height:40px;line-height:40px !important;paddin
 .article-con {}
 .article-intro{margin: 50px 0}
 .article-intro blockquote{background-color: #f8f8f8;font-size: 14px;line-height: 26px;color: #666}
-.article-detail{font-size: 16px;line-height: 26px;color: #000}
+.article-detail{font-size: 16px;line-height: 26px;color: #000;overflow:hidden;}
 
 .see_souce_link{margin-top:20px;background: #eee;padding:5px 10px;font-size:12px}
 .see_souce_link a{display:block;text-align: center}
