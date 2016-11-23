@@ -44,9 +44,6 @@ Route::group(['prefix'=>'admin', 'namespace'=>'Admin', 'as'=>'admin.', 'middlewa
     Route::post('save-role', ['as'=>'role.save', 'uses'=>'RoleController@postSave']);
     Route::get('del-role/{role}', ['as'=>'role.del', 'uses'=>'RoleController@postDelete'])->where('role', '[0-9]+');
 
-    // categories
-    Route::get('categories', ['as'=>'categories', 'uses'=>'CategoryController@getIndex']);
-
     // articles
     Route::get('articles', ['as'=>'articles', 'uses'=>'ArticleController@getIndex']);
     Route::get('article/{id}', ['as'=>'article.edit', 'uses'=>'ArticleController@edit'])->where('id', '[0-9]+');
@@ -60,13 +57,15 @@ Route::group(['prefix'=>'admin', 'namespace'=>'Admin', 'as'=>'admin.', 'middlewa
 
     Route::get('quotas', ['as'=>'quotas', 'uses' => 'QuotaController@list']);
 
+    // sites
+    Route::get('sites', ['as' => 'sites', 'uses'=>'QuotaController@sites']);
+
 });
 
 Route::group(['prefix'=>'api/v1', 'as'=>'api.'], function(){
     Route::group(['namespace'=>'Admin'],function(){
-        Route::get('categories', ['as' => 'category.list', 'uses' => 'CategoryController@listApi']);
-        Route::post('categories', ['as' => 'category.save', 'uses' => 'CategoryController@saveApi']);
-        Route::delete('categories', ['as' => 'category.delete', 'uses' => 'CategoryController@delApi']);
+        Route::post('sites', ['as' => 'site.list', 'uses' => 'QuotaController@sites']);
+        Route::post('site', ['as' => 'site.save', 'uses' => 'QuotaController@saveSite']);
     });
     Route::group(['namespace'=>'Common'], function(){
         Route::post('upload/{type}', ['as' => 'upload', 'uses' => 'FileController@upload'])

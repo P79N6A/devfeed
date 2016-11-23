@@ -125,7 +125,6 @@ return [
     Fedn\Providers\RouteServiceProvider::class,
     SocialiteProviders\Manager\ServiceProvider::class,
     Collective\Html\HtmlServiceProvider::class,
-    Baum\Providers\BaumServiceProvider::class,
   ],
     /*
     |--------------------------------------------------------------------------

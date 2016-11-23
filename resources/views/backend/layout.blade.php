@@ -2,6 +2,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<meta name="csrf-token" content="{{ csrf_token() }}">
 @yield('extraMeta')
 <title>FEDN @yield('pageTitle', '管理中心')</title>
 <link href="//cdn.bootcss.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
@@ -42,14 +43,13 @@
             </div>
             <div class="list-group">
                 <a class="list-group-item{{ request()->is('admin/article*') ? ' active':null }}" href="{{ url('admin/articles') }}">文章</a>
-                <a class="list-group-item{{ request()->is('admin/categor*') ? ' active':null }}" href="{{ url('admin/categories') }}">分类</a>
                 <a class="list-group-item disabled" href="{{ url('admin/special*') }}">专题</a>
                 <a class="list-group-item{{ request()->is('admin/tag*') ? ' active':null }}" href="{{ url('admin/tags') }}">标签</a>
             </div>
             <div class="list-group">
-                <a class="list-group-item" {{ request()->is('admin/quotas') ? ' active':null }} href="{{ url('admin/quotas') }}">采集</a>
-                <a class="list-group-item" href="{{ url('admin/sources') }}">源站</a>
-                <a class="list-group-item" href="{{ url('admin/authors') }}">作者</a>
+                <a class="list-group-item{{ request()->is('admin/quotas') ? ' active':null }}" href="{{ url('admin/quotas') }}">采集</a>
+                <a class="list-group-item{{ request()->is('admin/sites') ? ' active':null }}" href="{{ url('admin/sites') }}">源站</a>
+                <a class="list-group-item{{ request()->is('admin/authors') ? ' active':null }} disabled" href="{{ url('admin/authors') }}">作者</a>
             </div>
         </div>
         <div class="main">
