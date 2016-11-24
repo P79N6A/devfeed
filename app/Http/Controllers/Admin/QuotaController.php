@@ -20,12 +20,13 @@ class QuotaController extends Controller
     }
 
     public function sites(Request $req) {
-        if($req->ajax()) {
+        if($req->route()->getName() === 'api.site.list') {
             $size = $req->get('size', 20);
             $sites = Site::orderBy('id', 'desc')->paginate(20);
             return QuotaUtils::JsonResult($sites);
+        } else {
+            return view('backend.site');
         }
-        return view('backend.site');
     }
 
     public function saveSite(Request $req) {

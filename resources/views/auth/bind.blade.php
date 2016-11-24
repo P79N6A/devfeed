@@ -15,7 +15,7 @@
                         </ul>
                         <div class="tab-content" style="padding-top:15px;">
                             <div role="tabpanel" class="tab-pane active" id="login">
-                                {{ Form::open(['action'=>'Auth\AuthController@bindAccount', 'class'=>'form-horizontal', 'role'=>'form']) }}
+                                {{ Form::open(['action'=>'Auth\LoginController@bindAccount', 'class'=>'form-horizontal', 'role'=>'form']) }}
 
                                 <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
                                     <label for="email" class="col-md-4 control-label">电子邮件</label>
@@ -63,7 +63,7 @@
                                 {{ Form::close() }}
                             </div>
                             <div role="tabpanel" class="tab-pane" id="register">
-                                {{ Form::open(['action'=>'Auth\AuthController@bindAccount', 'class'=>'form-horizontal', 'role'=>'form']) }}
+                                {{ Form::open(['action'=>'Auth\LoginController@bindAccount', 'class'=>'form-horizontal', 'role'=>'form']) }}
 
                                 <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
                                     <label for="name" class="col-md-4 control-label">用户名</label>

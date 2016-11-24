@@ -15,7 +15,7 @@ require('laravel-elixir-vue-2')
 
 elixir.config.sourcemaps = true
 
-elixir((mix) => {
+elixir(mix => {
   'use strict'
   mix.webpack('quotas.js')
 })

@@ -1,13 +1,12 @@
 <?php
 
 namespace Fedn\Providers;
-
-use Illuminate\Contracts\Auth\Access\Gate as GateContract;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 
 use Fedn\Models\Article;
 use Fedn\Policies\ArticlePolicy;
 use Fedn\Models\User;
+use Gate;
 
 class AuthServiceProvider extends ServiceProvider
 {
@@ -21,17 +20,16 @@ class AuthServiceProvider extends ServiceProvider
     ];
 
     /**
-     * Register any application authentication / authorization services.
+     * Register any authentication / authorization services.
      *
-     * @param  \Illuminate\Contracts\Auth\Access\Gate  $gate
      * @return void
      */
-    public function boot(GateContract $gate)
+    public function boot()
     {
-        $this->registerPolicies($gate);
+        $this->registerPolicies();
 
-        $gate->define('create-article', 'Fedn\Policies\ArticlePolicy@add');
-        $gate->define('admin', function(User $user){
+        Gate::define('create-article', 'Fedn\Policies\ArticlePolicy@add');
+        Gate::define('admin', function(User $user){
             return $user->inRoles([1, 2, 3]);
         });
     }

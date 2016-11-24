@@ -2,49 +2,54 @@
 
 namespace Fedn\Http\Controllers\Auth;
 
+use Fedn\Http\Controllers\Controller;
+use Illuminate\Foundation\Auth\AuthenticatesUsers;
+
 use Fedn\Models\Role;
 use Fedn\Models\User;
 use Fedn\Models\UserMeta;
-use Fedn\Http\Controllers\Controller;
 use Fedn\Http\Requests\BindFormRequest;
-use Illuminate\Auth\AuthenticationException;
-use Illuminate\Foundation\Auth\ThrottlesLogins;
-use Illuminate\Foundation\Auth\AuthenticatesAndRegistersUsers;
-use Illuminate\Support\MessageBag;
 use Laravel\Socialite\Facades\Socialite;
 use Auth;
 use Hash;
 use Validator;
 
-class AuthController extends Controller
+class LoginController extends Controller
 {
     /*
     |--------------------------------------------------------------------------
-    | Registration & Login Controller
+    | Login Controller
     |--------------------------------------------------------------------------
     |
-    | This controller handles the registration of new users, as well as the
-    | authentication of existing users. By default, this controller uses
-    | a simple trait to add these behaviors. Why don't you explore it?
+    | This controller handles authenticating users for the application and
+    | redirecting them to your home screen. The controller uses a trait
+    | to conveniently provide its functionality to your applications.
     |
     */
 
-    use AuthenticatesAndRegistersUsers, ThrottlesLogins;
+    use AuthenticatesUsers;
 
     /**
-     * Create a new authentication controller instance.
+     * Where to redirect users after login.
+     *
+     * @var string
+     */
+    protected $redirectTo = '/';
+
+    /**
+     * Create a new controller instance.
      *
      * @return void
      */
     public function __construct()
     {
-        $this->middleware('guest', ['except' => ['logout','getLogout']]);
+        $this->middleware('guest', ['except' => 'logout']);
     }
 
     /**
      * Get a validator for an incoming registration request.
      *
-     * @param  array  $data
+     * @param  array $data
      * @return \Illuminate\Contracts\Validation\Validator
      */
     protected function validator(array $data)
@@ -59,7 +64,7 @@ class AuthController extends Controller
     /**
      * Create a new user instance after a valid registration.
      *
-     * @param  array  $data
+     * @param  array $data
      * @return User
      */
     protected function create(array $data)
@@ -78,24 +83,26 @@ class AuthController extends Controller
 
     }
 
-    public function loginWithQQ(){
+    public function loginWithQQ()
+    {
         return Socialite::with('qq')->redirect();
     }
 
-    public function handleQQLogin(){
+    public function handleQQLogin()
+    {
 
         // check user with openid
         $sUser = Socialite::with('qq')->user();
 
-        $user = User::whereHas('metas', function($query) use ($sUser) {
-            $query->where('key','qq_openId')
-                  ->where('value', $sUser->getId());
+        $user = User::whereHas('metas', function ($query) use ($sUser) {
+            $query->where('key', 'qq_openId')
+                ->where('value', $sUser->getId());
         })->with('roles')->first();
 
-        if($user) {
+        if ($user) {
             Auth::login($user);
 
-            if($user->hasRole(1) || $user->hasRole(2)) {
+            if ($user->hasRole(1) || $user->hasRole(2)) {
                 return redirect()->to('/admin');
             }
             return redirect()->intended('/');
@@ -111,7 +118,7 @@ class AuthController extends Controller
             session(['metas' => $metas]);
 
             //return view('auth.bind', ['user'=>$user]);
-            return redirect()->action('Auth\AuthController@socialBind');
+            return redirect()->action('Auth\LoginController@socialBind');
         }
     }
 
@@ -120,12 +127,13 @@ class AuthController extends Controller
         return view('auth.bind');
     }
 
-    public function bindAccount(BindFormRequest $req) {
+    public function bindAccount(BindFormRequest $req)
+    {
         $isNew = $req->has('name') ? true : false;
 
         $metas = session('metas');
 
-        if($isNew) {
+        if ($isNew) {
             $data = [
                 'name' => $req->get('name', null),
                 'email' => $req->get('email', null),
@@ -140,33 +148,32 @@ class AuthController extends Controller
 
             $user = User::with('metas')->where('email', $email)->first();
 
-            if(!$user) {
+            if (!$user) {
                 redirect()->back()->withErrors('本站帐户登陆失败，请检查后重试', 'default');
             }
 
-            foreach($user->metas() as $meta) {
-                if($meta->key = 'qq_openId') {
+            foreach ($user->metas() as $meta) {
+                if ($meta->key = 'qq_openId') {
                     redirect()->back()->withErrors('您的本站帐号已经绑定了其它QQ号', 'default');
                 }
             }
 
-            if(!Hash::check($password, $user->password)) {
+            if (!Hash::check($password, $user->password)) {
                 redirect()->back()->withErrors('本站帐户登陆失败，请检查后重试', 'default');
             }
         }
 
-        $user->roles()->attach([4,5]);
+        $user->roles()->attach([4, 5]);
 
         $user->metas()->saveMany([
-            new UserMeta(['key'=>'avatar','value'=>$metas['avatar']]),
-            new UserMeta(['key'=>'qq_openId','value'=>$metas['qq_openId']]),
-            new UserMeta(['key'=>'qq_accessToken','value'=>$metas['qq_accessToken']]),
-            new UserMeta(['key'=>'qq_refreshToken','value'=>$metas['qq_refreshToken']])
+            new UserMeta(['key' => 'avatar', 'value' => $metas['avatar']]),
+            new UserMeta(['key' => 'qq_openId', 'value' => $metas['qq_openId']]),
+            new UserMeta(['key' => 'qq_accessToken', 'value' => $metas['qq_accessToken']]),
+            new UserMeta(['key' => 'qq_refreshToken', 'value' => $metas['qq_refreshToken']])
         ]);
 
         Auth::login($user, $req->get('remember', false));
         request()->session()->forget('metas');
         return redirect()->to('/');
     }
-
 }

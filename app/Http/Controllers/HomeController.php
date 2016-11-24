@@ -2,9 +2,6 @@
 
 namespace Fedn\Http\Controllers;
 
-use Fedn\Http\Requests;
-use Illuminate\Http\Request;
-
 class HomeController extends Controller
 {
     /**

@@ -10,7 +10,7 @@ Homestead.json
 /build/coverage
 /app/tests_log
 .DS_Store
-/.idea
+.idea
 /*.iws
 /*.iml
 *.sublime-workspace
@@ -21,3 +21,4 @@ _ide_*
 /config/ide-helper.php
 .phpstorm.meta.php
 /storage/debugbar
+/public/storage

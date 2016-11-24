@@ -1,5 +1,0 @@
-suites:
-    main:
-        namespace: Fedn
-        psr4_prefix: Fedn
-        src_path: app
