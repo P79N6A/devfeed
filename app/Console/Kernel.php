@@ -29,6 +29,8 @@ class Kernel extends ConsoleKernel
     {
         // $schedule->command('inspire')
         //          ->hourly();
+        $schedule->command('fedn:fetch')
+                 ->dailyAt('3:00');
     }
 
     /**

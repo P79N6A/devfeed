@@ -66,6 +66,7 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'as' => 'admin.', 'mi
 Route::group(['namespace' => 'Admin', 'prefix' => 'api/v1', 'as'=>'api.', 'middleware' => 'admin'], function () {
     Route::post('sites', ['as' => 'site.list', 'uses' => 'QuotaController@sites']);
     Route::post('site', ['as' => 'site.save', 'uses' => 'QuotaController@saveSite']);
+    Route::post('site/check', ['as' => 'site.check', 'uses' => 'QuotaController@checkSite']);
 });
 
 Route::get('update', [
