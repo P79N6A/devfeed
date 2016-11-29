@@ -14,4 +14,8 @@ class Site extends Model
 
     protected $guarded = [];
 
+    public function __construct(array $attributes = []) {
+        parent::__construct($attributes);
+        $this->attributes['last_check'] = time();
+    }
 }

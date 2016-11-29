@@ -20,7 +20,7 @@ class DevController extends Controller
 
 
     public function htmlTest() {
-        $url = 'https://fedn.it/';
+        $url = 'https://www.qianduan.net/tag/html5/';
         $options = ['timeout' => 10,'allow_redirects' => true, 'verify' => false];
         $client = new Client($options);
 
@@ -33,7 +33,11 @@ class DevController extends Controller
 
         $dom = new Crawler($html);
 
-        $links = $dom->filter('.ac-title a:first-child')->extract(['_text', 'href']);
+        $links = $dom->filter('.read-more')->extract(['href']);
+        foreach($links as $i => $link) {
+            $links[$i] = (string)Uri::resolve(new Uri($url), $link);
+        }
+
         dd($links);
 
         $urls = [];

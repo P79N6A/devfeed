@@ -7,9 +7,7 @@ use Illuminate\Console\Command;
 use Fedn\Utils\QuotaUtils;
 use Fedn\Models\Quota;
 use Cache;
-
-
-
+use Fedn\Models\Site;
 
 class FetchFeeds extends Command
 {
@@ -65,7 +63,7 @@ class FetchFeeds extends Command
     protected static function processSite($data, $published = false) {
         $items = $data['items'];
 
-        foreach($items as $quotaData) {
+        foreach($items as $data) {
             $quota = Quota::create($data);
             if ($published) {
                 dispatch(new PublishFeedArticle($quota));

@@ -99,8 +99,8 @@
             this.form = this.rows[index]
           },
           submit() {
-              this.$http.post('/api/v1/site', this.form).then((x)=>{
-                  console.log('ok')
+              this.$http.post('/api/v1/site', this.form).then(x => {
+                  this.loadSites()
               }, (e) => {
                   console.log('fail')
               })
@@ -111,15 +111,18 @@
               }, (e) => {
                   console.log('fail')
               })
-          }
-        },
-        mounted() {
+          },
+          loadSites() {
             this.$http.post('/api/v1/sites',{size:20}).then((response) => {
               const result = response.data;
               this.rows = result.data.data
             }, (error) => {
               console.log(error)
             })
+          }
+        },
+        mounted() {
+            this.loadSites()
         }
     }
 

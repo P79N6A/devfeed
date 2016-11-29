@@ -2,6 +2,8 @@ const elixir = require('laravel-elixir')
 
 require('laravel-elixir-vue-2')
 
+require('laravel-elixir-webpack-official')
+
 /*
  |--------------------------------------------------------------------------
  | Elixir Asset Management
@@ -16,6 +18,5 @@ require('laravel-elixir-vue-2')
 elixir.config.sourcemaps = true
 
 elixir(mix => {
-  'use strict'
   mix.webpack('quotas.js')
 })

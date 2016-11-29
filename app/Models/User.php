@@ -57,6 +57,19 @@ class User extends Model implements AuthenticatableContract,
      */
     protected $hidden = ['password', 'remember_token'];
 
+    /**
+     * Create a new user.
+     *
+     * @param array $attributes
+     */
+    public function __construct(array $attributes = []) {
+        parent::__construct($attributes);
+
+        if(isset($this->attributes['api_token']) === false || empty($this->attributes['api_token'])) {
+            $this->attributes['api_token'] = str_random(60);
+        }
+    }
+
     public function articles() {
         return $this->hasMany(Article::class);
     }

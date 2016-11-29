@@ -9,6 +9,7 @@ namespace Fedn\Utils;
 
 use GuzzleHttp\Client as GuzzleHttp;
 use GuzzleHttp\Exception\ConnectException;
+use Illuminate\Routing\Matching\UriValidator;
 use Illuminate\Support\Collection;
 use Symfony\Component\DomCrawler\Crawler;
 use Fedn\Models\Site;
@@ -73,6 +74,16 @@ class QuotaUtils
 
     }
 
+    public static function resolveUrl($base, $relative) {
+        $base = new Uri($base);
+
+        if(substr($relative,0,4) === 'http' || substr($relative,0,2) === '//') {
+            return $relative;
+        } else {
+            return (string)Uri::resolve($base, $relative);
+        }
+    }
+
     /**
      * @param Site $site
      * @return array
@@ -86,25 +97,25 @@ class QuotaUtils
 
         $flagExceptions = ['exceptions' => false];
 
-        try {
-            $res = $client->get($site->list_url, $flagExceptions);
+        $res = $client->get($site->list_url, $flagExceptions);
 
-            if ($res->getStatusCode() <= 304) {
-                $html = (string)$res->getBody();
-                $res = null;
+        if ($res->getStatusCode() <= 304) {
+            $html = (string)$res->getBody();
+            $res = null;
 
-                $crawler = new Crawler($html);
+            $crawler = new Crawler($html);
 
-                $links = $crawler->filter($site->sel_link)->extract('href');
+            $links = $crawler->filter($site->sel_link)->extract('href');
 
-                $crawler = null;
+            $crawler = null;
 
-                return $links;
-            } else {
-                return [];
+            foreach($links as $i => $link) {
+                $links[$i] = QuotaUtils::resolveUrl($site->list_url, $link);
             }
-        } catch (Exception $e) {
-            throw $e;
+
+            return $links;
+        } else {
+            return [];
         }
 
     }
@@ -130,7 +141,8 @@ class QuotaUtils
             $data['site_name'] = $site->name;
             $data['site_url'] = $site->url;
             $data['author_name'] = $crawler->filter($site->sel_author_name)->text();
-            $data['author_url'] = $crawler->filter($site->sel_author_link)->attr('href');
+            $author_url = $crawler->filter($site->sel_author_link)->attr('href');
+            $data['author_url'] = QuotaUtils::resolveUrl($link, $author_url);
             return $data;
         } else {
             return null;
