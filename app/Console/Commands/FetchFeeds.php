@@ -57,6 +57,8 @@ class FetchFeeds extends Command
             });
             $data = QuotaUtils::fetch($site, true);
             static::processSite($data, $site->published);
+            $site->last_check = \Carbon\Carbon::now();
+            $site->save();
         }
     }
 

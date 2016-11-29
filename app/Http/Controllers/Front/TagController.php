@@ -12,7 +12,7 @@ use Fedn\Models\Article;
 class TagController extends Controller
 {
     public function index(){
-        $tags = Tag::paginate(15);
+        $tags = Tag::withCount('articles')->orderBy('articles_count','desc')->paginate(15);
         return view('front.tag', ['tags'=>$tags]);
     }
     public function detail($id){

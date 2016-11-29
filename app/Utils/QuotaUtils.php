@@ -7,10 +7,9 @@
 
 namespace Fedn\Utils;
 
+use Snoopy\Snoopy;
+use phpQuery;
 use GuzzleHttp\Client as GuzzleHttp;
-use GuzzleHttp\Exception\ConnectException;
-use Illuminate\Routing\Matching\UriValidator;
-use Illuminate\Support\Collection;
 use Symfony\Component\DomCrawler\Crawler;
 use Fedn\Models\Site;
 use Fedn\Models\Quota;
@@ -30,6 +29,8 @@ class QuotaUtils
             ]
         ]
     ];
+
+    protected static $ua = 'Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/54.0.2840.99 Safari/537.36';
 
     /**
      * @param mixed $data
@@ -58,15 +59,14 @@ class QuotaUtils
             if($checkExists) {
                 $quota = Quota::withTrashed()->firstOrNew(['url' => $link]);
                 if ($quota->exists) {
-                    return;
+                    continue;
                 }
             }
             $data = static::fetchArticle($link, $site);
-            if ($data) {
+            if(!is_null($data)) {
                 $items[] = $data;
             }
         }
-
         return [
             'links' => $links,
             'items' => $items
@@ -97,21 +97,42 @@ class QuotaUtils
 
         $flagExceptions = ['exceptions' => false];
 
-        $res = $client->get($site->list_url, $flagExceptions);
+        //$res = $client->get($site->list_url, $flagExceptions);
 
-        if ($res->getStatusCode() <= 304) {
-            $html = (string)$res->getBody();
+
+        $res = new Snoopy();
+        $res->agent = static::$ua;
+
+        $res->fetch($site->list_url);
+
+        if ($res->status == 200 || $res->status == 304) {
+        //if ($res->getStatusCode() <= 304) {
+            //$html = (string)$res->getBody();
+            //$res = null;
+
+
+
+            $html = $res->getResults();
+
             $res = null;
 
-            $crawler = new Crawler($html);
+            //$crawler = new Crawler($html);
 
-            $links = $crawler->filter($site->sel_link)->extract('href');
+            //$links = $crawler->filter($site->sel_link)->extract('href');
 
-            $crawler = null;
+            //$crawler = null;
 
-            foreach($links as $i => $link) {
-                $links[$i] = QuotaUtils::resolveUrl($site->list_url, $link);
+            $pq = phpQuery::newDocumentHTML($html);
+
+            $_links = $pq->find($site->sel_link);
+
+            $links = [];
+            foreach($_links as $link) {
+                $_url = pq($link)->attr('href');
+                $links[] = QuotaUtils::resolveUrl($site->list_url, $_url);
             }
+
+            $pa = null;
 
             return $links;
         } else {
@@ -122,27 +143,34 @@ class QuotaUtils
 
     protected static function fetchArticle($link, Site $site)
     {
-        $options = static::$guzzleOption;
-        $options['defaults']['headers']['referer'] = $site->list_url;
+        //$options = static::$guzzleOption;
+        //$options['defaults']['headers']['referer'] = $site->list_url;
 
-        $client = new GuzzleHttp($options);
-        $flagExceptions = ['exceptions' => false];
-        $res = $client->get($link, $flagExceptions);
-        if ($res->getStatusCode() <= 400) {
-            $html = $res->getBody()->getContents();
-            $crawler = new Crawler();
-            $crawler->addHtmlContent($html);
+        //$client = new GuzzleHttp($options);
+        //$flagExceptions = ['exceptions' => false];
+        //$res = $client->get($link, $flagExceptions);
+        $res = new Snoopy();
+        $res->agent = static::$ua;
+        $res->fetch($link);
+        //if ($res->getStatusCode() <= 400) {
+            //$html = $res->getBody()->getContents();
+        if ($res->status == 200 || $res->status == 304) {
+            $html = $res->getResults();
+
+            $doc = phpQuery::newDocumentHTML($html);
+
             $data = [];
-            $data['title'] = $crawler->filter($site->sel_title)->text();
+            $data['title'] = $doc->find($site->sel_title)->text();
             $data['url'] = $link;
-            $data['content'] = $crawler->filter($site->sel_content)->html();
-            $tags = $crawler->filter($site->sel_tag)->extract('_text');
+            $data['content'] = trim($doc->find($site->sel_content)->html(), "　 \t\n\r\v");
+            $tags = $doc->find($site->sel_tag)->texts();
             $data['tags'] = implode(',', $tags);
             $data['site_name'] = $site->name;
             $data['site_url'] = $site->url;
-            $data['author_name'] = $crawler->filter($site->sel_author_name)->text();
-            $author_url = $crawler->filter($site->sel_author_link)->attr('href');
+            $data['author_name'] = $doc->find($site->sel_author_name)->text();
+            $author_url = $doc->find($site->sel_author_link)->attr('href');
             $data['author_url'] = QuotaUtils::resolveUrl($link, $author_url);
+            $doc = null;
             return $data;
         } else {
             return null;

@@ -35,7 +35,7 @@
                             <div class="tag-infor col-xs-8">
                                 <h3 class="text-overflow"><a href="{{route('front.tag.index')}}/{{$t->id}}">{{$t->title}}</a></h3>
                                 <p class="tag-time">创建于{{ $t->publishTime }}</p>
-                                <p class="tag-num">已收录{{$t->articles->count()}}篇文章</p>
+                                <p class="tag-num">已收录{{$t->articles_count}}篇文章</p>
                             </div>
                         </div>
                     </li>

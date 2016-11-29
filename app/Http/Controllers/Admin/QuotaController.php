@@ -22,7 +22,7 @@ class QuotaController extends Controller
     public function sites(Request $req) {
         if($req->route()->getName() === 'api.site.list') {
             $size = $req->get('size', 20);
-            $sites = Site::orderBy('id', 'desc')->paginate(20);
+            $sites = Site::orderBy('id', 'desc')->paginate($size);
             return QuotaUtils::JsonResult($sites);
         } else {
             return view('backend.site');
@@ -77,9 +77,11 @@ class QuotaController extends Controller
                 'sel_content' => 'required',
                 'sel_tag' => 'required',
                 'sel_author_link' => 'required',
-                'sel_author_name' => 'required'
+                'sel_author_name' => 'required',
+                'published' => 'bool'
             ]);
-            $data = $req->request->all();
+            $data = $req->only(['name','url','list_url','sel_link','sel_title',
+              'sel_content','sel_tag','sel_author_link','sel_author_name', 'published']);
 
             $site = Site::updateOrCreate(['list_url'=>$data['list_url']], $data);
             return QuotaUtils::JsonResult($site);

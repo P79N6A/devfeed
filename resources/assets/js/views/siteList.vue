@@ -69,7 +69,7 @@
                     <label for="published" class="form-label">自动发布 <input type="checkbox" name="published" v-model="form.published" value="true" id="published"></label>
                 </div>
             </div>
-            <button @click="checkFetch" class="btn btn-success">测试抓取</button> <button @click="submit" class="btn btn-primary">添加站点</button>
+            <button @click="checkFetch" class="btn btn-success">测试抓取</button> <button @click="submit" class="btn btn-primary">保存站点</button>
         </div>
     </div>
 </template>
@@ -96,7 +96,7 @@
         },
         methods: {
           edit(index) {
-            this.form = this.rows[index]
+            this.form = Object.assign({},this.rows[index])
           },
           submit() {
               this.$http.post('/api/v1/site', this.form).then(x => {
@@ -106,14 +106,14 @@
               })
           },
           checkFetch() {
-              this.$http.post('/api/v1/site/check', this.form).then(x=>{
-                  console.log(x.data)
+              this.$http.post('/api/v1/site/check', this.form).then(x => {
+                  console.log(x.data.data)
               }, (e) => {
                   console.log('fail')
               })
           },
           loadSites() {
-            this.$http.post('/api/v1/sites',{size:20}).then((response) => {
+            this.$http.post('/api/v1/sites',{size:20}).then(response => {
               const result = response.data;
               this.rows = result.data.data
             }, (error) => {

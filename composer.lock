@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "dcf7c491e674ae959b855eb4e4ba6ec8",
-    "content-hash": "49ed5731da6ad1f53522f09825a119d5",
+    "hash": "162fa63877644a03bc8dfacec8d45f55",
+    "content-hash": "b99b04fc4f8c50244685b56a1e1a4d77",
     "packages": [
         {
             "name": "classpreloader/classpreloader",
@@ -1166,6 +1166,41 @@
                 "random"
             ],
             "time": "2016-11-07 23:38:38"
+        },
+        {
+            "name": "pherum/snoopy",
+            "version": "2.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/PheRum/snoopy.git",
+                "reference": "660134bc1cfd52c00ded91928320dd4e775ff4d9"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://packagist.phpcomposer.com/files/PheRum/snoopy/660134bc1cfd52c00ded91928320dd4e775ff4d9.zip",
+                "reference": "660134bc1cfd52c00ded91928320dd4e775ff4d9",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.4"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Snoopy\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "GPLv2"
+            ],
+            "authors": [
+                {
+                    "name": "Andrei Zmievski"
+                }
+            ],
+            "description": "snoopy",
+            "time": "2015-07-25 20:02:14"
         },
         {
             "name": "predis/predis",
@@ -2671,7 +2706,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/barryvdh/ReflectionDocBlock/zipball/3dcbd98b5d9384a5357266efba8fd29884458e5c",
+                "url": "https://packagist.phpcomposer.com/files/barryvdh/ReflectionDocBlock/3dcbd98b5d9384a5357266efba8fd29884458e5c.zip",
                 "reference": "3dcbd98b5d9384a5357266efba8fd29884458e5c",
                 "shasum": ""
             },
@@ -2858,7 +2893,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/collections/zipball/6c1e4eef75f310ea1b3e30945e9f06e652128b8a",
+                "url": "https://packagist.phpcomposer.com/files/doctrine/collections/6c1e4eef75f310ea1b3e30945e9f06e652128b8a.zip",
                 "reference": "6c1e4eef75f310ea1b3e30945e9f06e652128b8a",
                 "shasum": ""
             },
@@ -2924,7 +2959,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/common/zipball/a579557bc689580c19fee4e27487a67fe60defc0",
+                "url": "https://packagist.phpcomposer.com/files/doctrine/common/a579557bc689580c19fee4e27487a67fe60defc0.zip",
                 "reference": "a579557bc689580c19fee4e27487a67fe60defc0",
                 "shasum": ""
             },
@@ -3122,7 +3157,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/lexer/zipball/83893c552fd2045dd78aef794c31e694c37c0b8c",
+                "url": "https://packagist.phpcomposer.com/files/doctrine/lexer/83893c552fd2045dd78aef794c31e694c37c0b8c.zip",
                 "reference": "83893c552fd2045dd78aef794c31e694c37c0b8c",
                 "shasum": ""
             },
@@ -3437,7 +3472,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpDocumentor/ReflectionCommon/zipball/144c307535e82c8fdcaacbcfc1d6d8eeb896687c",
+                "url": "https://packagist.phpcomposer.com/files/phpDocumentor/ReflectionCommon/144c307535e82c8fdcaacbcfc1d6d8eeb896687c.zip",
                 "reference": "144c307535e82c8fdcaacbcfc1d6d8eeb896687c",
                 "shasum": ""
             },
@@ -3536,7 +3571,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpDocumentor/TypeResolver/zipball/b39c7a5b194f9ed7bd0dd345c751007a41862443",
+                "url": "https://packagist.phpcomposer.com/files/phpDocumentor/TypeResolver/b39c7a5b194f9ed7bd0dd345c751007a41862443.zip",
                 "reference": "b39c7a5b194f9ed7bd0dd345c751007a41862443",
                 "shasum": ""
             },
