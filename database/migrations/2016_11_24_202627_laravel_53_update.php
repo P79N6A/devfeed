@@ -18,7 +18,7 @@ class Laravel53Update extends Migration
             $table->string('api_token', 60)->unique();
         });
 
-        DB::table('users')->update(['api_token'=>str_random(60)]);
+        DB::table('users')->update(['api_token'=>DB::raw('md5(name)')]);
     }
 
     /**
