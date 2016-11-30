@@ -166,13 +166,35 @@ class QuotaUtils
             $data['title'] = $doc->find($site->sel_title)->text();
             $data['url'] = $link;
             $data['content'] = trim($doc->find($site->sel_content)->html(), "　 \t\n\r\v");
-            $tags = $doc->find($site->sel_tag)->texts();
-            $data['tags'] = implode(',', $tags);
+            if(substr($site->sel_tag,0,1) === '=') {
+                $data['tags'] = substr($site->sel_tag, 1);
+            } else if (substr($site->sel_tag, 0, 1) === '-') {
+                $data['tags'] = '';
+            } else {
+                $tags = $doc->find($site->sel_tag)->texts();
+                $data['tags'] = implode(',', $tags);
+            }
+
             $data['site_name'] = $site->name;
             $data['site_url'] = $site->url;
-            $data['author_name'] = $doc->find($site->sel_author_name)->text();
-            $author_url = $doc->find($site->sel_author_link)->attr('href');
-            $data['author_url'] = QuotaUtils::resolveUrl($link, $author_url);
+
+            if(substr($site->sel_author_name, 0, 1) === '=') {
+                $data['author_name'] = substr($site->sel_author_name, 1);
+            } else if (substr($site->sel_author_name, 0, 1) === '-') {
+                $data['author_name'] = '';
+            } else {
+                $data['author_name'] = $doc->find($site->sel_author_name)->text();
+            }
+
+            if(substr($site->sel_author_link, 0, 1) === '=') {
+                $data['author_url'] = substr($site->sel_author_link, 1);
+            } else if (substr($site->sel_author_link, 0, 1) === '-') {
+                $data['author_url'] = '';
+            } else {
+                $author_url = $doc->find($site->sel_author_link)->attr('href');
+                $data['author_url'] = QuotaUtils::resolveUrl($link, $author_url);
+            }
+
             $doc = null;
             return $data;
         } else {
