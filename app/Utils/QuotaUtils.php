@@ -163,7 +163,7 @@ class QuotaUtils
             $doc = phpQuery::newDocumentHTML($html);
 
             $data = [];
-            $data['title'] = $doc->find($site->sel_title)->text();
+            $data['title'] = trim($doc->find($site->sel_title)->text(), "　 \t\n\r\v");
             $data['url'] = $link;
             $data['content'] = trim($doc->find($site->sel_content)->html(), "　 \t\n\r\v");
             if(substr($site->sel_tag,0,1) === '=') {
