@@ -9,7 +9,6 @@ namespace Fedn\Utils;
 
 use Snoopy\Snoopy;
 use phpQuery;
-use GuzzleHttp\Client as GuzzleHttp;
 use Fedn\Models\Site;
 use Fedn\Models\Quota;
 use GuzzleHttp\Psr7\Uri;
@@ -101,8 +100,8 @@ class QuotaUtils
 
 
         $res = new Snoopy();
-        $res->proxy_host = 'proxy.tencent.com';
-        $res->proxy_port = '8080';
+        //$res->proxy_host = 'proxy.tencent.com';
+        //$res->proxy_port = '8080';
         $res->agent = static::$ua;
 
         $res->fetch($site->list_url);
@@ -152,8 +151,8 @@ class QuotaUtils
         //$flagExceptions = ['exceptions' => false];
         //$res = $client->get($link, $flagExceptions);
         $res = new Snoopy();
-        $res->proxy_host = 'proxy.tencent.com';
-        $res->proxy_port = '8080';
+        //$res->proxy_host = 'proxy.tencent.com';
+        //$res->proxy_port = '8080';
         $res->agent = static::$ua;
         $res->fetch($link);
         //if ($res->getStatusCode() <= 400) {
