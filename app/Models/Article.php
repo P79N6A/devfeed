@@ -65,6 +65,7 @@ class Article extends Model
             return "本站原创";
         } else {
             $host = parse_url($this->source_url, PHP_URL_HOST);
+            $host = str_replace('www.', '', $host);
             return $host ? "来自 <a href=\"$this->source_url\" rel=\"external\" target='_blank'>$host</a>" : '转载自网络';
         }
     }

@@ -121,6 +121,7 @@ class ArticleController extends Controller
         }
 
         $article->save();
+        Cache::forget('article_'.$article->id);
 
         if($article->wasRecentlyCreated) {
             Cache::tags('articles')->flush();
