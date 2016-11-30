@@ -31,15 +31,18 @@ class UpdateApp extends Command
     /**
      * Execute the console command.
      *
-     * @return mixed
      */
     public function handle()
     {
         //$this->callSilent('down');
         try {
-            $result[] = shell_exec('whoami');
+            //$result[] = shell_exec('whoami');
             $result[] = shell_exec('git pull');
-            $result[] = shell_exec('composer install --prefer-dist --no-dev');
+            $cmd = 'composer install --prefer-dist';
+            if(app()->environment(['staging', 'production'])) {
+                $cmd .= ' --no-dev';
+            }
+            $result[] = shell_exec($cmd);
             $this->call('migrate', ['--force' => true]);
             \Log::info(join("  ", $result));
         } catch (\Exception $e) {

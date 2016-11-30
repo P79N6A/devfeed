@@ -10,7 +10,6 @@ namespace Fedn\Utils;
 use Snoopy\Snoopy;
 use phpQuery;
 use GuzzleHttp\Client as GuzzleHttp;
-use Symfony\Component\DomCrawler\Crawler;
 use Fedn\Models\Site;
 use Fedn\Models\Quota;
 use GuzzleHttp\Psr7\Uri;
@@ -67,6 +66,7 @@ class QuotaUtils
                 $items[] = $data;
             }
         }
+
         return [
             'links' => $links,
             'items' => $items
@@ -93,14 +93,16 @@ class QuotaUtils
         $options = static::$guzzleOption;
         $options['defaults']['headers']['referer'] = $site->list_url;
 
-        $client = new GuzzleHttp($options);
+        //$client = new GuzzleHttp($options);
 
-        $flagExceptions = ['exceptions' => false];
+        //$flagExceptions = ['exceptions' => false];
 
         //$res = $client->get($site->list_url, $flagExceptions);
 
 
         $res = new Snoopy();
+        $res->proxy_host = 'proxy.tencent.com';
+        $res->proxy_port = '8080';
         $res->agent = static::$ua;
 
         $res->fetch($site->list_url);
@@ -150,6 +152,8 @@ class QuotaUtils
         //$flagExceptions = ['exceptions' => false];
         //$res = $client->get($link, $flagExceptions);
         $res = new Snoopy();
+        $res->proxy_host = 'proxy.tencent.com';
+        $res->proxy_port = '8080';
         $res->agent = static::$ua;
         $res->fetch($link);
         //if ($res->getStatusCode() <= 400) {

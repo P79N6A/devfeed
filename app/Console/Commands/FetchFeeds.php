@@ -8,6 +8,7 @@ use Fedn\Utils\QuotaUtils;
 use Fedn\Models\Quota;
 use Cache;
 use Fedn\Models\Site;
+use Carbon\Carbon;
 
 class FetchFeeds extends Command
 {
@@ -43,6 +44,7 @@ class FetchFeeds extends Command
     public function handle()
     {
         $site_id = (int)$this->argument('site');
+
         if($site_id === 0) {
             $sites = Cache::remember('all_sites', 1440, function(){
                 return Site::orderBy('published', 'desc')->get();
@@ -50,6 +52,8 @@ class FetchFeeds extends Command
             $sites->each(function($site){
                 $data = QuotaUtils::fetch($site, true);
                 static::processSite($data, $site->published);
+                $site->last_check = Carbon::now();
+                $site->save();
             });
         } else {
             $site = Cache::remember('site_'.$site_id, 10080, function() use ($site_id){
@@ -57,7 +61,7 @@ class FetchFeeds extends Command
             });
             $data = QuotaUtils::fetch($site, true);
             static::processSite($data, $site->published);
-            $site->last_check = \Carbon\Carbon::now();
+            $site->last_check = Carbon::now();
             $site->save();
         }
     }

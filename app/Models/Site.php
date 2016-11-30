@@ -2,6 +2,7 @@
 
 namespace Fedn\Models;
 
+use Faker\Provider\cs_CZ\DateTime;
 use Illuminate\Database\Eloquent\Model;
 use Carbon\Carbon;
 
@@ -14,14 +15,6 @@ class Site extends Model
     ];
 
     protected $guarded = [];
-
-    public function __construct(array $attributes = []) {
-
-        if(!array_key_exists('last_check', $attributes)) {
-            $attributes['last_check'] = time();
-        }
-        parent::__construct($attributes);
-    }
 
     public function getLastCheckAttribute() {
         if($this->attributes['last_check']) {
