@@ -3,6 +3,7 @@
 namespace Fedn\Http\Controllers\Admin;
 
 use Fedn\Models\Tag;
+use Fedn\Utils\QuotaUtils;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
 
@@ -63,6 +64,9 @@ class ArticleController extends Controller
             $ar->delete();
         }
         Cache::tags('articles')->flush();
+        if(request()->ajax()) {
+            return QuotaUtils::JsonResult($ar);
+        }
         return redirect()->back();
     }
     //文章发布
