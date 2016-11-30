@@ -67,6 +67,7 @@ Route::group(['namespace' => 'Admin', 'prefix' => 'api/v1', 'as'=>'api.', 'middl
     Route::post('sites', ['as' => 'site.list', 'uses' => 'QuotaController@sites']);
     Route::post('site', ['as' => 'site.save', 'uses' => 'QuotaController@saveSite']);
     Route::post('site/check', ['as' => 'site.check', 'uses' => 'QuotaController@checkSite']);
+    Route::post('site/fetch/{id}', ['as' => 'site.fetch', 'uses' => 'QuotaController@fetchSite']);
 });
 
 Route::get('update', [

@@ -21,7 +21,8 @@
                     <td>{{ row.list_url }}</td>
                     <td>
                         <button @click="edit(index)" class="btn btn-xs btn-success">编辑</button>
-                        <button class="btn btn-xs btn-danger">删除</button>
+                        <button @click="delete(row.id)" class="btn btn-xs btn-danger">删除</button>
+                        <button @click="fetch(row.id)" class="btn btn-xs btn-primary">抓取</button>
                     </td>
                 </tr>
                 </tbody>
@@ -111,6 +112,15 @@
               }, (e) => {
                   console.log('fail')
               })
+          },
+          fetch(id) {
+            console.log('wait...');
+            let self = this;
+            this.$http.post('/api/v1/site/fetch/'+id).then(x => {
+              setTimeout(self.loadSites.call(self), 3000)
+            }, e => {
+              console.log(e);
+            })
           },
           loadSites() {
             this.$http.post('/api/v1/sites',{size:20}).then(response => {

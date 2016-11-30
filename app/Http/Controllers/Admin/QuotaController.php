@@ -11,6 +11,7 @@ use Fedn\Http\Controllers\Controller;
 use Fedn\Models\Site;
 use Fedn\Utils\QuotaUtils;
 use Symfony\Component\HttpKernel\Exception\MethodNotAllowedHttpException;
+use Artisan;
 
 
 class QuotaController extends Controller
@@ -64,6 +65,20 @@ class QuotaController extends Controller
         } else {
             throw new MethodNotAllowedHttpException(['ajax']);
         }
+    }
+
+    public function fetchSite($id) {
+        if($id === null || empty($id) || is_numeric($id) === false) {
+            return QuotaUtils::JsonResult(null, 422, '参数id必须是数字');
+        }
+
+        set_time_limit(600);
+        $exitCode = Artisan::call('fedn:fetch', ['site' => $id]);
+
+
+        $results = $exitCode === 0 ? QuotaUtils::JsonResult('抓取任务已成功执行') : QuotaUtils::JsonResult('', $exitCode, '任务执行失败，请查看系统日志');
+
+        return $results;
     }
 
     public function saveSite(Request $req) {
