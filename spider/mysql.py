@@ -5,7 +5,7 @@ import MySQLdb
 
 def insertBlogs( title, content, author, userHome, website, source):
 
-	db = MySQLdb.connect("127.0.0.1","root","","spider")
+	db = MySQLdb.connect("123.207.39.176","node","RmtApp165!","fedn")
 
 	cursor = db.cursor()
 
@@ -42,7 +42,7 @@ def insertBlogs( title, content, author, userHome, website, source):
 # discarded
 def insert(title, content, author, userHome, website, source):
 
-	db = MySQLdb.connect("127.0.0.1","root","","spider")
+	db = MySQLdb.connect("123.207.39.176","node","RmtApp165!","fedn")
 
 	cursor = db.cursor()
 

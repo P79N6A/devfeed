@@ -23,12 +23,12 @@ class article(object):
 
 	@property
 	def title(self):
-		result = self.dom('h1').text()
+		result = self.dom('.topic_info h1').text()
 		return result
 
 	@property
 	def content(self):
-		return self.dom('.topic_detail').html()
+		return self.dom('.topic_detail .callout').html()
 
 	@property
 	def author(self):
@@ -68,11 +68,5 @@ class list(object):
 
 				mysql.insertBlogs( s.title, s.content, s.author, 'https://www.w3ctech.com'+s.userHome, 'https://www.w3ctech.com', 'https://www.w3ctech.com'+l)	
 				
-				print s.title+' is not repeat'
-
-			else:
-
-				print s.title+' is repeat'
-			
 		return 
 

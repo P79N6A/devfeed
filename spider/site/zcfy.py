@@ -68,11 +68,5 @@ class list(object):
 
 				mysql.insertBlogs( s.title, s.content, s.author, 'http://www.zcfy.cc'+s.userHome, 'https://zcfy.cc', 'http://www.zcfy.cc'+l)	
 				
-				print s.title+' is not repeat'
-
-			else:
-
-				print s.title+' is repeat'
-			
 		return 
 
