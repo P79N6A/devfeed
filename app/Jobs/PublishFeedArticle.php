@@ -60,6 +60,9 @@ class PublishFeedArticle implements ShouldQueue
         $tags = explode(',', $this->quota->tags);
         $ids = [];
         foreach($tags as $tag) {
+            if(empty(trim($tag, "　 \t\n\r\v"))) {
+                continue;
+            }
             $_tag = Tag::firstOrNew([
                 'title' => $tag
             ]);
