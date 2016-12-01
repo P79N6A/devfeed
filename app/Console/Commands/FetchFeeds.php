@@ -72,7 +72,8 @@ class FetchFeeds extends Command
         foreach($items as $data) {
             $quota = Quota::create($data);
             if ($published) {
-                dispatch(new PublishFeedArticle($quota));
+                $job = (new PublishFeedArticle($quota))->onQueue('publishing')->delay(Carbon::now()->addSeconds(30));
+                dispatch($job);
             }
         }
     }

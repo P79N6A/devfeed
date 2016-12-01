@@ -1,6 +1,6 @@
 <template>
     <div class="row">
-        <div class="col-sm-8">
+        <div class="col-sm-9">
             <table class="table table-bordered">
                 <thead class="bg-primary">
                 <tr>
@@ -124,8 +124,8 @@
           fetch(id) {
             console.log('wait...');
             let self = this;
-            this.$http.post('/api/v1/site/fetch/'+id).then(x => {
-              setTimeout(self.loadSites.call(self), 3000)
+            self.$http.post('/api/v1/site/fetch/'+id).then(x => {
+              self.loadSites();
             }, e => {
               console.log(e);
             })

@@ -2,6 +2,8 @@
 
 namespace Fedn\Http\Controllers\Admin;
 
+use Carbon\Carbon;
+use Fedn\Jobs\PublishFeedArticle;
 use Fedn\Models\Quota;
 use Illuminate\Http\Request;
 
@@ -18,6 +20,30 @@ class QuotaController extends Controller
 {
     public function list() {
         return view('backend.quota');
+    }
+
+    public function publish($id) {
+        if($id === null || empty($id) || is_numeric($id) === false) {
+            return QuotaUtils::JsonResult(null, 422, '参数id必须是数字');
+        }
+
+        $quota = Quota::find($id);
+        if($quota) {
+            $job = (new PublishFeedArticle($quota))->onQueue('publishing');
+            dispatch($job);
+            return QuotaUtils::JsonResult('任务已排入队列，请稍候。');
+        } else {
+            return QuotaUtils::JsonResult('稿件不存在，可能已被删除或已发布。', 404, '稿件不存在，可能已被删除或已发布。');
+        }
+    }
+
+    public function delete($id) {
+        if($id === null || empty($id) || is_numeric($id) === false) {
+            return QuotaUtils::JsonResult(null, 422, '参数id必须是数字');
+        }
+        $quota = Quota::destroy($id);
+
+        return QuotaUtils::JsonResult("操作成功，删除了 $quota 篇稿件");
     }
 
     public function sites(Request $req) {
