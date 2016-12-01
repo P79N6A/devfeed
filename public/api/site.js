@@ -1,0 +1,75 @@
+{
+    "list":[{
+    "index":"前端观察",
+    "name":"前端观察",
+    "description":"这是一个纯粹的前端技术分享网站，本站的目的是为前端技术人员提供所需的资讯及资源。",
+    "url":"https://www.qianduan.net/",
+    "create_time":"2016-11-23",
+    "logo":"https://fedn.it/img/site_logo/qianduan.jpg",
+    "type":"person"
+},
+    {
+        "index":"jiongks",
+        "name":"囧克斯",
+        "description":"该网站的名字因'JinksZhao'被调戏而得名为囧克斯。",
+        "url":"http://jiongks.name",
+        "create_time":"2016-11-23",
+        "logo":"https://fedn.it/img/site_logo/jiongks.jpg",
+        "type":"person"
+    },
+    {
+        "index":"淘宝前端技术团队",
+        "name":"淘宝前端团队",
+        "description":"前端的世界一直在变化着，在各种熟悉的语言进化中迅速的化学反应。也许你和我们一样，对前端的理解也在不断刷新。",
+        "url":"http://www.taobaofed.org/",
+        "create_time":"2016-11-23",
+        "logo":"https://fedn.it/img/site_logo/fed.jpg",
+        "type":"company"
+    },
+    {
+        "index":"淘宝前端技术团队",
+        "name":"淘宝前端团队",
+        "description":"前端的世界一直在变化着，在各种熟悉的语言进化中迅速的化学反应。也许你和我们一样，对前端的理解也在不断刷新。",
+        "url":"http://www.taobaofed.org/",
+        "create_time":"2016-11-23",
+        "logo":"https://fedn.it/img/site_logo/fed.jpg",
+        "type":"company"
+    },
+    {
+        "index":"75team",
+        "name":"奇舞团",
+        "description":"360奇舞团（奇虎75Team）是 奇虎360公司Web平台部前端工程师 + 部分特约嘉宾 组成的一个前端团队。 在这里，我们一起工作学习、一起沉淀、一起分享、一起为前端贡献影响。 开放是我们的特色，快乐是我们的使命",
+        "url":"http://www.75team.com/",
+        "create_time":"2016-11-23",
+        "logo":"https://fedn.it/img/site_logo/75team.jpg",
+        "type":"company"
+    },
+    {
+        "index":"jd",
+        "name":"京东用户体验设计团队",
+        "description":"京东设计中心官方博客",
+        "url":"https://jdc.jd.com/",
+        "create_time":"2016-11-23",
+        "logo":"https://fedn.it/img/site_logo/jd.jpg",
+        "type":"company"
+    },
+    {
+        "index":"AlloyTeam",
+        "name":"腾讯全端AlloyTeam团队",
+        "description":"腾讯Web前端团队 – Alloy Team 来自于腾讯SNG(社交网络事业群)，源于2008年成立的腾讯WebQQ团队，于2011年10.24正式对公司外以'腾讯AlloyTeam'为团队名称进行对外交流，AlloyTeam的寓意是：像合金一样将各种技术，以及各个成员的聪明才智聚合在一起，从而产生更强的合金特性，未来我们也希望通过聚合业界的各大前端牛人，来共同推动Web前端技术在中国的发展！我们致力于Web前端技术的研究，热衷HTML5、移动Web技术，用最酷的新技术开发各种有趣的开源项目",
+        "url":"http://www.alloyteam.com/",
+        "create_time":"2016-11-24",
+        "logo":"https://fedn.it/img/site_logo/alloyteam.jpg",
+        "type":"company"
+    },
+    {
+        "index":"imweb",
+        "name":"腾讯imweb前端社区",
+        "description":"IMWEB团队正式成立是时间是2011年6月7日，团队创立之初是负责腾讯最核心的基础业务，QQ注册， QQ登录（ptlogin），QQ资料和关系链拓展等基础服务。 后转型进行应用开发，分别投入Q+，QQ圈子， QQ匿名聊，QQ群整体业务等。目前主要负责腾讯在线教育战略产品腾讯课堂，多人社交互动视频以及活动 组织类项目的研发工作。",
+        "url":"http://imweb.io/sort/default",
+        "create_time":"2016-11-24",
+        "logo":"https://fedn.it/img/site_logo/imweb.jpg",
+        "type":"company"
+    }
+]
+}
