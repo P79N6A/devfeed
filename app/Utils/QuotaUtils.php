@@ -166,6 +166,7 @@ class QuotaUtils
             $data['title'] = trim($doc->find($site->sel_title)->text(), "　 \t\n\r\v");
             $data['url'] = $link;
             $data['content'] = trim($doc->find($site->sel_content)->html(), "　 \t\n\r\v");
+
             if(substr($site->sel_tag,0,1) === '=') {
                 $data['tags'] = substr($site->sel_tag, 1);
             } else if (substr($site->sel_tag, 0, 1) === '-') {
@@ -196,7 +197,15 @@ class QuotaUtils
             }
 
             $doc = null;
-            return $data;
+
+            json_encode($data);
+
+            if(json_last_error()) {
+                return null;
+            } else {
+                return $data;
+            }
+
         } else {
             return null;
         }

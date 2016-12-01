@@ -27,7 +27,7 @@ return [
      |
      */
     'storage' => [
-        'enabled'    => false,
+        'enabled'    => true,
         'driver'     => 'file', // redis, file, pdo, custom
         'path'       => storage_path('debugbar'), // For file driver
         'connection' => null,   // Leave null for default connection (Redis/PDO)
@@ -83,7 +83,7 @@ return [
      */
 
     'collectors' => [
-        'phpinfo'         => true,  // Php version
+        'phpinfo'         => false,  // Php version
         'messages'        => true,  // Messages
         'time'            => true,  // Time Datalogger
         'memory'          => true,  // Memory usage
@@ -97,11 +97,11 @@ return [
         'default_request' => false, // Regular or special Symfony request logger
         'symfony_request' => true,  // Only one can be enabled..
         'mail'            => false,  // Catch mail messages
-        'logs'            => true, // Add the latest log messages
+        'logs'            => false, // Add the latest log messages
         'files'           => false, // Show the included files
         'config'          => false, // Display config settings
         'auth'            => true, // Display Laravel authentication status
-        'gate'            => false, // Display Laravel Gate checks
+        'gate'            => true, // Display Laravel Gate checks
         'session'         => true,  // Display session data
     ],
 
@@ -120,10 +120,10 @@ return [
         ],
         'db' => [
             'with_params'       => true,   // Render SQL with the parameters substituted
-            'timeline'          => false,  // Add the queries to the timeline
-            'backtrace'         => false,  // EXPERIMENTAL: Use a backtrace to find the origin of the query in your files.
+            'timeline'          => true,  // Add the queries to the timeline
+            'backtrace'         => true,  // EXPERIMENTAL: Use a backtrace to find the origin of the query in your files.
             'explain' => [                 // EXPERIMENTAL: Show EXPLAIN output on queries
-                'enabled' => false,
+                'enabled' => true,
                 'types' => ['SELECT'],     // ['SELECT', 'INSERT', 'UPDATE', 'DELETE']; for MySQL 5.6.3+
             ],
             'hints'             => true,    // Show hints for common mistakes

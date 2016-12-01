@@ -22,7 +22,6 @@
                     <th>类型</th>
                     <th>作者</th>
                     <th>标签</th>
-                    <th>评论</th>
                     <th>日期</th>
                     <th>录入</th>
                     <th>操作</th>
@@ -40,7 +39,6 @@
                                 <a href="{{'/tag/'.$tag->id}}" target="_blank">{{ $tag->title }}</a>
                             @endforeach
                         </td>
-                        <td>{{ count($art->comments) }}</td>
                         <td>@if($art->status == 'draft')
                                      <span style="color:red">草稿</span>
                                 @elseif($art->status == 'publish')

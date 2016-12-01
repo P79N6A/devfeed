@@ -23,8 +23,7 @@ class ArticleController extends Controller
 {
     public function getIndex()
     {
-        $articles = Article::withoutGlobalScope('published')->orderBy('id','desc')->with(['user', 'tags'])->paginate(10);
-        //Article::withTrashed()->restore();
+        $articles = Article::withoutGlobalScope('published')->orderBy('status')->orderBy('id','desc')->with(['user', 'tags'])->paginate(10);
         return view('backend.article-list', compact('articles'));
     }
 

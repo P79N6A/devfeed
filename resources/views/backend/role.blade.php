@@ -33,24 +33,12 @@
                     <th>操作</th>
                 </tr>
                 </thead>
-                @if($roles->hasMorePages())
-                    <tfoot>
-                    <tr>
-                        <td colspan="5">
-                            <nav>
-                                {!! $roles->links() !!}
-                            </nav>
-                        </td>
-                    </tr>
-                    </tfoot>
-
-                @endif
                 <tbody>
                 @forelse($roles as $role)
                     <tr>
                         <td>{{ $role->id }}</td>
                         <td>{{ $role->title }}</td>
-                        <td>{{ $role->users()->count() }}</td>
+                        <td>{{ $role->users_count }}</td>
                         <td>{{ $role->description }}</td>
                         <td>{{ $role->is_system ? '系统角色' : '普通角色' }}</td>
                         <td>

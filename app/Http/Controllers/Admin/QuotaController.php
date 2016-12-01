@@ -58,6 +58,7 @@ class QuotaController extends Controller
 
             try {
                 $data = QuotaUtils::fetch($site, false);
+
                 return QuotaUtils::JsonResult($data);
             } catch (Exception $e) {
                 return QuotaUtils::JsonResult(null, $e->getCode(), $e->getMessage());

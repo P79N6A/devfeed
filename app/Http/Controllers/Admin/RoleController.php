@@ -15,7 +15,7 @@ class RoleController extends Controller
         if (!request()->user()->hasRole(1)) {
             return response('对不起，您没有权限进行这项操作！', 403);
         }
-        $roles = Role::with('users')->paginate(10);
+        $roles = Role::orderBy('id')->withCount('users')->get();
 
         return view('backend.role',['roles'=>$roles]);
     }
