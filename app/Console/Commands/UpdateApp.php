@@ -37,6 +37,7 @@ class UpdateApp extends Command
         //$this->callSilent('down');
         try {
             //$result[] = shell_exec('whoami');
+            $result[] = shell_exec('cd ' . base_path());
             $result[] = shell_exec('git pull');
             $cmd = 'composer install --prefer-dist';
             if(app()->environment(['staging', 'production'])) {
