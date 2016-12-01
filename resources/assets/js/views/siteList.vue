@@ -1,6 +1,6 @@
 <template>
     <div class="row">
-        <div class="col-md-8">
+        <div class="col-sm-8">
             <table class="table table-bordered">
                 <thead class="bg-primary">
                 <tr>
@@ -21,14 +21,14 @@
                     <td>{{ row.list_url }}</td>
                     <td>
                         <button @click="edit(index)" class="btn btn-xs btn-success">编辑</button>
-                        <button @click="delete(row.id)" class="btn btn-xs btn-danger">删除</button>
+                        <button @click="del(row.id)" class="btn btn-xs btn-danger">删除</button>
                         <button @click="fetch(row.id)" class="btn btn-xs btn-primary">抓取</button>
                     </td>
                 </tr>
                 </tbody>
             </table>
         </div>
-        <div class="col-md-3">
+        <div class="col-sm-3">
             <div class="form">
                 <div class="form-group">
                     <label for="name" class="form-label">名称</label>
@@ -98,6 +98,14 @@
         methods: {
           edit(index) {
             this.form = Object.assign({},this.rows[index])
+          },
+          del(id) {
+            let self = this;
+            this.$http.post('/api/v1/site/del/'+id).then(() => {
+               self.loadSites.call(self)
+            }, e => {
+               console.log(e)
+            });
           },
           submit() {
               this.$http.post('/api/v1/site', this.form).then(x => {

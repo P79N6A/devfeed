@@ -48,6 +48,27 @@ class Handler extends ExceptionHandler
     }
 
     /**
+     * Render the given HttpException.
+     *
+     * @param  \Symfony\Component\HttpKernel\Exception\HttpException  $e
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    protected function renderHttpException(\Symfony\Component\HttpKernel\Exception\HttpException $e)
+    {
+        $status = $e->getStatusCode();
+
+        if (request()->ajax() || request()->expectsJson()) {
+            return response()->json(['error' => $e->getMessage()], $status);
+        }
+
+        if (view()->exists("errors.{$status}")) {
+            return response()->view("errors.{$status}", ['exception' => $e], $status, $e->getHeaders());
+        } else {
+            return $this->convertExceptionToResponse($e);
+        }
+    }
+
+    /**
      * Convert an authentication exception into an unauthenticated response.
      *
      * @param  \Illuminate\Http\Request  $request

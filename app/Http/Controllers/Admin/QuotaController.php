@@ -82,6 +82,15 @@ class QuotaController extends Controller
         return $results;
     }
 
+    public function delSite($id) {
+        if($id === null || empty($id) || is_numeric($id) === false) {
+            return QuotaUtils::JsonResult(null, 422, '参数id必须是数字');
+        }
+
+        $result = Site::destroy($id);
+        return QuotaUtils::JsonResult($result);
+    }
+
     public function saveSite(Request $req) {
         if($req->ajax()) {
             $this->validate($req, [

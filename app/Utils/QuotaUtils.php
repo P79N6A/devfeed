@@ -103,6 +103,8 @@ class QuotaUtils
         //$res->proxy_host = 'proxy.tencent.com';
         //$res->proxy_port = '8080';
         $res->agent = static::$ua;
+        $res->referer = $site->url;
+        $res->accept = 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8';
 
         $res->fetch($site->list_url);
 
@@ -154,6 +156,8 @@ class QuotaUtils
         //$res->proxy_host = 'proxy.tencent.com';
         //$res->proxy_port = '8080';
         $res->agent = static::$ua;
+        $res->referer = $site->url;
+        $res->accept = 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8';
         $res->fetch($link);
         //if ($res->getStatusCode() <= 400) {
             //$html = $res->getBody()->getContents();
@@ -198,13 +202,13 @@ class QuotaUtils
 
             $doc = null;
 
-            json_encode($data);
-
-            if(json_last_error()) {
+            try {
+                $test = response()->json($data);
+            } catch ( \Exception $e ) {
                 return null;
-            } else {
-                return $data;
             }
+
+            return $data;
 
         } else {
             return null;
