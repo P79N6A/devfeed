@@ -29,7 +29,7 @@ Route::group(['namespace' => 'Front', 'as' => 'front.'], function () {
     });
 
     Route::group(['as' => 'feed.'], function () {
-        Route::get('/feeds', ['as' => 'list', 'uses' => 'FeedController@list']);
+        Route::get('/feeds', ['as' => 'list', 'uses' => 'FeedController@listFeeds']);
         Route::get('/feed/{id}', ['as' => 'view', 'uses' => 'FeedController@view']);
     });
 
@@ -54,9 +54,9 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'as' => 'admin.', 'mi
     Route::post('article/publish/{id}', ['as' => 'article.publish', 'uses' => 'ArticleController@publish']);
 
     // tags
-    Route::get('tags', ['as' => 'tags', 'uses' => 'TagController@list']);
+    Route::get('tags', ['as' => 'tags', 'uses' => 'TagController@listTags']);
 
-    Route::get('quotas', ['as' => 'quotas', 'uses' => 'QuotaController@list']);
+    Route::get('quotas', ['as' => 'quotas', 'uses' => 'QuotaController@listQuotas']);
 
     // sites
     Route::get('sites', ['as' => 'sites', 'uses' => 'QuotaController@sites']);

@@ -11,7 +11,7 @@ use Fedn\Models\Tag;
 
 class TagController extends Controller
 {
-    public function list()
+    public function listTags()
     {
         $tags = Tag::withCount('articles')->orderBy('updated_at')->paginate(10);
 

@@ -12,7 +12,7 @@ use Cache;
 class FeedController extends Controller
 {
 
-    public function list() {
+    public function listFeeds() {
         $page = request()->input('page', 1);
         if (is_numeric($page) == false) {
             $page = 1;

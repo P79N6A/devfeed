@@ -18,7 +18,7 @@ use Artisan;
 
 class QuotaController extends Controller
 {
-    public function list() {
+    public function listQuotas() {
         return view('backend.quota');
     }
 
