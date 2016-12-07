@@ -30,7 +30,8 @@ class Kernel extends ConsoleKernel
         // $schedule->command('inspire')
         //          ->hourly();
         $schedule->command('fedn:fetch')
-                 ->dailyAt('4:50');
+                 ->dailyAt('5:00')
+                 ->emailOutputTo('kairee@qq.com');
     }
 
     /**
