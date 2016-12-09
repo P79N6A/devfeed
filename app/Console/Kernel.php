@@ -31,8 +31,7 @@ class Kernel extends ConsoleKernel
         //          ->hourly();
         $schedule->command('fedn:fetch')
                  ->dailyAt('5:00')
-                 ->sendOutputTo(storage_path('logs/fetch.log'))
-                 ->emailOutputTo('kairee@qq.com');
+                 ->sendOutputTo(storage_path('logs/fetch.log'));
     }
 
     /**
