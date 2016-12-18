@@ -1,5 +1,12 @@
 <template>
     <div>
+    <div class="alert alert-dismissible" :class="{ 'alert-success': status, 'alert-danger': !status }" role="alert" v-show="msg">
+        <button type="button" class="close" @click.prevent="closeAlert()">
+            <span aria-hidden="true">&times;</span>
+            <span class="sr-only">Close</span>
+        </button>
+        <strong>{{ msg }}</strong>
+    </div>
     <table class="table table-bordered">
         <thead class="bg-primary">
         <tr>
@@ -12,16 +19,16 @@
         </tr>
         </thead>
         <tbody>
-        <tr v-for="row in result.data">
+        <tr v-for="(row, index) in result.data">
             <td>{{ row.id }}</td>
-            <td><a :href="row.url" :title="row.title">{{ row.title }}</a></td>
+            <td><a :href="row.url" :title="row.title">{{ index }} {{ row.title }}</a></td>
             <td><a :href="row.site_url" :title="row.site_name">{{ row.site_name }}</a></td>
             <td><a :href="row.author_url" :title="row.author_name">{{ row.author_name }}</a>
             </td>
             <td>{{ row.tags }}</td>
             <td>
-                <button @click="publish(row.id)" class="btn btn-xs btn-warning">发布</button>
-                <button @click="del(row.id)" class="btn btn-xs btn-danger">删除</button>
+                <button @click="publish(index)" class="btn btn-xs btn-warning" v-bind:disabled="row.onqueue">发布</button>
+                <button @click="del(index)" class="btn btn-xs btn-danger">删除</button>
             </td>
         </tr>
         </tbody>
@@ -39,23 +46,37 @@
     export default {
         name: 'quotaList',
         data() {
-            return { result:{} }
+            return { result:{}, msg:'', status:true }
         },
         methods: {
-          publish(id) {
+          closeAlert() {
+            console.log('done')
+            this.msg = false;
+            this.status = true;
+          },
+          publish(index) {
             const self = this;
             if(confirm('确定要发布这篇文章吗？')) {
-                self.$http.post('/api/v1/quotas/publish/'+id).then(() => {
-                  self.fetch();
+                const item = self.result.data[index];
+                self.$set(self.result.data[index], 'onqueue', true);
+                self.result.data[index] = item;
+                self.$http.post('/api/v1/quotas/publish/'+item.id).then(x => {
+                  self.result.data.splice(index,1);
+                  self.status = x.data.code === 0 ? true : false;
+                  self.msg = self.status ? x.data.data : x.data.message;
                 }, x => {
-                  console.log(x.data);
+                  self.msg = '请求失败，请联系管理员解决。';
+                  self.status = false;
                 })
             }
           },
-          del(id) {
+          del(index) {
             const self = this;
             if(confirm('确定要删除这篇文章吗？')) {
-                self.$http.post('/api/v1/quotas/del/'+id).then(() => {
+                const item = self.result.data[index];
+                self.$http.post('/api/v1/quotas/del/'+item.id).then(x => {
+                  self.status = x.data.code === 0 ? true : false;
+                  self.msg = self.status ? x.data.data : x.data.message;
                   self.fetch();
                 }, x => {
                   console.log(x.data);
