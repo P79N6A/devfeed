@@ -1,4 +1,5 @@
 <template>
+    <div>
     <table class="table table-bordered">
         <thead class="bg-primary">
         <tr>
@@ -11,7 +12,7 @@
         </tr>
         </thead>
         <tbody>
-        <tr v-for="row in rows">
+        <tr v-for="row in result.data">
             <td>{{ row.id }}</td>
             <td><a :href="row.url" :title="row.title">{{ row.title }}</a></td>
             <td><a :href="row.site_url" :title="row.site_name">{{ row.site_name }}</a></td>
@@ -25,12 +26,20 @@
         </tr>
         </tbody>
     </table>
+    <ul v-show="result.total > 1" class="pagination">
+        <li v-if="result.prev_page_url"><a href="#" @click.prevent="fetch(result.current_page-1)" rel="prev">上一页</a></li>
+        <li v-else class="disabled"><span>上一页</span></li>
+        <li class="disabled"><span>{{ result.current_page }} / {{ parseInt(result.total / result.per_page) - 1 }}</span></li>
+        <li v-if="result.next_page_url"><a href="#" @click.prevent="fetch(result.current_page+1)" rel="next">下一页</a></li>
+        <li v-else class="disabled"><span>下一页</span></li>
+    </ul>
+    </div>
 </template>
 <script>
     export default {
         name: 'quotaList',
         data() {
-            return {rows: []}
+            return { result:{} }
         },
         methods: {
           publish(id) {
@@ -53,11 +62,12 @@
                 })
             }
           },
-          fetch() {
+          fetch(page) {
+            page = ('undefined' === typeof page || isNaN(page) )? 1 : page;
             const self = this;
-            self.$http.post('/api/v1/quotas/list',{size:20}).then(res => {
+            self.$http.post('/api/v1/quotas/list',{"size":20, "page":page}).then(res => {
               const result = res.data;
-              self.rows = result.data.data
+              self.result = result.data
             }, x => {
               console.log(x.data);
             })

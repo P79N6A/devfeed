@@ -8,13 +8,6 @@
     <div class="row">
         <div class="col-md-12" id="quotaApp">
             <quota-list></quota-list>
-            <div class="container page_container">
-                <nav>
-                    <ul class="pagination pull-right">
-
-                    </ul>
-                </nav>
-            </div>
 
         </div>
     </div>

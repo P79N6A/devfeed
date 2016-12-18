@@ -1,8 +1,8 @@
-const elixir = require('laravel-elixir')
+const elixir = require('laravel-elixir');
 
-require('laravel-elixir-vue-2')
+require('laravel-elixir-vue-2');
 
-require('laravel-elixir-webpack-official')
+require('laravel-elixir-webpack-official');
 
 /*
  |--------------------------------------------------------------------------
@@ -15,8 +15,8 @@ require('laravel-elixir-webpack-official')
  |
  */
 
-elixir.config.sourcemaps = true
+elixir.config.sourcemaps = true;
 
 elixir(mix => {
   mix.webpack('quotas.js')
-})
+});
