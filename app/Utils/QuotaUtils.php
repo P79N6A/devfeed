@@ -7,11 +7,14 @@
 
 namespace Fedn\Utils;
 
+use Faker\Provider\bn_BD\Utils;
 use Snoopy\Snoopy;
 use phpQuery;
 use Fedn\Models\Site;
 use Fedn\Models\Quota;
 use GuzzleHttp\Psr7\Uri;
+
+use Fedn\Utils\FednUtil as Tool;
 
 class QuotaUtils
 {
@@ -83,6 +86,8 @@ class QuotaUtils
         }
     }
 
+
+
     /**
      * @param Site $site
      * @return array
@@ -100,8 +105,6 @@ class QuotaUtils
 
 
         $res = new Snoopy();
-        //$res->proxy_host = 'proxy.tencent.com';
-        //$res->proxy_port = '8080';
         $res->agent = static::$ua;
         $res->referer = $site->url;
         $res->accept = 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8';
@@ -153,8 +156,6 @@ class QuotaUtils
         //$flagExceptions = ['exceptions' => false];
         //$res = $client->get($link, $flagExceptions);
         $res = new Snoopy();
-        //$res->proxy_host = 'proxy.tencent.com';
-        //$res->proxy_port = '8080';
         $res->agent = static::$ua;
         $res->referer = $site->url;
         $res->accept = 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8';
@@ -167,13 +168,13 @@ class QuotaUtils
             $doc = phpQuery::newDocumentHTML($html);
 
             $data = [];
-            $data['title'] = trim($doc->find($site->sel_title)->text(), "　 \t\n\r\v");
+            $data['title'] = trim($doc->find($site->sel_title)->text());
             $data['url'] = $link;
-            $data['content'] = trim($doc->find($site->sel_content)->html(), "　 \t\n\r\v");
+            $data['content'] = Tool::removeInValidUtf8Chars(trim($doc->find($site->sel_content)->html()));
 
-            if(substr($site->sel_tag,0,1) === '=') {
+            if(Tool::startsWith($site->sel_tag, "=")) {
                 $data['tags'] = substr($site->sel_tag, 1);
-            } else if (substr($site->sel_tag, 0, 1) === '-') {
+            } else if (Tool::startsWith($site->sel_tag, "-")) {
                 $data['tags'] = '';
             } else {
                 $tags = $doc->find($site->sel_tag)->texts();
@@ -183,17 +184,17 @@ class QuotaUtils
             $data['site_name'] = $site->name;
             $data['site_url'] = $site->url;
 
-            if(substr($site->sel_author_name, 0, 1) === '=') {
+            if(Tool::startsWith($site->sel_author_name, "=")) {
                 $data['author_name'] = substr($site->sel_author_name, 1);
-            } else if (substr($site->sel_author_name, 0, 1) === '-') {
+            } else if (Tool::startsWith($site->sel_author_name, "-")) {
                 $data['author_name'] = '';
             } else {
                 $data['author_name'] = $doc->find($site->sel_author_name)->text();
             }
 
-            if(substr($site->sel_author_link, 0, 1) === '=') {
+            if(Tool::startsWith($site->sel_author_link, "=")) {
                 $data['author_url'] = substr($site->sel_author_link, 1);
-            } else if (substr($site->sel_author_link, 0, 1) === '-') {
+            } else if (Tool::startsWith($site->sel_author_link, "-")) {
                 $data['author_url'] = '';
             } else {
                 $author_url = $doc->find($site->sel_author_link)->attr('href');

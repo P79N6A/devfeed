@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use Fedn\Http\Requests;
 use Fedn\Http\Controllers\Controller;
 use Fedn\Models\Quota;
-use Fedn\Utils\QuotaUtils;
+use Fedn\Utils\FednUtil as Tool;
 use Symfony\Component\Routing\Exception\InvalidParameterException;
 
 class QuotaController extends Controller
@@ -26,10 +26,19 @@ class QuotaController extends Controller
         $quotas->select('id','title','content','url','tags','site_url','site_name','author_url','author_name','created_at','updated_at');
         $data = $quotas->paginate($size);
 
+        $result = [];
         foreach($data as $item) {
-            $content = trim(strip_tags($item->content), "　 \t\n\r\v");
-            $content = str_replace("\n","", $content);
-            $item->content = mb_substr($content, 0, 140, 'utf8');
+            $item->content = Tool::removeInValidUtf8Chars($item->content);
+            $item->save();
+            $content = strip_tags($item->content);
+            $content = preg_replace('/[\n\r]/', '', $content);
+            $content = preg_replace('/[\s]+/', ' ', $content);
+            $item->content = mb_strcut($content, 0, 140);
+            $result[] = $item;
+            json_encode($item);
+            if(JSON_ERROR_NONE !== json_last_error()) {
+                dd($item);
+            }
         }
         return QuotaUtils::JsonResult($data);
     }
