@@ -40,5 +40,9 @@ return [
         'client_secret' => env('QQ_SECRET'),
         'redirect' => env('QQ_REDIRECT_URI'),
     ],
+    'rollbar' => [
+        'access_token' => env('ROLLBAR_TOKEN'),
+        'level' => env('ROLLBAR_LEVEL'),
+    ],
 
 ];

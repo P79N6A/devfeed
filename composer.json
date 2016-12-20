@@ -13,7 +13,8 @@
         "predis/predis": "~1.0",
         "electrolinux/phpquery": "^0.9.6",
         "pherum/snoopy": "^2.0",
-        "doctrine/dbal": "~2.3"
+        "doctrine/dbal": "~2.3",
+        "jenssegers/rollbar": "^1.5"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",
