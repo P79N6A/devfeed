@@ -21,7 +21,7 @@
         <tbody>
         <tr v-for="(row, index) in result.data">
             <td>{{ row.id }}</td>
-            <td><a :href="row.url" :title="row.title">{{ index }} {{ row.title }}</a></td>
+            <td><a :href="row.url" :title="row.title">{{ row.title }}</a></td>
             <td><a :href="row.site_url" :title="row.site_name">{{ row.site_name }}</a></td>
             <td><a :href="row.author_url" :title="row.author_name">{{ row.author_name }}</a>
             </td>

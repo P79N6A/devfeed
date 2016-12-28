@@ -69,7 +69,6 @@ class User extends Model implements AuthenticatableContract,
             $this->attributes['api_token'] = str_random(60);
         }
     }
-
     public function articles() {
         return $this->hasMany(Article::class);
     }
