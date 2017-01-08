@@ -36,7 +36,7 @@
     <ul v-show="result.total > 1" class="pagination">
         <li v-if="result.prev_page_url"><a href="#" @click.prevent="fetch(result.current_page-1)" rel="prev">上一页</a></li>
         <li v-else class="disabled"><span>上一页</span></li>
-        <li class="disabled"><span>{{ result.current_page }} / {{ parseInt(result.total / result.per_page) - 1 }}</span></li>
+        <li class="disabled"><span>{{ result.current_page }} / {{ parseInt(result.total / result.per_page) + 1 }}</span></li>
         <li v-if="result.next_page_url"><a href="#" @click.prevent="fetch(result.current_page+1)" rel="next">下一页</a></li>
         <li v-else class="disabled"><span>下一页</span></li>
     </ul>
