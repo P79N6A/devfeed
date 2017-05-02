@@ -45,6 +45,10 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'as' => 'admin.', 'mi
     Route::post('save-role', ['as' => 'role.save', 'uses' => 'RoleController@postSave']);
     Route::get('del-role/{role}', ['as' => 'role.del', 'uses' => 'RoleController@postDelete'])->where('role', '[0-9]+');
 
+    // Users
+    Route::get('get-users', ['as' => 'user.list', 'uses' => 'UserController@getUsersApi']);
+    Route::post('save-users', ['as' => 'user.save', 'uses' => 'UserController@postSaveUserApi']);
+
     // articles
     Route::get('articles', ['as' => 'articles', 'uses' => 'ArticleController@getIndex']);
     Route::get('article/{id}', ['as' => 'article.edit', 'uses' => 'ArticleController@edit'])->where('id', '[0-9]+');
