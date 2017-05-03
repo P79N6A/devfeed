@@ -45,12 +45,11 @@
                          {!! $art->content !!}
                     </div>
                 </div>
-                <a href="#comment" class="comment-btn"><span class="ds-thread-count comment-num" data-thread-key="{{ $art->id }}" data-count-type="comments">暂无评论</span></a>
+                <a href="#comment" class="comment-btn"><a href="#SOHUCS" id="changyan_count_unit"></a></a>
             </div>
             <div class="comment" id="comment">
                 <div class="comments">
-                    <a name="comments"></a>
-                    <div class="ds-thread" data-thread-key="{{ $art->id }}" data-title="{{ $art->title }}" data-url="{{ url('/article/'.$art->id) }}"></div>
+                    <div id="SOHUCS" sid="{{ $art->id }}" ></div>
                 </div>
             </div>
         </div>
@@ -76,16 +75,34 @@
 @endsection
 
 @section('pageScript')
-    <script>
-        var duoshuoQuery = {short_name: "webdn"};
-        (function () {
-            var ds = document.createElement('script');
-            ds.type = 'text/javascript';
-            ds.async = true;
-            ds.src = '//static.duoshuo.com/embed.js';
-            ds.charset = 'UTF-8';
-            (document.getElementsByTagName('head')[0]
-            || document.getElementsByTagName('body')[0]).appendChild(ds);
-        })();
-    </script>
+<script>
+(function(){
+    var appid = 'cysYDvnSW';
+    var conf = 'prod_9ecdc416526df4ef4273da69d4a7b3be';
+    var loadJs=function(d,a){
+        var c=document.getElementsByTagName("head")[0]||document.head||document.documentElement;
+        var b=document.createElement("script");
+        b.setAttribute("charset","UTF-8");
+        b.setAttribute("src",d);
+        if(typeof a==="function"){
+            if(window.attachEvent){
+                b.onreadystatechange=function(){
+                    var e=b.readyState;
+                    if(e==="loaded"||e==="complete"){
+                        b.onreadystatechange=null;
+                        a();
+                    }
+                }
+            }else{
+                b.onload=a;
+            }
+        }
+        c.appendChild(b);
+    };
+    loadJs("https://changyan.sohu.com/upload/changyan.js",function(){
+        window.changyan.api.config({appid:appid,conf:conf});
+    });
+    loadJs("https://assets.changyan.sohu.com/upload/plugins/plugins.count.js");
+}());
+</script>
 @endsection
