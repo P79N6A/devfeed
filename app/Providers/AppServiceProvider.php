@@ -36,9 +36,5 @@ class AppServiceProvider extends ServiceProvider
             $loader = \Illuminate\Foundation\AliasLoader::getInstance();
             $loader->alias(\Barryvdh\Debugbar\Facade::class, 'Debugbar');
         }
-
-        if ($this->app->environment('production')) {
-            $this->app->register(\Jenssegers\Rollbar\RollbarServiceProvider::class);
-        }
     }
 }
