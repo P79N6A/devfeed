@@ -1,5 +1,22 @@
 ## FEDN.it
 
+### 当前服务器运营环境：
+- 操作系统： CentOS 6.8 x86_64
+- WEB环境： Nginx 1.12.0 + php-fpm
+- PHP环境： PHP 7.1
+  - Zend OPcache
+  - apc
+  - apcu
+  - pdo_mysql
+  - redis
+  - openssl
+  - ...
+- 数据库：
+  - MariaDB 10.0.30
+  - Redis 3.2.6
+- Node环境：Nodejs 6.10.3
+
+
 **特别提醒**:
 
 - `master` 分支为保护分支，禁止向其提交代码
