@@ -45,7 +45,7 @@
                          {!! $art->content !!}
                     </div>
                 </div>
-                <a href="#comment" class="comment-btn"><a href="#SOHUCS" id="changyan_count_unit"></a></a>
+                <a href="#SOHUCS" class="comment-btn"><span id="changyan_count_unit"></span>条评论</a>
             </div>
             <div class="comment" id="comment">
                 <div class="comments">
