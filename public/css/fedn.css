@@ -168,6 +168,10 @@ a.qq_login_btn{width:108px;height:32px;background:url('../img/qq_login_btn.png')
 .form-control{border:2px solid #BDC3C7;padding:20px 12px;margin-bottom:10px}
 .control-label{font-weight:normal;padding-top:20px}
 
+#SOHUCS #SOHU_MAIN .module-cmt-box .post-wrap-w .post-wrap-main {
+  background:none !important;
+}
+
 blockquote {
   font-size:inherit;
 }

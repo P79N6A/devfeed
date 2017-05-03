@@ -101,6 +101,8 @@
     };
     loadJs("https://changyan.sohu.com/upload/changyan.js",function(){
         window.changyan.api.config({appid:appid,conf:conf});
+        $('.section-service-w').remove();
+        $('#SOHUCS #SOHU_MAIN .module-cmt-box .post-wrap-w .post-wrap-main').css('background','none');
     });
     loadJs("https://assets.changyan.sohu.com/upload/plugins/plugins.count.js");
 }());
