@@ -34,7 +34,7 @@
                     </h3>
                     <div class="ac-info">
                         <span>{{ $item->publishTime }} {!! $item->sourceSite !!}</span>
-                        <a href="{{ url('article/'.$item->id.'#comments') }}"><span class="ds-thread-count" data-thread-key="{{$item->id}}">暂无评论</span></a>
+                        <a href="{{ url('article/'.$item->id.'#SOHUCS') }}"><span id="{{$item->id}}" class="cy_cmt_count"></span></a>
                     </div>
                     <div class="ac-detail">
                         {{ mb_substr(strip_tags($item->content), 0, 500) }}
@@ -65,15 +65,6 @@
 @endsection
 
 @section('pageScript')
-<script type="text/javascript">
-    var duoshuoQuery = {short_name: "webdn"};
-    (function () {
-        var ds = document.createElement('script');
-        ds.type = 'text/javascript';
-        ds.async = true;
-        ds.src = '//static.duoshuo.com/embed.js';
-        ds.charset = 'UTF-8';
-        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(ds);
-    })();
+<script id="cy_cmt_num" src="https://changyan.sohu.com/upload/plugins/plugins.list.count.js?clientId=cysYDvnSW">
 </script>
 @endsection
