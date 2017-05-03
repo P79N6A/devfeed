@@ -34,7 +34,7 @@
                     </h3>
                     <div class="ac-info">
                         <span>{{ $item->publishTime }} {!! $item->sourceSite !!}</span>
-                        <a href="{{ url('article/'.$item->id.'#SOHUCS') }}"><span id="sourceId::{{$item->id}}" class="cy_cmt_count"></span>条评论</a>
+                        <a href="{{ url('article/'.$item->id.'#SOHUCS') }}">评论：<span id="sourceId::{{$item->id}}" class="cy_cmt_count">0</span></a>
                     </div>
                     <div class="ac-detail">
                         {{ mb_substr(strip_tags($item->content), 0, 500) }}
