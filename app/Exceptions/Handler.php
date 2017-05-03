@@ -5,6 +5,7 @@ namespace Fedn\Exceptions;
 use Exception;
 use Illuminate\Auth\AuthenticationException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Log;
 
 class Handler extends ExceptionHandler
 {
@@ -35,7 +36,7 @@ class Handler extends ExceptionHandler
     public function report(Exception $exception)
     {
         if($this->shouldReport($exception)) {
-            \Log::error($exception);
+            Log::error($exception);
             parent::report($exception);
         }
 

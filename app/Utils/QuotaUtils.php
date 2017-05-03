@@ -7,12 +7,13 @@
 
 namespace Fedn\Utils;
 
-use Faker\Provider\bn_BD\Utils;
-use Snoopy\Snoopy;
+//use Faker\Provider\bn_BD\Utils;
+//use Snoopy\Snoopy;
 use phpQuery;
 use Fedn\Models\Site;
 use Fedn\Models\Quota;
 use GuzzleHttp\Psr7\Uri;
+use GuzzleHttp\Client as GuzzleHttp;
 
 use Fedn\Utils\FednUtil as Tool;
 
@@ -97,30 +98,29 @@ class QuotaUtils
         $options = static::$guzzleOption;
         $options['defaults']['headers']['referer'] = $site->list_url;
 
-        //$client = new GuzzleHttp($options);
+        $client = new GuzzleHttp($options);
 
-        //$flagExceptions = ['exceptions' => false];
+        $flagExceptions = ['exceptions' => false];
 
-        //$res = $client->get($site->list_url, $flagExceptions);
+        $res = $client->get($site->list_url, $flagExceptions);
 
 
-        $res = new Snoopy();
+        /*$res = new Snoopy();
         $res->agent = static::$ua;
         $res->referer = $site->url;
-        $res->accept = 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8';
 
         $res->fetch($site->list_url);
 
-        if ($res->status == 200 || $res->status == 304) {
-        //if ($res->getStatusCode() <= 304) {
-            //$html = (string)$res->getBody();
-            //$res = null;
-
-
-
-            $html = $res->getResults();
-
+        if ($res->status == 200 || $res->status == 304) {*/
+        if ($res->getStatusCode() <= 304) {
+            $html = (string)$res->getBody();
             $res = null;
+
+
+
+            //$html = $res->getResults();
+
+            //$res = null;
 
             //$crawler = new Crawler($html);
 
@@ -149,21 +149,22 @@ class QuotaUtils
 
     protected static function fetchArticle($link, Site $site)
     {
-        //$options = static::$guzzleOption;
-        //$options['defaults']['headers']['referer'] = $site->list_url;
+        $options = static::$guzzleOption;
+        $options['defaults']['headers']['referer'] = $site->list_url;
 
-        //$client = new GuzzleHttp($options);
-        //$flagExceptions = ['exceptions' => false];
-        //$res = $client->get($link, $flagExceptions);
-        $res = new Snoopy();
+        $client = new GuzzleHttp($options);
+        $flagExceptions = ['exceptions' => false];
+        $res = $client->get($link, $flagExceptions);
+        /*$res = new Snoopy();
         $res->agent = static::$ua;
         $res->referer = $site->url;
-        $res->accept = 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8';
-        $res->fetch($link);
-        //if ($res->getStatusCode() <= 400) {
-            //$html = $res->getBody()->getContents();
-        if ($res->status == 200 || $res->status == 304) {
-            $html = $res->getResults();
+
+        $res->fetch($link);*/
+        if ($res->getStatusCode() <= 400) {
+            $html = $res->getBody()->getContents();
+            $res = null;
+        //if ($res->status == 200 || $res->status == 304) {
+            //$html = $res->getResults();
 
             $doc = phpQuery::newDocumentHTML($html);
 

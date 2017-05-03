@@ -44,7 +44,7 @@
             </div>
             @if(!empty($item->figure))
             <div class="col-md-4">
-                <a href="{{ url('/article/'.$item->id) }}"><img src="{{ asset($item->figure) }}" alt="$item->title"></a>
+                <a href="{{ url('/article/'.$item->id) }}"><img src="{{ asset($item->figure) }}" alt="{{$item->title}}"></a>
             </div>
             @endif
         </div>
