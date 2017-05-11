@@ -91,7 +91,7 @@ img{max-width: 100%}
 /*分页*/
 body .page_container a{width:40px;height:40px;line-height:40px !important;padding:0;text-align:center; border:0 none !important;margin-right:5px;color:#A1A1A1;border-radius:0 !important; }
 .pagination>.active>a, .pagination>.active>a:focus, .pagination>.active>a:hover, .pagination>.active>span, .pagination>.active>span:focus, .pagination>.active>span:hover{background:#2CFFC6;color:#fff;border:0 none;width:40px;height:40px;text-align:center; line-height: 40px; }
-.pagination>li>a, .pagination>li>span{padding-top:0;margin-right: 5px}
+.pagination>li>a, .pagination>li>span{padding-top:0;width:40px;height:40px;line-height:40px !important;padding:0;text-align:center; border:0 none !important;margin-right:5px;color:#A1A1A1;border-radius:0 !important;}
 .pagination>li:last-child>a ,.pagination>li:first-child>a{position:relative; zoom:1; }
 .pagination>li:last-child span,.pagination>li:first-child span{display:none; }
 .pagination>li:last-child>a:before,.pagination>li:last-child>span:before,.pagination>li:last-child>a:after,.pagination>li:last-child>span:after,.pagination>li:first-child>a:before,.pagination>li:first-child>span:before,.pagination>li:first-child>a:after,.pagination>li:first-child>span:after{content:'\20';display:block;position:absolute;width:20px;height:20px;}
