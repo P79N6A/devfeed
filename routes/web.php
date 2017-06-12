@@ -65,6 +65,9 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'as' => 'admin.', 'mi
     // sites
     Route::get('sites', ['as' => 'sites', 'uses' => 'QuotaController@sites']);
 
+    // teams
+    Route::get( 'team/{any?}', ['as' => 'team', 'uses' => 'TeamController@index']);
+
 });
 
 Route::group(['namespace' => 'Admin', 'prefix' => 'api/v1', 'as'=>'api.', 'middleware' => 'admin'], function () {
