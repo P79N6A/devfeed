@@ -17,10 +17,11 @@ $factory->define(Fedn\Models\User::class, function () {
     static $password;
 
     return [
-        'name' => $faker->name,
+        'name' => $faker->userName,
         'email' => $faker->unique()->safeEmail,
         'password' => $password ?: $password = bcrypt('secret'),
         'remember_token' => str_random(10),
+        'nickname' => $faker->name,
     ];
 });
 
