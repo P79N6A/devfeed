@@ -2,8 +2,9 @@
 
 @section('content')
     <h3 class="page-header">团队管理</h3>
-    <div class="row col-md-12" id="teamApp">
+    <div id="teamApp">
         <router-view></router-view>
+
     </div>
 @endsection
 

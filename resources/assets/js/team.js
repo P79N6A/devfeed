@@ -9,10 +9,11 @@ Vue.use(VueRouter);
 const index = require('./views/teamList.vue');
 
 const routes = [
-  { path: '/', component: index }
+  { path: '/admin/team', component: index }
 ]
 
 const router = new VueRouter({
+  mode: 'history',
   routes
 })
 
