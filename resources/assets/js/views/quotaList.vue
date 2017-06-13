@@ -50,7 +50,6 @@
         },
         methods: {
           closeAlert() {
-            console.log('done')
             this.msg = false;
             this.status = true;
           },
@@ -60,38 +59,48 @@
                 const item = self.result.data[index];
                 self.$set(self.result.data[index], 'onqueue', true);
                 self.result.data[index] = item;
-                self.$http.post('/api/v1/quotas/publish/'+item.id).then(x => {
-                  self.result.data.splice(index,1);
+                axios.post('/api/v1/quotas/publish/'+item.id).then(x => {
+                  self.result.data.splice(index, 1);
                   self.status = x.data.code === 0 ? true : false;
                   self.msg = self.status ? x.data.data : x.data.message;
-                }, x => {
+                }).catch(x => {
+                  if(console && 'function' === typeof console.log) {
+                    console.log(x);
+                  }
                   self.msg = '请求失败，请联系管理员解决。';
                   self.status = false;
-                })
+                });
             }
           },
           del(index) {
             const self = this;
             if(confirm('确定要删除这篇文章吗？')) {
                 const item = self.result.data[index];
-                self.$http.post('/api/v1/quotas/del/'+item.id).then(x => {
+                axios.post('/api/v1/quotas/del/'+item.id).then(x => {
                   self.status = x.data.code === 0 ? true : false;
                   self.msg = self.status ? x.data.data : x.data.message;
                   self.fetch();
-                }, x => {
-                  console.log(x.data);
-                })
+                }).catch(err => {
+                  if (console && 'function' === typeof console.log) {
+                    console.log(err);
+                  }
+                  self.msg = '请求失败，请联系管理员解决。';
+                  self.status = false;
+                });
             }
           },
           fetch(page) {
             page = ('undefined' === typeof page || isNaN(page) )? 1 : page;
             const self = this;
-            self.$http.post('/api/v1/quotas/list',{"size":20, "page":page}).then(res => {
-              const result = res.data;
-              self.result = result.data
-            }, x => {
-              console.log(x.data);
-            })
+            axios.post('/api/v1/quotas/list', {"size": 20, "page": page}).then(res => {
+              self.result = res.data.data;
+            }).catch(x => {
+              try {
+                console.log(x.data);
+              } catch (e){
+
+              }
+            });
           }
         },
         created() {

@@ -101,41 +101,50 @@
           },
           del(id) {
             let self = this;
-            this.$http.post('/api/v1/site/del/'+id).then(() => {
-               self.loadSites.call(self)
-            }, e => {
-               console.log(e)
-            });
+            axios.post('/api/v1/site/del/'+id).then(() => {
+              self.loadSites.call(self)
+            }).catch(e => {
+              try {
+                console.log(e)
+              } catch (e) {}
+            })
+
           },
           submit() {
-              this.$http.post('/api/v1/site', this.form).then(x => {
+              axios.post('/api/v1/site', this.form).then(() => {
                   this.loadSites()
-              }, (e) => {
+              }).catch(() => {
                   console.log('fail')
-              })
+              });
           },
           checkFetch() {
-              this.$http.post('/api/v1/site/check', this.form).then(x => {
-                  console.log(x.data.data)
-              }, (e) => {
-                  console.log('fail')
-              })
+              axios.post('/api/v1/site/check', this.form).then(x => {
+                  try {
+                    console.log(x.data.data)
+                  } catch (e) {}
+              }).catch(e =>  {
+                  try {
+
+                    console.log('fail')
+                  } catch (e) {}
+              });
           },
           fetch(id) {
-            console.log('wait...');
+            try {console.log('wait...');} catch (e) {}
             let self = this;
-            self.$http.post('/api/v1/site/fetch/'+id).then(x => {
+
+            axios.post('/api/v1/site/fetch/'+id).then(x => {
               self.loadSites();
-            }, e => {
-              console.log(e);
+            }).catch(e => {
+              try {console.log(e);} catch (e) {}
             })
           },
           loadSites() {
-            this.$http.post('/api/v1/sites',{size:20}).then(response => {
+            axios.post('/api/v1/sites',{size:20}).then(response => {
               const result = response.data;
               this.rows = result.data.data
-            }, (error) => {
-              console.log(error)
+            }).catch((error) => {
+              try { console.log(error) } catch (e) {}
             })
           }
         },

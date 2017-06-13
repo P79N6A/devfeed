@@ -66,7 +66,9 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'as' => 'admin.', 'mi
     Route::get('sites', ['as' => 'sites', 'uses' => 'QuotaController@sites']);
 
     // teams
-    Route::get( 'team/{any?}', ['as' => 'team', 'uses' => 'TeamController@index']);
+    Route::get( 'team/{any?}', ['as' => 'team', 'uses' => function(){
+        return view('backend.team');
+    }]);
 
 });
 
