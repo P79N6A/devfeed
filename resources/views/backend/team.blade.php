@@ -3,11 +3,12 @@
 @section('content')
     <h3 class="page-header">团队管理</h3>
     <div class="row col-md-12" id="teamApp">
-
+        <router-view></router-view>
     </div>
 @endsection
 
 @section('pageScript')
-  {{ Html::script('/js/vue.min.js') }}
-  {{ Html::script('/js/team.js') }}
+    <script src="{{ mix('js/manifest.js') }}"></script>
+    <script src="{{ mix('js/vendor.js') }}"></script>
+    <script src="{{ mix('js/team.js') }}"></script>\
 @endsection
