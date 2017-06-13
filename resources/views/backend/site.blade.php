@@ -25,6 +25,7 @@
 @endsection
 
 @section('pageScript')
-    {{ Html::script('/js/vue.min.js') }}
+    {{ Html::script('/js/manifest.js') }}
+    {{ Html::script('/js/vendor.js') }}
     {{ Html::script('/js/quotas.js') }}
 @endsection
