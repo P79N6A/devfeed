@@ -1,21 +1,23 @@
 require('./bootstrap');
 
-window.Vue = require('vue');
+import Vue from 'vue';
 
 import VueRouter from 'vue-router';
+
 Vue.use(VueRouter);
 
-
-const index = require('./views/teamList.vue');
+const teamView = require('./views/team.vue');
 
 const routes = [
-  { path: '/admin/team', component: index }
+  { path: '/admin/team', component: teamView }
 ]
 
 const router = new VueRouter({
   mode: 'history',
   routes
 })
+
+window.bus = new Vue();
 
 const app = new Vue({
   el: '#teamApp',

@@ -1,6 +1,7 @@
 {
-  "/js/vendor.js": "/js/vendor.js",
-  "/js/quotas.js": "/js/quotas.js",
-  "/js/team.js": "/js/team.js",
-  "/js/manifest.js": "/js/manifest.js"
+    "/js/team.js": "/js/team.js?id=0d73da31bec2518f63dc",
+    "/js/quotas.js": "/js/quotas.js?id=df64c89653e38fcaabe7",
+    "/css/backend.css": "/css/backend.css?id=77a09d6f1d068577a64b",
+    "/js/vendor.js": "/js/vendor.js?id=a041f770733adb84e084",
+    "/js/manifest.js": "/js/manifest.js?id=1628ea945496f6cce9df"
 }

@@ -10,7 +10,24 @@ let mix = require('laravel-mix');
  | file for the application as well as bundling up all the JS files.
  |
  */
+mix = mix.webpackConfig({
+  resolve: {
+    alias: {
+      //'vue$': 'vue/dist/vue.runtime.esm.js',
+      'vue-router$': 'vue-router/dist/vue-router.esm.js'
+    }
+  }
+});
 
-mix.js('resources/assets/js/quotas.js', 'public/js')
-  .js('resources/assets/js/team.js', 'public/js')
-  .extract(['lodash', 'axios', 'vue', 'vue-router']);
+mix = mix.sass('resources/assets/sass/backend.scss', 'css')
+  .js('resources/assets/js/quotas.js', 'js')
+  .js('resources/assets/js/team.js', 'js')
+  .extract(['vue', 'vue-router'],'js/vendor.js');
+
+if (Config.production) {
+    mix.version();
+}
+
+
+
+
