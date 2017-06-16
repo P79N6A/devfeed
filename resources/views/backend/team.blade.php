@@ -1,15 +1,15 @@
 @extends('backend.layout')
 
 @section('content')
-    <h3 class="page-header">团队管理</h3>
     <div id="teamApp">
+        <h3 class="page-header">团队管理
+            <button class="btn btn-success btn-lg" @click.prevent="addTeam">新建团队</button>
+        </h3>
         <router-view></router-view>
-
     </div>
 @endsection
 
 @section('pageScript')
-    <script src="{{ mix('js/manifest.js') }}"></script>
-    <script src="{{ mix('js/vendor.js') }}"></script>
-    <script src="{{ mix('js/team.js') }}"></script>\
+    @include('backend.partial.vue-foot')
+    <script src="{{ mix('js/team.js') }}"></script>
 @endsection

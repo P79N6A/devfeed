@@ -25,7 +25,6 @@
 @endsection
 
 @section('pageScript')
-    {{ Html::script('/js/manifest.js') }}
-    {{ Html::script('/js/vendor.js') }}
-    {{ Html::script('/js/quotas.js') }}
+    @include('backend.partial.vue-foot')
+    <script src="{{ mix('js/quotas.js') }}"></script>
 @endsection

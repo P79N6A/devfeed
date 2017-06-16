@@ -8,8 +8,15 @@ use function preg_replace;
 
 class Team extends Model
 {
-    protected $guarded = ['id', 'created_at', 'updated_at'];
+    public const LOGO_PATH = 'upload/teams';
+    protected $guarded = ['created_at', 'updated_at'];
     protected $appends = ['description_html'];
+
+    protected $attributes = [
+        'logo' => '',
+        'likes' => 0
+    ];
+
 
     public function getDescriptionHtmlAttribute(){
         $_cont = $this->attributes['description'];
@@ -22,4 +29,8 @@ class Team extends Model
         return $_html;
     }
 
+    public function logoFile($ext = 'png')
+    {
+        return $this->id.".$ext";
+    }
 }
