@@ -25,8 +25,6 @@
 @endsection
 
 @section('pageScript')
-    <script src="//cdn.bootcss.com/axios/0.16.2/axios.js"></script>
-    <script src="{{ mix('js/manifest.js') }}"></script>
-    <script src="{{ mix('js/vendor.js') }}"></script>
+    @include('backend.partial.vue-foot')
     <script src="{{ mix('js/quotas.js') }}"></script>
 @endsection

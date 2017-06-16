@@ -18,6 +18,8 @@
     import pager from '../components/pager.vue';
     import teamModal from '../components/teamModal.vue';
 
+    const emptyTeam = {title: '', logo: '', website: '', description: ''};
+
     export default {
       name: 'viewHome',
       data() {
@@ -28,7 +30,8 @@
           teams: {
             data:[]
           },
-          currentTeam: null
+          currentTeam: emptyTeam,
+          index: -1
         }
       },
       watch: {
@@ -40,6 +43,10 @@
         }
       },
       methods: {
+        reset() {
+          this.currentTeam = emptyTeam;
+          this.index = -1;
+        },
         loadTeams() {
           axios.get('http://fedn.local/api/v1/teams/list', {
             params: {
@@ -57,12 +64,28 @@
         pageChange(diff) {
           this.page += diff;
         },
-        editteam(team) {
+        addTeam() {
+          this.currentTeam = emptyTeam;
+          this.index = -1;
+          jQuery('#teamModal').modal('show');
+        },
+        editteam(team, index) {
+          this.index = index;
           this.currentTeam = team;
           jQuery('#teamModal').modal('show');
         },
-        delteam(team) {
-          console.log(team)
+        delteam(team, index) {
+          //console.log(team)
+          this.teams.data.splice(index,1);
+          this.index = -1;
+        },
+        teamSaved(team) {
+          if(this.index !== -1) {
+            this.teams.data.splice(this.index, 1,team);
+          } else {
+            this.teams.data.unshift(team);
+          }
+          jQuery('#teamModal').modal('hide');
         }
       },
       components: {
@@ -76,11 +99,16 @@
         bus.$on('editteam', this.editteam);
         bus.$on('delteam', this.delteam);
         bus.$on('pageChange', this.pageChange);
+        bus.$on('addTeam', this.addTeam);
+        bus.$on('teamSaved', this.teamSaved);
+        bus.$on('modalCanceled', this.reset);
       },
       destroyed() {
         bus.$off('editteam', this.editteam);
         bus.$off('delteam', this.delteam);
         bus.$off('pageChange', this.pageChange);
+        bus.$off('addTeam', this.addTeam);
+        bus.$off('teamSaved', this.teamSaved);
       }
     };
 

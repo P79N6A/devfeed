@@ -20,9 +20,15 @@ mix = mix.webpackConfig({
 });
 
 mix = mix.sass('resources/assets/sass/backend.scss', 'css')
+  .styles([
+    'node_modules/bootstrap/dist/css/bootstrap.min.css',
+    'node_modules/bootstrap/dist/css/bootstrap-theme.min.css',
+  ], 'css/bootstrap.css')
   .js('resources/assets/js/quotas.js', 'js')
   .js('resources/assets/js/team.js', 'js')
-  .extract(['vue', 'vue-router'],'js/vendor.js');
+  .extract(['axios','vue', 'vue-router'],'js/vendor.js')
+  .copy('node_modules/jquery/dist/jquery.min.js', 'js/jquery.min.js')
+  .copy('node_modules/bootstrap/dist/js/bootstrap.min.js', 'js/bootstrap.min.js');
 
 if (Config.production) {
     mix.version();

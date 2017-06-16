@@ -1,3 +1,5 @@
+'use strict';
+
 require('./bootstrap');
 
 import Vue from 'vue';
@@ -21,5 +23,10 @@ window.bus = new Vue();
 
 const app = new Vue({
   el: '#teamApp',
-  router
+  router,
+  methods: {
+    addTeam() {
+      bus.$emit('addTeam');
+    }
+  }
 })

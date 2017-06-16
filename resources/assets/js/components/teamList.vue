@@ -1,6 +1,6 @@
 <template>
     <div class="row">
-        <team-detail v-for="team in teams" :key="team.id" :team="team"></team-detail>
+        <team-detail v-for="(team, index) in teams" :key="team.id" :team="team" :index="index"></team-detail>
     </div>
 </template>
 <script>

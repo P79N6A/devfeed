@@ -8,7 +8,7 @@
                 <p><strong>文章：{{ Math.round(Math.random() * 1000) }}</strong>篇</p>
                 <p class="options">
                     <button class="btn btn-primary" role="button" @click="edit(team)">编辑</button>
-                    <button class="btn btn-danger" role="button" @click="del(team)">删除</button>
+                    <button class="btn btn-danger" role="button" @click="delTeam(team)">删除</button>
                 </p>
             </div>
         </div>
@@ -44,14 +44,15 @@
     export default {
       name: 'teamDetail',
       props:[
+        'index',
         'team'
       ],
       methods: {
         edit(item) {
-          bus.$emit('editteam', item);
+          bus.$emit('editteam', item, this.index);
         },
-        del(item) {
-          this.$emit('delteam', item);
+        delTeam(item) {
+          bus.$emit('delteam', item, this.index);
         }
       }
     }
