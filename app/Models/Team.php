@@ -2,24 +2,32 @@
 
 namespace Fedn\Models;
 
-use function explode;
 use Illuminate\Database\Eloquent\Model;
-use function preg_replace;
+use Parsedown;
 
 class Team extends Model
 {
-    protected $guarded = ['id', 'created_at', 'updated_at'];
+    public const LOGO_PATH = 'upload/teams';
+    protected $guarded = ['created_at', 'updated_at'];
     protected $appends = ['description_html'];
+
+    protected $attributes = [
+        'logo' => '',
+        'likes' => 0
+    ];
+
 
     public function getDescriptionHtmlAttribute(){
         $_cont = $this->attributes['description'];
-        //$_cont = preg_replace('/\n/', "<br>", $_cont);
-        $_cont = preg_split('/\n+/', $_cont);
-        $_html = '';
-        foreach($_cont as $k => $item) {
-            $_html .= "<p>$item</p>";
-        }
+        $_parser = Parsedown::instance('fedn');
+        $_html = $_parser->text($_cont);
         return $_html;
     }
 
+    public function logoFile($ext = 'png')
+    {
+        $str = $this->id ?: $this->title;
+        $str = substr(md5($str.'TEAM'), 8, 16);
+        return $str.".$ext";
+    }
 }

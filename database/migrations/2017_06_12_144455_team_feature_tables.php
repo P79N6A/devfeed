@@ -17,8 +17,8 @@ class TeamFeatureTables extends Migration
             $table->increments('id');
             $table->string('title', 200);
             $table->string('description', 1000);
-            $table->string('logo', 255);
-            $table->string('website', 100);
+            $table->string('logo', 255)->nullable();
+            $table->string('website', 100)->nullable();
             $table->mediumInteger('likes', false, true);
             $table->timestamps();
 
