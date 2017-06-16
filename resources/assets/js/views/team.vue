@@ -48,7 +48,7 @@
           this.index = -1;
         },
         loadTeams() {
-          axios.get('http://fedn.local/api/v1/teams/list', {
+          axios.get('/api/v1/teams/list', {
             params: {
               page: this.page,
               size: this.pageSize
