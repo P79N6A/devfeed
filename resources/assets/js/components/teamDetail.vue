@@ -3,7 +3,7 @@
         <div class="thumbnail team">
             <img class="logo img-thumbnail" :src="team.logo" alt="team.title" width="200" height="200">
             <div class="caption desc">
-                <h3 class="title">{{ team.title }}</h3>
+                <h4 class="title">{{ team.title }}</h4>
                 <p><strong>获赞：{{ team.likes }}</strong>人次</p>
                 <p><strong>文章：{{ Math.round(Math.random() * 1000) }}</strong>篇</p>
                 <p class="options">
@@ -16,12 +16,8 @@
 </template>
 <style>
     .team .logo {
-        width: 200px;
-        height: 200px;
-        max-width:200px;
-        max-height:200px;
-        min-height:200px;
-        min-width:200px;
+        width: 100%;
+        height: auto;
     }
 
     .team .title {
