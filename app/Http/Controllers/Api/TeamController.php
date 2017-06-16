@@ -2,12 +2,10 @@
 
 namespace Fedn\Http\Controllers\api;
 
-use Illuminate\Http\Request;
-use Fedn\Http\Controllers\Controller;
 use Cache;
+use Fedn\Http\Controllers\Controller;
 use Fedn\Models\Team;
-use function is_int;
-use function is_numeric;
+use Illuminate\Http\Request;
 
 class TeamController extends Controller
 {
@@ -62,11 +60,21 @@ class TeamController extends Controller
     public function save(Request $req) {
         $rules = [
             'title' => 'required',
-            'logo'  => 'required_without:id|mimes:jpeg,png',
+            'logo'  => 'required_without:id|mimes:jpeg,png|dimensions:width=200,height=200',
             'website'   => 'required|url',
             'description' => 'required|max:500'
         ];
-        $validator = validator($req->all(), $rules);
+        $messages = [
+            'title.required' => '团队名称必须填写。',
+            'logo.required_without'  => '请提供 200x200 像素的团队 LOGO 图片。',
+            'logo.mimes' => '团队 Logo 必须是 jpg 或者 png 格式。',
+            'logo.dimensions' => '团队 Logo 的尺寸必须是 200x200 像素。',
+            'website.required' => '团队网址必须填写。',
+            'website.url' => '团队网址必须是正确的 URL 地址。',
+            'description.required' => '团队介绍必须填写（支持 markdown 语法)',
+            'description.max' => '团队介绍不能超过 :max 个字符。'
+        ];
+        $validator = validator($req->all(), $rules, $messages);
         if($validator->fails()) {
             return response()->json(['ret'=>1, 'message' => $validator->getMessageBag()->all()]);
         }
@@ -86,12 +94,36 @@ class TeamController extends Controller
             $upFile = $req->logo;
             $filename = $team->logoFile($upFile->getClientOriginalExtension());
             $upFile->move(Team::LOGO_PATH, $filename);
-            $team->logo  = response()->json(url(Team::LOGO_PATH.'/'.$filename));
+            $team->logo  = url(Team::LOGO_PATH.'/'.$filename);
         }
 
         $result = $team->save() ? ['ret' => 0, 'message' => $team] : ['ret' => 2, 'message' => 'Save failed.'];
 
         return response()->json($result);
 
+    }
+
+    public function del(Request $req)
+    {
+        $id = $req->has('id') ? intval($req->get('id', 0)) : 0;
+
+        if(!$id) {
+            return response()->json([
+                'ret' => 1,
+                'message' => 'parameter must be valid id.'
+            ]);
+        }
+
+        $count = Team::destroy($id);
+
+        return $count > 0 ? response()->json([
+            'ret' => 0,
+            'message' => 'Success.',
+            'data' => $count
+        ]) : response()->json([
+            'ret' => 404,
+            'message' => 'Nothing deleted.',
+            'data' => 0
+        ]);
     }
 }

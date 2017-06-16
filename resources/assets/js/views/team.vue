@@ -76,8 +76,16 @@
         },
         delteam(team, index) {
           //console.log(team)
-          this.teams.data.splice(index,1);
-          this.index = -1;
+          axios.post('/api/v1/teams/del', {id:team.id}).then( x => {
+            const { ret, message } = x.data;
+            if(ret == 0) {
+              this.teams.data.splice(index, 1);
+            } else {
+              alert(message);
+            }
+          }).catch(e=>{
+            console.log(e);
+          });
         },
         teamSaved(team) {
           if(this.index !== -1) {

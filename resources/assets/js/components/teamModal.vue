@@ -8,9 +8,11 @@
                     <h4 class="modal-title">{{ title }}</h4>
                 </div>
                 <div class="modal-body">
-                    <ul class="alert alert-danger" role="alert" v-show="errors.length">
-                        <li v-for="message in errors">{{ message }}</li>
-                    </ul>
+                    <div class="alert alert-danger" role="alert" v-show="errors.length">
+                        <ul>
+                            <li v-for="message in errors">{{ message }}</li>
+                        </ul>
+                    </div>
                     <div class="team-form">
                         <div class="form-group">
                             <label for="title">团队名称</label>
@@ -116,12 +118,19 @@
                   this.errors = ['保存团队信息失败，请联系开发人员排查。'];
                   break;
                 default:
+                  this.errors = [];
                   bus.$emit('teamSaved', result.message);
               }
             }).catch(e => {
               this.errors = [ e.message ];
           })
         }
+      },
+      created() {
+        let modal = this;
+        jQuery('#teamModal').on('hidden.bs.modal', () => {
+          this.errors = [];
+        });
       }
     }
 </script>
