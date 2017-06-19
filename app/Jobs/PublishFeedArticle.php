@@ -3,6 +3,7 @@
 namespace Fedn\Jobs;
 
 use Fedn\Models\User;
+use GuzzleHttp\Psr7\UriResolver;
 use Illuminate\Bus\Queueable;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Queue\InteractsWithQueue;
@@ -67,6 +68,15 @@ class PublishFeedArticle implements ShouldQueue
                 $figure = $img->eq(0)->attr('src');
             }
             $doc = null;
+
+            $schema = substr($figure, 0, 5);
+            if($schema === 'data:') {
+                $figure = null;
+            } else if($schema !== 'http:' && $schema !== 'https' && substr($schema, 0, 2) !== '//') {
+                $base = new Uri($this->quota->url);
+                $rel = new Uri($figure);
+                $figure = (string)UriResolver::resolve($base, $rel);
+            }
 
             $article = Article::create([
                 'user_id'    => $inputer,

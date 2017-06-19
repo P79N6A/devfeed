@@ -85,7 +85,6 @@ class QuotaUtils
             $base = new Uri($base);
             $relative = new Uri($relative);
             $uriInterface = UriResolver::resolve($base, $relative);
-            \Log::debug('url:', [$uriInterface]);
             return (string)$uriInterface;
         }
     }
