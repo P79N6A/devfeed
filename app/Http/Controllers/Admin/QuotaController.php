@@ -72,6 +72,7 @@ class QuotaController extends Controller
             $this->validate($req, [
                 'name'            => 'required',
                 'url'             => 'required|url',
+                'team_id'         => 'required|exists:teams,id',
                 'list_url'        => 'required|url',
                 'sel_link'        => 'required',
                 'sel_title'       => 'required',
@@ -84,6 +85,7 @@ class QuotaController extends Controller
             $site = new Site();
             $site->name = $req->get('name');
             $site->url = $req->get('url');
+            $site->team_id = $req->get('team_id');
             $site->list_url = $req->get('list_url');
             $site->sel_link = $req->get('sel_link');
             $site->sel_title = $req->get('sel_title');
