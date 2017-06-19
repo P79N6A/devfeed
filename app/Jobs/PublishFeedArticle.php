@@ -31,7 +31,7 @@ class PublishFeedArticle implements ShouldQueue
 
         $this->quota = $quota;
         if ($user === null) {
-            $user = User::where('email', '=', 'kairee@qq.com')->first();
+            $this->user = User::where('email', '=', 'kairee@qq.com')->first();
         } else {
             $this->user = $user;
         }
