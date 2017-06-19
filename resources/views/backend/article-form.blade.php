@@ -169,7 +169,7 @@
 @endsection
 
 @section('pageScript')
-    <script src="{{ mix('js/bootstrap.js') }}"></script>
+    <script src="{{ mix('js/bootstrap.min.js') }}"></script>
     {{--<script src="//cdn.bootcss.com/vue/1.0.25/vue.min.js"></script>
     <script src="//cdn.bootcss.com/vue-resource/0.8.0/vue-resource.min.js"></script>--}}
     <script src="{{ asset('ueditor/ueditor.config.js') }}"></script>
