@@ -57,7 +57,7 @@ class QuotaController extends Controller
     {
         if ($req->route()->getName() === 'api.site.list') {
             $size = $req->get('size', 20);
-            $sites = Site::orderBy('id', 'desc')->paginate($size);
+            $sites = Site::with('team')->orderBy('id', 'desc')->paginate($size);
 
             return QuotaUtils::JsonResult($sites);
         } else {
@@ -146,7 +146,8 @@ class QuotaController extends Controller
                 'sel_tag'         => 'required',
                 'sel_author_link' => 'required',
                 'sel_author_name' => 'required',
-                'published'       => 'bool'
+                'published'       => 'bool',
+                'team_id'         => 'required|exists:teams,id'
             ]);
             $data = $req->only([
                 'name',
@@ -158,10 +159,12 @@ class QuotaController extends Controller
                 'sel_tag',
                 'sel_author_link',
                 'sel_author_name',
-                'published'
+                'published',
+                'team_id'
             ]);
 
             $site = Site::updateOrCreate([ 'list_url' => $data['list_url'] ], $data);
+            $site->load('team');
 
             return QuotaUtils::JsonResult($site);
         } else {

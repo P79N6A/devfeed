@@ -6,6 +6,7 @@
                 <tr>
                     <th>ID</th>
                     <th>名称</th>
+                    <th>所属团队</th>
                     <th>自动发布</th>
                     <th>最后采集时间</th>
                     <th>列表地址</th>
@@ -16,6 +17,7 @@
                 <tr v-for="(row,index) in rows">
                     <td>{{ row.id }}</td>
                     <td><a :href="row.url" :title="row.name">{{ row.name }}</a></td>
+                    <td>{{ row.team ? row.team.title : "未设定" }}</td>
                     <td>{{ row.published ? '是' : '否' }}</td>
                     <td>{{ row.last_check }}</td>
                     <td>{{ row.list_url }}</td>
@@ -37,6 +39,10 @@
                 <div class="form-group">
                     <label for="url" class="form-label">地址</label>
                     <input name="url" id="url" class="form-control" type="text" v-model="form.url">
+                </div>
+                <div class="form-group">
+                    <label for="team" class="form-label">所属团队</label>
+                    <team-selector id="team" name="team" class="form-control" :site="form"></team-selector>
                 </div>
                 <div class="form-group">
                     <label for="list_url" class="form-label">列表页地址</label>
@@ -75,15 +81,22 @@
     </div>
 </template>
 <script>
-
     export default {
         name: 'siteList',
+        components: {
+          teamSelector: require('../components/teamSelector.vue')
+        },
         data() {
             return {
               rows: [],
               form: {
                 "name": "",
                 "url": "",
+                "team_id": null,
+                "team": {
+                  "id": null,
+                  "title": null
+                },
                 "list_url": "",
                 "sel_link": "",
                 "sel_title": "",
@@ -113,8 +126,18 @@
           submit() {
               axios.post('/api/v1/site', this.form).then(() => {
                   this.loadSites()
-              }).catch(() => {
-                  console.log('fail')
+              }).catch(e => {
+                if(e.response) {
+                  const {data} = e.response;
+                  let message = [];
+                  for(let key in data) {
+                    message.push(`${data[key]}`);
+                  }
+                  alert(message.join("\n"));
+                  return true;
+                } else {
+                  alert(e);
+                }
               });
           },
           checkFetch() {
@@ -124,7 +147,6 @@
                   } catch (e) {}
               }).catch(e =>  {
                   try {
-
                     console.log('fail')
                   } catch (e) {}
               });
@@ -148,8 +170,9 @@
             })
           }
         },
-        mounted() {
-            this.loadSites()
+        created() {
+            this.loadSites();
+            bus.$on('teamChange', id => {this.$set(this.form, 'team_id', id);});
         }
     }
 
