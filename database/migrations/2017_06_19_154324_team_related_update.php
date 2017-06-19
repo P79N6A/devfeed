@@ -14,15 +14,15 @@ class TeamRelatedUpdate extends Migration
     public function up()
     {
         Schema::table('sites', function(Blueprint $table) {
-            $table->unsignedInteger('team_id')->default(0);
+            $table->unsignedInteger('team_id')->nullable();
         });
 
         Schema::table('quotas', function(Blueprint $table) {
-            $table->unsignedInteger('team_id')->default(0);
+            $table->unsignedInteger('team_id')->nullable();
         });
 
         Schema::table('articles', function (Blueprint $table){
-            $table->unsignedInteger('team_id')->default(0);
+            $table->unsignedInteger('team_id')->nullable();
         });
     }
 
