@@ -5,7 +5,7 @@
 <meta name="csrf-token" content="{{ csrf_token() }}">
 @yield('extraMeta')
 <title>FEDN @yield('pageTitle', '管理中心')</title>
-<link href="{{ mix('css/bootstrap.css') }}" rel="stylesheet">
+<link href="{{ asset('css/bootstrap.css') }}" rel="stylesheet">
 <link rel="stylesheet" href="{{ mix('css/backend.css') }}">
 @yield('pageStyle')
 </head>
