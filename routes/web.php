@@ -19,10 +19,13 @@ Route::get('/auth/logout', 'Auth\LoginController@logout');
 
 /** front-end */
 Route::group(['namespace' => 'Front', 'as' => 'front.'], function () {
-    Route::get('/', ['as' => 'home', 'uses' => 'HomeController@index']);
+    Route::get('/', ['as' => 'home', 'uses' => 'HomeController@index_v2']);
+    Route::get('/hot', ['as' => 'hot', 'uses' => 'HomeController@hot']);
+
     Route::group(['as' => 'article.', 'prefix' => 'article'], function () {
-        Route::get('/{id}', ['as' => 'view', 'uses' => 'ArticleController@view']);
+        Route::get('/{id}', ['as' => 'view', 'uses' => 'ArticleController@view_v2']);
     });
+
     Route::group(['as' => 'tag.', 'prefix' => 'tag'], function () {
         Route::get('/', ['as' => 'index', 'uses' => 'TagController@index']);
         Route::get('/{id}', ['as' => 'detail', 'uses' => 'TagController@detail']);
