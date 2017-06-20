@@ -2,7 +2,6 @@
 
 namespace Fedn\Models;
 
-use Faker\Provider\cs_CZ\DateTime;
 use Illuminate\Database\Eloquent\Model;
 use Carbon\Carbon;
 
@@ -23,5 +22,13 @@ class Site extends Model
         } else {
             return "N/A";
         }
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo team()
+     */
+    public function team()
+    {
+        return $this->belongsTo(Team::class);
     }
 }

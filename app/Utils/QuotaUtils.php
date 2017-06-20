@@ -7,21 +7,20 @@
 
 namespace Fedn\Utils;
 
-//use Faker\Provider\bn_BD\Utils;
-//use Snoopy\Snoopy;
-use phpQuery;
+use GuzzleHttp\Psr7\UriResolver;
 use Fedn\Models\Site;
 use Fedn\Models\Quota;
 use GuzzleHttp\Psr7\Uri;
 use GuzzleHttp\Client as GuzzleHttp;
 
 use Fedn\Utils\FednUtil as Tool;
+use phpQuery;
 
 class QuotaUtils
 {
 
     protected static $guzzleOption = [
-        'timeout' => 5,
+        'timeout' => 10,
         'allow_redirects' => true,
         'verify' => false,
         'defaults' => [
@@ -48,7 +47,7 @@ class QuotaUtils
             "data" => $data
         ];
 
-        return $result;
+        return response()->json($result);
     }
 
     public static function fetch(site $site, bool $checkExists = true) {
@@ -59,8 +58,8 @@ class QuotaUtils
 
         foreach ($links as $link) {
             if($checkExists) {
-                $quota = Quota::withTrashed()->firstOrNew(['url' => $link]);
-                if ($quota->exists) {
+                $quota = Quota::withTrashed()->where('url','=',$link)->first();
+                if ($quota) {
                     continue;
                 }
             }
@@ -78,12 +77,15 @@ class QuotaUtils
     }
 
     public static function resolveUrl($base, $relative) {
-        $base = new Uri($base);
+
 
         if(substr($relative,0,4) === 'http' || substr($relative,0,2) === '//') {
             return $relative;
         } else {
-            return (string)Uri::resolve($base, $relative);
+            $base = new Uri($base);
+            $relative = new Uri($relative);
+            $uriInterface = UriResolver::resolve($base, $relative);
+            return (string)$uriInterface;
         }
     }
 
@@ -98,35 +100,20 @@ class QuotaUtils
         $options = static::$guzzleOption;
         $options['defaults']['headers']['referer'] = $site->list_url;
 
+        if(getenv('HTTP_PROXY')) {
+            $options['proxy'] = getenv('HTTP_PROXY');
+        }
+
         $client = new GuzzleHttp($options);
 
         $flagExceptions = ['exceptions' => false];
 
         $res = $client->get($site->list_url, $flagExceptions);
 
-
-        /*$res = new Snoopy();
-        $res->agent = static::$ua;
-        $res->referer = $site->url;
-
-        $res->fetch($site->list_url);
-
-        if ($res->status == 200 || $res->status == 304) {*/
         if ($res->getStatusCode() <= 304) {
             $html = (string)$res->getBody();
             $res = null;
 
-
-
-            //$html = $res->getResults();
-
-            //$res = null;
-
-            //$crawler = new Crawler($html);
-
-            //$links = $crawler->filter($site->sel_link)->extract('href');
-
-            //$crawler = null;
 
             $pq = phpQuery::newDocumentHTML($html);
 
@@ -135,6 +122,7 @@ class QuotaUtils
             $links = [];
             foreach($_links as $link) {
                 $_url = pq($link)->attr('href');
+
                 $links[] = QuotaUtils::resolveUrl($site->list_url, $_url);
             }
 
@@ -152,26 +140,25 @@ class QuotaUtils
         $options = static::$guzzleOption;
         $options['defaults']['headers']['referer'] = $site->list_url;
 
+        if (getenv('HTTP_PROXY')) {
+            $options['proxy'] = getenv('HTTP_PROXY');
+        }
+
         $client = new GuzzleHttp($options);
         $flagExceptions = ['exceptions' => false];
         $res = $client->get($link, $flagExceptions);
-        /*$res = new Snoopy();
-        $res->agent = static::$ua;
-        $res->referer = $site->url;
 
-        $res->fetch($link);*/
         if ($res->getStatusCode() <= 400) {
             $html = $res->getBody()->getContents();
             $res = null;
-        //if ($res->status == 200 || $res->status == 304) {
-            //$html = $res->getResults();
 
             $doc = phpQuery::newDocumentHTML($html);
 
             $data = [];
             $data['title'] = trim($doc->find($site->sel_title)->text());
             $data['url'] = $link;
-            $data['content'] = Tool::removeInValidUtf8Chars(trim($doc->find($site->sel_content)->html()));
+            $data['team_id'] = $site->team_id;
+            $data['content'] = trim($doc->find($site->sel_content)->html());
 
             if(Tool::startsWith($site->sel_tag, "=")) {
                 $data['tags'] = substr($site->sel_tag, 1);
@@ -181,6 +168,8 @@ class QuotaUtils
                 $tags = $doc->find($site->sel_tag)->texts();
                 $data['tags'] = implode(',', $tags);
             }
+
+            //todo: auto generate tags from content.
 
             $data['site_name'] = $site->name;
             $data['site_url'] = $site->url;
@@ -203,12 +192,6 @@ class QuotaUtils
             }
 
             $doc = null;
-
-            try {
-                $test = response()->json($data);
-            } catch ( \Exception $e ) {
-                return null;
-            }
 
             return $data;
 

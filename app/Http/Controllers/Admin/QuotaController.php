@@ -57,7 +57,7 @@ class QuotaController extends Controller
     {
         if ($req->route()->getName() === 'api.site.list') {
             $size = $req->get('size', 20);
-            $sites = Site::orderBy('id', 'desc')->paginate($size);
+            $sites = Site::with('team')->orderBy('id', 'desc')->paginate($size);
 
             return QuotaUtils::JsonResult($sites);
         } else {
@@ -72,6 +72,7 @@ class QuotaController extends Controller
             $this->validate($req, [
                 'name'            => 'required',
                 'url'             => 'required|url',
+                'team_id'         => 'required|exists:teams,id',
                 'list_url'        => 'required|url',
                 'sel_link'        => 'required',
                 'sel_title'       => 'required',
@@ -84,6 +85,7 @@ class QuotaController extends Controller
             $site = new Site();
             $site->name = $req->get('name');
             $site->url = $req->get('url');
+            $site->team_id = $req->get('team_id');
             $site->list_url = $req->get('list_url');
             $site->sel_link = $req->get('sel_link');
             $site->sel_title = $req->get('sel_title');
@@ -146,7 +148,8 @@ class QuotaController extends Controller
                 'sel_tag'         => 'required',
                 'sel_author_link' => 'required',
                 'sel_author_name' => 'required',
-                'published'       => 'bool'
+                'published'       => 'bool',
+                'team_id'         => 'required|exists:teams,id'
             ]);
             $data = $req->only([
                 'name',
@@ -158,10 +161,12 @@ class QuotaController extends Controller
                 'sel_tag',
                 'sel_author_link',
                 'sel_author_name',
-                'published'
+                'published',
+                'team_id'
             ]);
 
             $site = Site::updateOrCreate([ 'list_url' => $data['list_url'] ], $data);
+            $site->load('team');
 
             return QuotaUtils::JsonResult($site);
         } else {

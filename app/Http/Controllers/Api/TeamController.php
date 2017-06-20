@@ -30,7 +30,7 @@ class TeamController extends Controller
 
         $cacheExpiration = app()->isLocal() ? 0 : 60;
 
-        $teams = Cache::remember($cacheKey, $cacheExpiration, function() use ($cacheKey, $query, $page, $size){
+        $teams = Cache::tags('teams')->remember($cacheKey, $cacheExpiration, function() use ($cacheKey, $query, $page, $size){
             $returnAll = $cacheKey === 'teams_all';
 
             $data = $returnAll ? $query->get() : $query->paginate($size, ['*'], 'page', $page);
@@ -99,6 +99,9 @@ class TeamController extends Controller
 
         $result = $team->save() ? ['ret' => 0, 'message' => $team] : ['ret' => 2, 'message' => 'Save failed.'];
 
+        if($result) {
+            Cache::tags('teams')->flush();
+        }
         return response()->json($result);
 
     }
@@ -115,6 +118,10 @@ class TeamController extends Controller
         }
 
         $count = Team::destroy($id);
+
+        if($count > 0) {
+            Cache::tags('teams')->flush();
+        }
 
         return $count > 0 ? response()->json([
             'ret' => 0,
