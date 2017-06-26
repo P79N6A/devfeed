@@ -2,22 +2,16 @@
 
 namespace Fedn\Http\Controllers\Admin;
 
-use Fedn\Models\Tag;
-use Fedn\Utils\QuotaUtils;
-use Illuminate\Database\Eloquent\ModelNotFoundException;
-use Illuminate\Http\Request;
-
-use Fedn\Http\Requests;
-use Fedn\Http\Controllers\Controller;
-use Gate;
-use Fedn\Models\Article;
-use Fedn\Models\ArticleMeta;
-//use Fedn\Models\Category;
-use Symfony\Component\Routing\Exception\InvalidParameterException;
-use Fedn\Http\Requests\ArticleFormRequest;
-
-use DB;
 use Cache;
+use Fedn\Http\Controllers\Controller;
+use Fedn\Http\Requests\ArticleFormRequest;
+use Fedn\Models\Article;
+use Fedn\Models\Tag;
+use Fedn\Models\Team;
+use Fedn\Utils\QuotaUtils;
+use Gate;
+use HttpInvalidParamException;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 class ArticleController extends Controller
 {
@@ -39,21 +33,30 @@ class ArticleController extends Controller
     }
 
     /**
-     * @param integer $id
-     * @return mixed
+     * @param integer $id Article ID.
+     * @return \Illuminate\View\View|\Illuminate\Contracts\View\Factory
+     *
+     * @throws HttpInvalidParamException
+     * @throws ModelNotFoundException
      */
-    public function edit(int $id) {
-        if(!is_numeric($id)) {
-            throw new InvalidParameterException('非法参数');
+    public function edit(int $id = null) {
+        if(is_null($id)) {
+            $article = new Article;
+        } else if (!is_numeric($id)) {
+            throw new HttpInvalidParamException('ID must be an integer.');
+        } else {
+            $article = Article::withoutGlobalScope('published')->with(['tags'])->find($id);
         }
-        $article = Article::withoutGlobalScope('published')->with(['tags'])->find($id);
+
         if(!$article) {
             throw new ModelNotFoundException('文章不存在！');
         }
         $this->authorize('update', $article);
-        $Tags = Tag::all();
-        return view('backend.article-form', ['article'=>$article,'Tags'=>$Tags]);
+        $tags = Tag::all();
+        $teams = Team::get(['id','title']);
+        return view('backend.article-form', ['article'=>$article,'tags'=>$tags, 'teams' => $teams]);
     }
+
     //文章删除
     public function destroy($id)
     {
@@ -104,6 +107,7 @@ class ArticleController extends Controller
         //$article->is_link = !empty($data['source_url']);
         $article->content = $data['content'];
         $article->status = $data['status'];
+        $article->team_id = $data['team_id'];
 
 
         if ($request->hasFile('figure')) {
@@ -132,6 +136,8 @@ class ArticleController extends Controller
         $tags = $request->get('tags','');
         if($tags) {
             $tags = explode(',', $tags);
+        } else {
+            $tags = [];
         }
         foreach($tags as $tag) {
             $tag = trim($tag);

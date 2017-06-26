@@ -28,6 +28,7 @@ class ArticleFormRequest extends Request
             'source_url' => 'url',
             'status'  => 'required|in:draft,publish',
             //'categories' => 'required',
+            'team_id' => 'exists:teams,id',
             'figure' => 'image',
             'author_url' => 'url',
         ];
