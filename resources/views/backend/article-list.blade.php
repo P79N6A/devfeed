@@ -7,7 +7,7 @@
 
     <div class="row">
         <div class="col-md-6">
-            <a href="{{ route('admin.article.add') }}" class="btn btn-success">添加文章</a>
+            <a href="{{ route('admin.article.edit') }}" class="btn btn-success">添加文章</a>
         </div>
         <div class="col-md-6">
 
@@ -22,6 +22,7 @@
                     <th>类型</th>
                     <th>作者</th>
                     <th>标签</th>
+                    <th>团队</th>
                     <th>日期</th>
                     <th>录入</th>
                     <th>操作</th>
@@ -31,13 +32,16 @@
                 @forelse($articles as $art)
                     <tr>
 
-                        <td>{{ Html::Link('admin/article/'.$art->id, $art->title) }}</td>
+                        <td>{{ Html::Link('article/'.$art->id, $art->title, ['target'=>"_blank"]) }}</td>
                         <td>{{ $art->isLink ? '转载': '原创' }}</td>
                         <td>{{ $art->author }}</td>
                         <td>
                             @foreach($art->tags as $tag)
                                 <a href="{{'/tag/'.$tag->id}}" target="_blank">{{ $tag->title }}</a>
                             @endforeach
+                        </td>
+                        <td>
+                            {{ $art->team ? $art->team->title: "未关联" }}
                         </td>
                         <td>@if($art->status == 'draft')
                                      <span style="color:red">草稿</span>
@@ -49,7 +53,9 @@
                             <span style="color: #666666;font-size: 12px">({{ $art->created_at }})</span>
                             <br>修改时间：  <span style="color: #666666;font-size: 12px">({{ $art->updated_at }})</span></td>
                         <td>{{ $art->user->name or ''}}</td>
-                        <td><button data-id="{{$art->id}}" class="btn btn-small btn-danger btn-delete">删除</button>
+                        <td>
+                            {{ Html::Link('admin/article/'.$art->id, "编辑", ['class'=>'btn btn-small btn-primary']) }}
+                            <button data-id="{{$art->id}}" class="btn btn-small btn-danger btn-delete">删除</button>
                             @if($art->status == 'draft')
                                     <button class="btn btn-small btn-success btn-publish" data-id="{{$art->id}}">发布
                             @endif
