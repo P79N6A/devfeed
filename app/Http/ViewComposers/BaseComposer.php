@@ -9,6 +9,7 @@
 namespace Fedn\Http\ViewComposers;
 
 use Illuminate\View\View;
+use Fedn\Models\Team;
 
 class BaseComposer
 {
@@ -34,8 +35,12 @@ class BaseComposer
      */
     public function compose(View $view)
     {
+        //侧边栏获取团队的
+        $teamList = Team::take(5)->get();
         $baseInfo = array(
-          'title' => 'FEDN.it'
+            'title' => 'FEDN.it',
+            'teamList' => $teamList,
+            'serverName' => 'http://'.$_SERVER['SERVER_NAME']
         );
         $view->with('baseInfo', $baseInfo);
     }

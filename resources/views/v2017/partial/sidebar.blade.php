@@ -12,12 +12,17 @@
                 </ul>
             </div>
             <div class="filter">
-                <dl>
-                    <dt><i class="team spr"></i>团队</dt>
-                    <dd><a href="javascript:void(0);" title="Tgideas">Tgideas</a></dd>
-                    <dd><a href="javascript:void(0);" title="Taobao UED">Taobao UED</a></dd>
-                    <dd><a href="javascript:void(0);" title="更多">更多&gt;&gt;</a></dd>
-                </dl>
+                @if($baseInfo['teamList'])
+                    <dl>
+                        <dt><i class="team spr"></i>团队</dt>
+                         @foreach($baseInfo['teamList'] as $teamItem)
+                            <dd>{{ link_to('/team/'.$teamItem->id, $teamItem->title) }}</dd>
+{{--                            <a href="{{link_to('front.team.detail/1')}}" title="{{$teamItem['title']}}">{{$teamItem['title']}}</a>--}}
+                         @endforeach
+                        <dd><a href="{{route('front.team.index')}}" title="更多">更多&gt;&gt;</a></dd>
+                    </dl>
+                @endif
+
                 {{--<dl>--}}
                     {{--<dt><i class="person spr"></i>人物</dt>--}}
                     {{--<dd><a href="javascript:void(0);" title="阮一峰">阮一峰</a></dd>--}}

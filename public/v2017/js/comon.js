@@ -6,6 +6,15 @@ var brow = {
 	isMobile:/Android|iPhone|iTouch|iPad|BlackBerry|IEMobile|Mobile/i.test(na)
 }
 
+function setCookie(name, value, expires, path, domain, secure) {
+    var exp = new Date(),
+        expires = arguments[2] || null,
+        path = arguments[3] || "/",
+        domain = arguments[4] || null,
+        secure = arguments[5] || false;
+    expires ? exp.setMinutes(exp.getMinutes() + parseInt(expires)) : "";
+    document.cookie = name + '=' + encodeURIComponent(value) + (expires ? ';expires=' + exp.toGMTString() : '') + (path ? ';path=' + path : '') + (domain ? ';domain=' + domain : '') + (secure ? ';secure' : '');
+}
 
 $(function (){
 	var toggleBtn = $('.toggle-btn'),
@@ -51,6 +60,7 @@ $(function (){
 		if(! brow.isMobile){
 			$('.type-btns').css('display','block')
 			$(itemBtn).bind('click',function(){
+                setCookie('list_type','item',60*24*7,'/','.fedn.local');
 				$(this).addClass('on').siblings().removeClass('on')
 				if($('.main-con ul.list').hasClass('item')){
 					return;
@@ -60,7 +70,8 @@ $(function (){
 				}
 			});
 			$(listBtn).bind('click',function(){
-				$(this).addClass('on').siblings().removeClass('on')
+                setCookie('list_type','list',60*24*7,'/','.fedn.local');
+                $(this).addClass('on').siblings().removeClass('on')
 				$('.main-con ul.list').removeClass('item');
 			});
 		}else{

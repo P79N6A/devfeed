@@ -20,6 +20,10 @@
         @include('v2017.partial.content_top')
         @section('content_main')
         @show
+        <div class="com-footer">
+            <p>Copyright © 2017 Tgideas</p>
+            <p>粤ICP备14011364号-5</p>
+        </div>
     </div>
 </div>
 <script src="{{asset('v2017/js/jquery.min.js')}}"></script>

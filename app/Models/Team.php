@@ -7,7 +7,7 @@ use Parsedown;
 
 class Team extends Model
 {
-    public const LOGO_PATH = 'upload/teams';
+    const LOGO_PATH = 'upload/teams';
     protected $guarded = ['created_at', 'updated_at'];
     protected $appends = ['description_html'];
 
@@ -15,6 +15,10 @@ class Team extends Model
         'logo' => '',
         'likes' => 0
     ];
+
+    public function articles() {
+        return $this->hasMany(Article::class);
+    }
 
 
     public function getDescriptionHtmlAttribute(){

@@ -7,9 +7,8 @@ use Illuminate\Http\Request;
 use Fedn\Http\Controllers\Controller;
 
 use Fedn\Models\Article;
-use Fedn\Models\Tag;
-use Fedn\Models\Site;
 use Cache;
+use Illuminate\Support\Facades\Cookie;
 
 class HomeController extends Controller
 {
@@ -30,8 +29,10 @@ class HomeController extends Controller
         return view('front.home', ['articles'=>$articles]);
     }
 
+
     //最新
     public  function index_v2(){
+
         $page = request()->input('page', 1);
         if(is_numeric($page) == false) {
             $page = 1;
@@ -40,16 +41,10 @@ class HomeController extends Controller
         $articles = Cache::tags('articles')->remember('_page_'.$page, 10, function(){
             return Article::orderBy('id', 'desc')->paginate(10);
         });
-        foreach ($articles as $article){
-            //设置预览图为文章的第一张图
-            $quato = '/<img.*?src=[\"|\']?(.*?)[\"|\']?\s.*?>/i';
-            if(preg_match($quato, $article->content,$arr)){
-                $article -> previewImg = $arr[1];
-            }else{
-                $article -> previewImg = "";
-            }
-        }
+
+        $articles = $this->setPreviewToArticle($articles);
         return view('v2017.home', ['articles'=>$articles,
+                                    'listType'=>$this->getListType(),
                                     'currentPage' => '最新']);
     }
     //最热
@@ -62,133 +57,86 @@ class HomeController extends Controller
         $articles = Cache::tags('articles')->remember('_page_'.$page, 10, function(){
             return Article::orderBy('click_count', 'desc')->paginate(10);
         });
-        foreach ($articles as $article){
-            //设置预览图为文章的第一张图
-            $quato = '/<img.*?src=[\"|\']?(.*?)[\"|\']?\s.*?>/i';
-            if(preg_match($quato, $article->content,$arr)){
-                $article -> previewImg = $arr[1];
-            }else{
-                $article -> previewImg = "";
-            }
-        }
+        $articles = $this->setPreviewToArticle($articles);
         return view('v2017.home', ['articles'=>$articles,
+                                    'listType'=>$this->getListType(),
                                     'currentPage' => '最热']);
     }
 
-    public function getListByType($type){
-        $page = request()->input('page', 1);
-        if(is_numeric($page) == false) {
-            $page = 1;
-        }
-        $articles = array();
-        switch ($type){
-            case "new" :  $articles = $this->getNewList($page) ;break;
-            case "hot" : $articles = $this->getHotList($page) ;break;
-            case "personal" : $articles = $this->getPersonalList($page); break;
-            case "team" : $articles = $this->getTeamList($page) ;break;
-            case "guide" : $articles = $this->getGuideList($page) ;break;
-            default : break;
-        }
-
-//        $returnList = array();
-//        foreach ($articles as $articleItem){
-//            $tagList = array();
-//            foreach ($articleItem->tags as $tag){
-//                $tagItem = array(
-//                    'id' => $tag->id,
-//                    'title' => $tag->title
-//                );
-//                array_push($tagList,$tagItem);
-//            }
-//            $returnItem = array(
-//                'id' => $articleItem->id,
-//                'title' => $articleItem->title,
-//                'content' => mb_substr(strip_tags($articleItem->content), 0, 500),
-//                'figure' => $articleItem->figure,
-//                'tag' => $tagList,
-//                'publishTime' => $articleItem->publishTime,
-//                'sourceSite' => $articleItem->sourceSite
-//            );
-//            array_push($returnList,$returnItem);
-//        }
-        return response()->json($articles);
-    }
-
-    private function getNewList($page){
-        //获取最新的文章
-        $articles = Cache::tags('articles')->remember('_page_'.$page, 10, function(){
-            return Article::orderBy('id', 'desc')->paginate(10);
-        });
+    //设置文章的预览
+    private function setPreviewToArticle($articles){
+        //标题缓存
+        $titleCacheArr = array();
         foreach ($articles as $article){
             //设置预览图为文章的第一张图
             $quato = '/<img.*?src=[\"|\']?(.*?)[\"|\']?\s.*?>/i';
             if(preg_match($quato, $article->content,$arr)){
-                $article -> previewImg = $arr[1];
+                $arcPreview = array(
+                    'type' => 'img',
+                    'src' => $arr[1]
+                );
             }else{
-                $article -> previewImg = "";
+                //没有图则随机生成一个字母
+                //过滤标题
+                $item = $this->filterTitle($article->title);
+                $itemLength =  mb_strlen($item,'utf-8');
+                $titlePreview = mb_substr( $item, 0, 1,'utf-8');
+                if(in_array($titlePreview,$titleCacheArr)){
+                    //如果首字母在魂村已经出现过，则随机一个
+                    $itemShort = mb_substr( $item, rand(1,$itemLength-1), 1,'utf-8');
+                }else{
+                    $itemShort =  $titlePreview;
+                    array_push($titleCacheArr,$titlePreview);
+                }
+                $arcPreview = array(
+                    'type' => 'text',
+                    'src' => $itemShort
+                );
             }
+            $article -> preview = $arcPreview;
         }
         return $articles;
     }
-    private function getHotList($page){
-        //获取最热的文章
-        $articles = Cache::tags('articles')->remember('_page_'.$page, 10, function(){
-            return Article::orderBy('click_count', 'desc')->paginate(10);
-        });
-        foreach ($articles as $article){
-            //设置预览图为文章的第一张图
-            $quato = '/<img.*?src=[\"|\']?(.*?)[\"|\']?\s.*?>/i';
-            if(preg_match($quato, $article->content,$arr)){
-                $article -> previewImg = $arr[1];
+
+
+    //过滤标题，只保留中文 英文
+    private function filterTitle($chars,$encoding='utf8'){
+//        $pattern =($encoding=='utf8')?'/[\x{4e00}-\x{9fa5}a-zA-Z0-9]/u':'/[\x80-\xFF]/';
+        $pattern =($encoding=='utf8')?'/[\x{4e00}-\x{9fa5}a-zA-Z]/u':'/[\x80-\xFF]/';
+        preg_match_all($pattern,$chars,$result);
+        return join('',$result[0]);
+    }
+
+    //获取视图的排列方式
+    private function getListType(){
+        return isset($_COOKIE["list_type"])?$_COOKIE["list_type"]:'list';
+    }
+
+    //测试过滤标题
+    function test(){
+
+        $arr = array('?><？》”"我们999',',dedL}{P+_)In ths我们999','我f们!@#$%^&*()+_)(*999','!@#$%^&*()+_)(*我sss们999','我23们999','我de们999','0000我们999');
+        $result = array();
+        $cacheArr = array();
+        foreach ($arr as $item){
+            //过滤标题
+            $item = $this->filterTitle($item);
+            $itemLength =  mb_strlen($item,'utf-8');
+            $preview = mb_substr( $item, 0, 1,'utf-8');
+            if(in_array($preview,$cacheArr)){
+                //如果首字母之前已经出现过，则随机一个
+                $itemShort = mb_substr( $item, rand(1,$itemLength-1), 1,'utf-8');
             }else{
-                $article -> previewImg = "";
+                $itemShort =  $preview;
+                array_push($cacheArr,$preview);
             }
+            $resultItem = array(
+                'length' =>$itemLength,
+                'short' =>$itemShort
+            );
+            array_push($result,$resultItem);
         }
-        return $articles;
-    }
-
-    private function getPersonalList($id){
-        //获取个人的文章
-
-    }
-
-    private function getTeamList(){
-        //获取团队的文章
-
-    }
-
-
-    private function getGuideList(){
-        //人物
-        $sites = Site::paginate(4);
-        //标签
-        $tags = Tag::withCount('articles')->orderBy('articles_count','desc')->paginate(8);
-        $returnData = array(
-            "tags" => $tags ,
-            "sites" => $sites
-        );
-        return $returnData;
-    }
-
-
-    public function getListDetailByType($type,$id){
-        $page = request()->input('page', 1);
-        if(is_numeric($page) == false) {
-            $page = 1;
-        }
-        switch ($type){
-            case "personal" : $articles = $this->getPersonalDetail($id); break;
-            case "team" : $articles = $this->getTeamDetail($page) ;break;
-            default : break;
-        }
-        return response()->json($articles);
-    }
-    private function getPersonalDetail($id){
-
-    }
-
-    private function getTeamDetail($id){
-
+        return($result);
     }
 
     public function redirectToIndex()

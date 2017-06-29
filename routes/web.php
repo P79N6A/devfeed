@@ -22,6 +22,11 @@ Route::group(['namespace' => 'Front', 'as' => 'front.'], function () {
     Route::get('/', ['as' => 'home', 'uses' => 'HomeController@index_v2']);
     Route::get('/hot', ['as' => 'hot', 'uses' => 'HomeController@hot']);
 
+    Route::group(['as' => 'team.', 'prefix' => 'team'], function () {
+        Route::get('/', ['as' => 'index', 'uses' => 'TeamController@index']);
+        Route::get('/{id}', ['as' => 'detail', 'uses' => 'TeamController@detail']);
+    });
+
     Route::group(['as' => 'article.', 'prefix' => 'article'], function () {
         Route::get('/{id}', ['as' => 'view', 'uses' => 'ArticleController@view_v2']);
     });

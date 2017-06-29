@@ -18,8 +18,8 @@
             <div class="article-tt">
                 <h3>{{$art->title}}</h3>
                 <p class="article-infor">
-                    <a href="javascript:void(0);" class="like"><i class="like-icon spr"></i><span class="like-num">166</span></a>
-                    <a href="javascript:void(0)" class="team">Tgideas</a>&#64;<a href="javascript:void(0)" class="people">allanglwang</a><span class="time">{{ $art->publishTime }}</span></p>
+                    {{--<a href="javascript:void(0);" class="like"><i class="like-icon spr"></i><span class="like-num">166</span></a>--}}
+                    <a href="{{$baseInfo['serverName']}}/team/{{$art->team['id']}}" class="team">{{$art->team['title']}}</a>&#64;<a href="javascript:void(0)" class="people">{{$art->author}}</a><span class="time">{{ $art->publishTime }}</span></p>
             </div>
             <div class="article">
                 {!! $art->content !!}
