@@ -92,6 +92,17 @@
                         </div>
                     </div>
                     <div class="fedn-line">
+                        <span class="fedn-label">所属团队：</span>
+                        <div class="fedn-controls">
+                            <select name="team_id" id="team_id">
+                                <option>请选择所属团队</option>
+                                @foreach($teams as $team)
+                                    {{ Form::getSelectOption($team->title,$team->id,$article->team_id) }}
+                                @endforeach
+                            </select>
+                        </div>
+                    </div>
+                    <div class="fedn-line">
                         <span class="fedn-label">标签：</span>
                         <div class="fedn-controls">
                             <input id="inputTag" autocomplete="off" type="text" class="form-control">
@@ -109,7 +120,7 @@
                     <div class="fedn-line" style="border-top:1px solid #DDDDDD;padding-top:10px">
                         <span class="fedn-label">现有标签：</span>
                         <div class="fedn-controls">
-                            @foreach($Tags as $t)
+                            @foreach($tags as $t)
                                 <span class="now_tag" style="background: #eee;padding:2px 5px;border-radius:2px;margin:2px;display: inline-block;cursor:pointer">{{$t->title}}</span>
                             @endforeach
 

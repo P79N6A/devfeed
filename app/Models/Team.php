@@ -9,7 +9,7 @@ class Team extends Model
 {
     const LOGO_PATH = 'upload/teams';
     protected $guarded = ['created_at', 'updated_at'];
-    protected $appends = ['description_html'];
+    protected $appends = ['descriptionHtml'];
 
     protected $attributes = [
         'logo' => '',
@@ -22,10 +22,14 @@ class Team extends Model
 
 
     public function getDescriptionHtmlAttribute(){
-        $_cont = $this->attributes['description'];
-        $_parser = Parsedown::instance('fedn');
-        $_html = $_parser->text($_cont);
-        return $_html;
+        if(key_exists('description', $this->attributes)) {
+            $_cont = $this->attributes['description'];
+            $_parser = Parsedown::instance('fedn');
+            $_html = $_parser->text($_cont);
+            return $_html;
+        } else {
+            return null;
+        }
     }
 
     public function logoFile($ext = 'png')

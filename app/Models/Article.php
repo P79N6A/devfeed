@@ -52,6 +52,10 @@ class Article extends Model
         return $this->morphToMany(Tag::class, 'taggable');
     }
 
+    public function team() {
+        return $this->belongsTo(Team::class);
+    }
+
     public function metas() {
         return $this->hasMany(ArticleMeta::class);
     }
