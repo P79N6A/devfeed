@@ -10,8 +10,7 @@
             <ul class="list clearfix"><!--通过类名list、item进行列表展示方式的切换-->
                 @foreach($teamList as $item)
                     <li>
-                        {{--                            <a href="{{link_to('front.team.detail/1')}}" title="{{$teamItem['title']}}">{{$teamItem['title']}}</a>--}}
-                        <a href="javascript:void(0);" class="list-pic"><img src="{{$item->logo}}" alt="{{$item->title}}" /></a>
+                        <a href="{{url('team',$item->id)}}" class="list-pic"><img src="{{$item->logo}}" alt="{{$item->title}}" /></a>
                         <h3>{{ link_to('/team/'.$item->id, $item->title) }}</h3>
                         <p class="list-intro">{!! $item->descriptionHtml !!}</p>
                     </li>

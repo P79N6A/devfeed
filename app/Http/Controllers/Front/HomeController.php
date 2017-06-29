@@ -82,7 +82,7 @@ class HomeController extends Controller
                 $itemLength =  mb_strlen($item,'utf-8');
                 $titlePreview = mb_substr( $item, 0, 1,'utf-8');
                 if(in_array($titlePreview,$titleCacheArr)){
-                    //如果首字母在魂村已经出现过，则随机一个
+                    //如果首字母在标题缓存已经出现过，则随机一个，降低文章预览文案相同的概率
                     $itemShort = mb_substr( $item, rand(1,$itemLength-1), 1,'utf-8');
                 }else{
                     $itemShort =  $titlePreview;

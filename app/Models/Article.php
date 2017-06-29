@@ -60,10 +60,6 @@ class Article extends Model
         return $this->hasMany(ArticleMeta::class);
     }
 
-    public function team() {
-        return $this->belongsTo(Team::class);
-    }
-
     public function getIsLinkAttribute() {
         return !empty($this->source_url);
     }

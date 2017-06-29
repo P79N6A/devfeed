@@ -22,7 +22,7 @@ class ComposerServiceProvider extends ServiceProvider
     {
         // Using class based composers...
         View::composer(
-            ['v2017.home','v2017.article','v2017.team','v2017.teamlist'], 'Fedn\Http\ViewComposers\BaseComposer'
+            ['v2017.layout'], 'Fedn\Http\ViewComposers\BaseComposer'
         );
         // Using Closure based composers...
         View::composer('dashboard', function ($view) {
