@@ -171,7 +171,7 @@ return [
         // App\Providers\BroadcastServiceProvider::class,
         Fedn\Providers\EventServiceProvider::class,
         Fedn\Providers\RouteServiceProvider::class,
-
+        Fedn\Providers\ComposerServiceProvider::class
 
     ],
 
