@@ -12,26 +12,8 @@ use Illuminate\Support\Facades\Cookie;
 
 class HomeController extends Controller
 {
-    /**
-     * Show the application dashboard.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        $page = request()->input('page', 1);
-        if(is_numeric($page) == false) {
-            $page = 1;
-        }
-        $articles = Cache::tags('articles')->remember('_page_'.$page, 10, function(){
-            return Article::orderBy('id', 'desc')->with('tags')->paginate(10);
-        });
-        return view('front.home', ['articles'=>$articles]);
-    }
-
-
     //最新
-    public  function index_v2(){
+    public  function index(){
 
         $page = request()->input('page', 1);
         if(is_numeric($page) == false) {
