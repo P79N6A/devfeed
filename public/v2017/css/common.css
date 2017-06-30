@@ -126,7 +126,7 @@ body{min-width:320px;font:14px/1.5 "\5FAE\8F6F\96C5\9ED1",arial;color:#000;-webk
 .article-tt a.team{margin-right: 6px}
 .article-tt .time{margin-left: 12px}
 .article{margin-top: 20px;}
-.article img{width: 100%;text-indent: -2em;}
+.article img{max-width: 100%;text-indent: -2em;}
 .article p{font-size: 14px;line-height: 24px;text-indent: 2em}
 
 @media screen and (max-width:1300px){
