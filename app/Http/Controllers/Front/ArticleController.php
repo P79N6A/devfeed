@@ -14,7 +14,7 @@ class ArticleController extends Controller
 {
     public function view($id){
         $article = Cache::tags('articles')->remember('article_'.$id, 30, function() use ($id) {
-            return Article::with('tags')->findOrFail($id);
+            return Article::with(['tags','team'])->findOrFail($id);
         });
         $article->timestamps = false;
         $article->click_count += 1;

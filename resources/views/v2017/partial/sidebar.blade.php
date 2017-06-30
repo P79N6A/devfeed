@@ -7,8 +7,8 @@
         <div class="side-menu-con">
             <div class="main-tag">
                 <ul>
-                    <li class="{{ URL::current() == route('front.home') ? 'on' : ' ' }}"><a href="{{route('front.home')}}" title="最新">最新</a></li>
-                    <li class="{{ URL::current() == route('front.hot') ? 'on' : ' ' }}"><a href="{{route('front.hot')}}" title="最热">最热</a></li>
+                    <li class="{{ URL::current() == route('front.home') ? 'on' : ' ' }}"><a href="{{ route('front.home') }}" title="最新">最新</a></li>
+                    <li class="{{ URL::current() == route('front.hot') ? 'on' : ' ' }}"><a href="{{ route('front.hot') }}" title="最热">最热</a></li>
                 </ul>
             </div>
             <div class="filter">
@@ -16,8 +16,7 @@
                     <dl>
                         <dt><i class="team spr"></i>团队</dt>
                          @foreach($baseInfo['teamList'] as $teamItem)
-                            <dd>{{ link_to('/team/'.$teamItem->id, $teamItem->title) }}</dd>
-{{--                            <a href="{{link_to('front.team.detail/1')}}" title="{{$teamItem['title']}}">{{$teamItem['title']}}</a>--}}
+                            <dd><a href="{{ route('front.team.detail', $teamItem->id) }}" title="{{$teamItem->title}}">{{ $teamItem->title }}</a></dd>
                          @endforeach
                         <dd><a href="{{route('front.team.index')}}" title="更多">更多&gt;&gt;</a></dd>
                     </dl>
