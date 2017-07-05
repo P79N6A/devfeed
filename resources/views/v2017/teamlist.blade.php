@@ -11,7 +11,7 @@
                 @foreach($teamList as $item)
                     <li>
                         <a href="{{route('front.team.detail', $item->id)}}" class="list-pic team-logo"><img src="{{ $item->logo }}" alt="{{ $item->title }}" /></a>
-                        <h3>{{ link_to(route('front.team.detail', $item->id), $item->title) }}</h3>
+                        <h3>{{ link_to(route('front.team.detail', $item->id), $item->title) }}<span class="article-num">{{$item->articles_count}}篇文章</span></h3>
                         <p class="list-intro">{!! $item->descriptionHtml !!}</p>
                     </li>
                 @endforeach
