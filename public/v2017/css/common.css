@@ -83,6 +83,7 @@ body{min-width:320px;font:14px/1.5 "\5FAE\8F6F\96C5\9ED1",arial;color:#000;-webk
 .main-con .list li .text{display: inline-block;font-size:60px;width: 100%;text-align: center;line-height:92px;}
 .main-con .list li img{width: 100%; height: 100%;}
 .main-con .list li h3{font-size: 17px;min-height: 27px}
+.main-con .list li .article-num{font-size: 14px;min-height: 14px;color: #a0a0a0;margin-left: 14px;}
 .main-con .list li h3 a{color: #141414;}
 .main-con .list li h3 .read-all{padding-left: 20px;font-size: 13px;color: #cdd3e8;background-position: -585px 4px;margin-left: 14px}
 .main-con .list li p{font-size: 13px;color: #a0a0a0;line-height: 20px;}
@@ -95,7 +96,7 @@ body{min-width:320px;font:14px/1.5 "\5FAE\8F6F\96C5\9ED1",arial;color:#000;-webk
 .main-con .item li h3 .read-all{display: none}
 .main-con .item li .title {display:inline-block; width: 204px;height: 22px;overflow: hidden;text-overflow: ellipsis;word-wrap: break-word;word-break: break-all;white-space: nowrap;}
 .main-con .item li p.list-intro{max-height: 40px;overflow: hidden;}
-
+.main-con .list .no-data{text-align: center;padding: 0;line-height: 92px;border-bottom: none;color: #a0a0a0;}
 .main-con .list li .team-logo {width:138px;height:138px;overflow:hidden;border:1px solid #ebebeb}
 
 .com-footer{padding: 30px 0 45px; border-top:1px solid #f7f8ff;}
