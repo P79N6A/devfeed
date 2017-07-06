@@ -22,16 +22,13 @@ class QuotaController extends Controller
         if($site) {
             $quotas = $quotas->where('site_name', $site);
         }
-        $quotas->select('id','title','content','url','tags','site_url','site_name','author_url','author_name','created_at','updated_at');
+        $quotas->with('team')->select('id','title','content','url','tags','site_url','site_name','author_url','author_name','created_at','updated_at','team_id');
         $data = $quotas->paginate($size);
 
         $result = [];
         foreach($data as $item) {
-            $item->content = Tool::removeInValidUtf8Chars($item->content);
-            $item->save();
             $content = strip_tags($item->content);
-            $content = preg_replace('/[\n\r]/', '', $content);
-            $content = preg_replace('/[\s]+/', ' ', $content);
+            $content = preg_replace('/[\n\r]+/', '', $content);
             $item->content = mb_strcut($content, 0, 140);
             $result[] = $item;
             json_encode($item);
