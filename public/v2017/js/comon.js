@@ -25,6 +25,21 @@ $(function (){
 	var listBtn = $('.type-btns .list'),
 		itemBtn = $('.type-btns .item');
 	var wrap = $('.wrap');
+	console.log(parseInt($(sideMenu).css('marginLeft')))
+	var showSideMenu = function(){
+		$(sideMenu).animate({marginLeft : 0}, 500);
+		$(wrap).animate({marginLeft : 220}, 500);
+		$(sideMenuCon).fadeIn(500);
+		$(hideBtn).fadeIn(700);
+		$(showBtn).hide();
+	};
+	var hideSideMenu = function(){
+		$(sideMenu).animate({marginLeft : -170}, 500);
+		$(wrap).animate({marginLeft : 50}, 500);
+		$(sideMenuCon).fadeOut(500);
+		$(hideBtn).fadeOut(500);
+		$(showBtn).delay(500).fadeIn(300);
+	}
 
 	jQuery.fn.clickToggle = function(a, b) {
 		var ab = [b, a];
@@ -41,26 +56,19 @@ $(function (){
 			$('body').css('transform','translateX(0)')
 		})
 	}else{
-		$(toggleBtn).clickToggle(function(){
-			$(sideMenu).animate({marginLeft : -170}, 500);
-			$(wrap).animate({marginLeft : 50}, 500);
-			$(sideMenuCon).fadeOut(500);
-			$(hideBtn).fadeOut(500);
-			$(showBtn).delay(500).fadeIn(300);
-		},function(){
-			$(sideMenu).animate({marginLeft : 0}, 500);
-			$(wrap).animate({marginLeft : 220}, 500);
-			$(sideMenuCon).fadeIn(500);
-			$(hideBtn).fadeIn(700);
-			$(showBtn).hide();
-		})
+		if (parseInt($(sideMenu).css('marginLeft')) == -170) {
+			$(toggleBtn).clickToggle(showSideMenu,hideSideMenu)
+		}else{
+			$(toggleBtn).clickToggle(hideSideMenu,showSideMenu)
+		}
+		
 	}
 
 	var type = function (){
 		if(! brow.isMobile){
 			$('.type-btns').css('display','block')
 			$(itemBtn).bind('click',function(){
-                setCookie('list_type','item',60*24*7,'/','.fedn.local');
+                setCookie('list_type','item',60*24*7,'/','.fedn.it');
 				$(this).addClass('on').siblings().removeClass('on')
 				if($('.main-con ul.list').hasClass('item')){
 					return;
@@ -70,7 +78,7 @@ $(function (){
 				}
 			});
 			$(listBtn).bind('click',function(){
-                setCookie('list_type','list',60*24*7,'/','.fedn.local');
+                setCookie('list_type','list',60*24*7,'/','.fedn.it');
                 $(this).addClass('on').siblings().removeClass('on')
 				$('.main-con ul.list').removeClass('item');
 			});

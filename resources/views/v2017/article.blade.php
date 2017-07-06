@@ -35,7 +35,7 @@
 @section('page_script')
     <script charset="gb2312" src="//game.gtimg.cn/images/js/share/share-min.js"></script>
     <script>
-    ;TGshare({
+    TGshare({
         iconSize : 16,
         snsModule : ['wechat','qq','qzone','weibo','pengyou','sina','douban','kaixin','renren'],
         title : '腾讯游戏 - 用心创造快乐',
