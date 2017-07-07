@@ -25,7 +25,6 @@ $(function (){
 	var listBtn = $('.type-btns .list'),
 		itemBtn = $('.type-btns .item');
 	var wrap = $('.wrap');
-	console.log(parseInt($(sideMenu).css('marginLeft')))
 	var showSideMenu = function(){
 		$(sideMenu).animate({marginLeft : 0}, 500);
 		$(wrap).animate({marginLeft : 220}, 500);
