@@ -3,6 +3,8 @@ image: php:7-fpm
 pipelines:
   default:
     - step:
+        cache:
+          - composer
         script:
           - apt-get update && apt-get install -qy zip unzip git curl mysql-client
           - docker-php-ext-install -j$(nproc) pdo_mysql
