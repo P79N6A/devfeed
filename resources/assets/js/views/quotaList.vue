@@ -13,6 +13,7 @@
             <th>ID</th>
             <th>标题</th>
             <th>站点</th>
+            <th>团队</th>
             <th>作者</th>
             <th>标签</th>
             <th>操作</th>
@@ -23,6 +24,7 @@
             <td>{{ row.id }}</td>
             <td><a :href="row.url" :title="row.title">{{ row.title }}</a></td>
             <td><a :href="row.site_url" :title="row.site_name">{{ row.site_name }}</a></td>
+            <td>{{ row.team ? row.team.title : "未设定" }}</td>
             <td><a :href="row.author_url" :title="row.author_name">{{ row.author_name }}</a>
             </td>
             <td>{{ row.tags }}</td>

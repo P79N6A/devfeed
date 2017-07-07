@@ -12,4 +12,9 @@ class Quota extends Model
     protected $table = 'quotas';
 
     protected $guarded = [];
+
+    public function team()
+    {
+        return $this->belongsTo(Team::class);
+    }
 }
