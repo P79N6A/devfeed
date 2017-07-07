@@ -12,6 +12,6 @@ pipelines:
           - composer install
           - export DB_CONNECTION=sqlite
           - php -r "file_exists('.env') || copy('.env.testing', '.env');"
-          - php artisan migrate
+          - php artisan migrate --database=sqlite
           - php artisan serve &
           - vendor/bin/phpunit
