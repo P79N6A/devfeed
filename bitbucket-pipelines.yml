@@ -3,7 +3,7 @@ image: php:7-fpm
 pipelines:
   default:
     - step:
-        cache:
+        caches:
           - composer
         script:
           - apt-get update && apt-get install -qy zip unzip git curl mysql-client
