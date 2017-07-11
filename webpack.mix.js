@@ -1,4 +1,4 @@
-let mix = require('laravel-mix')
+let mix = require('laravel-mix');
 
 /*
  |--------------------------------------------------------------------------
@@ -16,11 +16,11 @@ mix.combine([
   'node_modules/bootstrap/dist/css/bootstrap-theme.min.css',
 ], 'public/css/bootstrap.css')
   .copy('node_modules/jquery/dist/jquery.min.js', 'public/js/jquery.min.js')
-  .copy('node_modules/bootstrap/dist/js/bootstrap.min.js', 'public/js/bootstrap.min.js')
+  .copy('node_modules/bootstrap/dist/js/bootstrap.min.js', 'public/js/bootstrap.min.js');
 
 mix.options({
   extractVueStyles: true
-})
+});
 
 mix.sass('resources/assets/sass/vue.scss', 'public/css/')
   .sass('resources/assets/sass/backend.scss', 'public/css')
@@ -29,5 +29,5 @@ mix.sass('resources/assets/sass/vue.scss', 'public/css/')
   .extract(['axios', 'vue', 'vue-router'], 'public/js/vendor.js')
   .then(() => {
     mix.combine(['public/css/backend.css', 'public/css/vue.css'], 'public/css/backend.css')
-  }).version()
+  }).version();
 

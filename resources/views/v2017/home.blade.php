@@ -21,9 +21,6 @@
                             @endif
                         </a>
                         <h3><a class="title" href="{{ route('front.article.view',$item->id) }}">{{ $item->title }}</a>
-                            @if($item->source_url)
-                                <a href="{!! $item->source_url !!}" target="_blank" class="origin-link"><i class="spr"></i></a>
-                            @endif
                             <span class="read-all spr">{{ $item->click_count }}</span>
                         </h3>
                         <p class="list-intro">{{ mb_substr(strip_tags($item->content), 0, 200) }}</p>
@@ -31,6 +28,9 @@
                             <a href="{{ route('front.team.detail', $item->team['id']) }}" class="team">{{$item->team['title']}}</a>&#64;
                             <a href="javascript:void(0)" class="people">{{ $item->author }}</a>
                             <span class="time">{{ $item->publishTime }}</span>
+                            @if($item->source_url)
+                                <a href="{!! $item->source_url !!}" target="_blank" class="origin-link"><i class="spr"></i></a>
+                            @endif
                         </p>
                     </li>
                 @endforeach

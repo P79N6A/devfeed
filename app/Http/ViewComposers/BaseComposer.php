@@ -40,7 +40,7 @@ class BaseComposer
         $baseInfo = array(
             'title' => 'FEDN.it',
             'teamList' => $teamList,
-            'serverName' => 'http://'.$_SERVER['SERVER_NAME']
+            //'serverName' => 'http://'.$_SERVER['HTTP_HOST']
         );
         $view->with('baseInfo', $baseInfo);
     }
