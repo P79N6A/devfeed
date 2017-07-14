@@ -20,50 +20,44 @@ cache:
   - vendor/
   - node_modules/
 
-stages:
-  - build
-  - test
+# This is a basic example for a gem or script which doesn't use
+# services such as redis or postgres
+before_script:
+  # Install Node dependencies.
+  # comment this out if you don't have a node dependency
+  - npm install
+  - composer install
 
-build:
-  stage: build
-  script:
-    # Install Node dependencies.
-    # comment this out if you don't have a node dependency
-    - npm install
-    - composer install
+  # Copy over testing configuration.
+  # Don't forget to set the database config in .env.testing correctly
+  # DB_HOST=mysql
+  # DB_DATABASE=project_name
+  # DB_USERNAME=root
+  # DB_PASSWORD=secret
+  - cp .env.testing .env
 
-    # Copy over testing configuration.
-    # Don't forget to set the database config in .env.testing correctly
-    # DB_HOST=mysql
-    # DB_DATABASE=project_name
-    # DB_USERNAME=root
-    # DB_PASSWORD=secret
-    - cp .env.testing .env
-    # Generate an application key. Re-cache.
-    - php artisan key:generate
+  # Run npm build
+  # comment this out if you don't have a frontend build
+  # you can change this to to your frontend building script like
+  # npm run build
+  - npm run dev
 
-    # Run database migrations.
-    - php artisan migrate
+  # Generate an application key. Re-cache.
+  - php artisan key:generate
 
-    # Run database seed
-    # - php artisan db:seed
+  # Run database migrations.
+  - php artisan migrate
 
-    # Run npm build
-    # comment this out if you don't have a frontend build
-    # you can change this to to your frontend building script like
-    # npm run build
-    - npm run prod
+  # Run database seed
+  # - php artisan db:seed
 
 test:
-  stage: test
-  dependencies:
-    - build
   script:
-    # run laravel tests
-    - php vendor/bin/phpunit --coverage-text --colors=never
+  # run laravel tests
+  - php vendor/bin/phpunit --coverage-text --colors=never
 
-    # run frontend tests
-    # if you have any task for testing frontend
-    # set it in your package.json script
-    # comment this out if you don't have a frontend test
-    # - npm test
+  # run frontend tests
+  # if you have any task for testing frontend
+  # set it in your package.json script
+  # comment this out if you don't have a frontend test
+  # - npm test
