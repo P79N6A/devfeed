@@ -1,4 +1,0 @@
-requests
-pyquery
-MySQL-python
-redis
