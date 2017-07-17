@@ -1,5 +1,6 @@
 @extends('v2017.layout')
-@section('pageTitle', $currentPage)
+@section('pageTitle', $currentPage.'前端开发知识')
+@section('Keywords', $currentPage.'前端,前端开发')
 @section('content_main')
     <div class="com-main">
         <div class="main-tt">
