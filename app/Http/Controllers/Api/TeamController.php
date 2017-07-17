@@ -18,7 +18,7 @@ class TeamController extends Controller
 
         $cacheKey = 'teams_';
 
-        $query = Team::orderBy('likes', 'desc')->orderBy('updated_at', 'desc');
+        $query = Team::withCount('articles')->orderBy('likes', 'desc')->orderBy('updated_at', 'desc');
 
         if($size == 0) {
             $cacheKey = 'teams_all';
