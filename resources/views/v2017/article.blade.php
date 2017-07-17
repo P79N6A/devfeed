@@ -2,6 +2,16 @@
 
 @section('pageTitle', $art->title)
 @section('Keywords','前端,前端开发,'.$art->title)
+
+@section('page_style')
+    <link rel="stylesheet" href="{{ asset('css/code/tomorrow-night.min.css') }}">
+    <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Source+Code+Pro:500&amp;subset=latin-ext">
+    <style>
+        .hljs {
+            font-family: "Source Code Pro", monospace;
+        }
+    </style>
+@endsection
 @section('content_main')
 <div class="com-main">
     <div class="main-con">
@@ -14,8 +24,6 @@
                 <div id="tg-sns"></div>
             </div>
         </div>
-
-
 
         <div class="article-con">
             <div class="article-tt">
@@ -37,6 +45,7 @@
 
 @section('page_script')
     <script charset="gb2312" src="//game.gtimg.cn/images/js/share/share-min.js"></script>
+    <script src="{{ asset('js/code/highlight.min.js') }}"></script>
     <script>
     TGshare({
         iconSize : 16,
@@ -48,5 +57,6 @@
         isWindow : true,
         tcss : false
     });
+    hljs.initHighlighting();
 </script>
 @endsection

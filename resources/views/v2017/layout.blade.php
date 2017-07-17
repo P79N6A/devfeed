@@ -15,6 +15,7 @@
     <meta name="Copyright" content="Tencent" />
     <title>@yield('pageTitle', '首页') -- {{$baseInfo['title']}}</title>
     <link rel="stylesheet" type="text/css" href="{{asset('v2017/css/common.css')}}">
+    @yield('page_style')
 <body>
 <div class="wrap">
     @include('v2017.partial.sidebar')
