@@ -117,6 +117,24 @@ return [
             'read_timeout' => 60,
             'read_write_timeout' => -1
         ],
+        'session' => [
+            'host'               => env('REDIS_HOST', 'localhost'),
+            'password'           => env('REDIS_PASSWORD', null),
+            'port'               => env('REDIS_PORT', 6379),
+            'database'           => 1,
+            'timeout'            => 60,
+            'read_timeout'       => 60,
+            'read_write_timeout' => -1
+        ],
+        'queue' => [
+            'host'               => env('REDIS_HOST', 'localhost'),
+            'password'           => env('REDIS_PASSWORD', null),
+            'port'               => env('REDIS_PORT', 6379),
+            'database'           => 2,
+            'timeout'            => 60,
+            'read_timeout'       => 60,
+            'read_write_timeout' => -1
+        ],
 
     ],
 
