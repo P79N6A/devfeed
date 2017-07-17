@@ -43,10 +43,10 @@ before_script:
   - npm run dev
 
   # Generate an application key. Re-cache.
-  - php artisan key:generate
+  #- php artisan key:generate
 
   # Run database migrations.
-  - php artisan migrate
+  #- php artisan migrate
 
   # Run database seed
   # - php artisan db:seed
