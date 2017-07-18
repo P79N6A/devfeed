@@ -40,34 +40,40 @@ class HomeController extends Controller
         //标题缓存
         $titleCacheArr = [];
         foreach ($articles as $article) {
-            //设置预览图为文章的第一张图
-            $quato = '/<img.*?src=[\"|\']?(.*?)[\"|\']?\s.*?>/i';
-            if (preg_match($quato, $article->content, $arr)) {
-                $arcPreview = [
+            if($article->figure) {
+                $article->preview = [
                     'type' => 'img',
-                    'src'  => $arr[1]
+                    'src'  => $article->figure
                 ];
             } else {
-                //没有图则随机生成一个字母
-                //过滤标题
-                $item = $this->filterTitle($article->title);
-                $itemLength = mb_strlen($item, 'utf-8');
-                $titlePreview = mb_substr($item, 0, 1, 'utf-8');
-                if (in_array($titlePreview, $titleCacheArr)) {
-                    //如果首字母在标题缓存已经出现过，则随机一个，降低文章预览文案相同的概率
-                    $itemShort = mb_substr($item, rand(1, $itemLength - 1), 1, 'utf-8');
+                //设置预览图为文章的第一张图
+                $quato = '/<img.+src=[\'"]?([^"\']+)[\'"]?.*>/i';
+                if (preg_match($quato, $article->content, $arr)) {
+                    $arcPreview = [
+                        'type' => 'img',
+                        'src'  => $arr[1]
+                    ];
                 } else {
-                    $itemShort = $titlePreview;
-                    array_push($titleCacheArr, $titlePreview);
+                    //没有图则随机生成一个字母
+                    //过滤标题
+                    $item = $this->filterTitle($article->title);
+                    $itemLength = mb_strlen($item, 'utf-8');
+                    $titlePreview = mb_substr($item, 0, 1, 'utf-8');
+                    if (in_array($titlePreview, $titleCacheArr)) {
+                        //如果首字母在标题缓存已经出现过，则随机一个，降低文章预览文案相同的概率
+                        $itemShort = mb_substr($item, rand(1, $itemLength - 1), 1, 'utf-8');
+                    } else {
+                        $itemShort = $titlePreview;
+                        array_push($titleCacheArr, $titlePreview);
+                    }
+                    $arcPreview = [
+                        'type' => 'text',
+                        'src'  => $itemShort
+                    ];
                 }
-                $arcPreview = [
-                    'type' => 'text',
-                    'src'  => $itemShort
-                ];
+                $article->preview = $arcPreview;
             }
-            $article->preview = $arcPreview;
         }
-
         return $articles;
     }
 
