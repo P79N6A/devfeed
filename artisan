@@ -1,4 +1,6 @@
+#!/usr/bin/env php
 <?php
+
 /*
 |--------------------------------------------------------------------------
 | Register The Auto Loader
@@ -10,8 +12,11 @@
 | loading of any our classes "manually". Feels great to relax.
 |
 */
-require __DIR__ . '/bootstrap/autoload.php';
-$app = require_once __DIR__ . '/bootstrap/app.php';
+
+require __DIR__.'/bootstrap/autoload.php';
+
+$app = require_once __DIR__.'/bootstrap/app.php';
+
 /*
 |--------------------------------------------------------------------------
 | Run The Artisan Application
@@ -32,7 +37,7 @@ $status = $kernel->handle(
 | Shutdown The Application
 |--------------------------------------------------------------------------
 |
-| Once Artisan has finished running. We will fire off the shutdown events
+| Once Artisan has finished running, we will fire off the shutdown events
 | so that any final work may be done by the application before we shut
 | down the process. This is the last thing to happen to the request.
 |

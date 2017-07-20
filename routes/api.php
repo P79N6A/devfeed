@@ -15,9 +15,10 @@ use Illuminate\Http\Request;
 
 Route::group(['prefix' => 'v1', 'as' => 'api.'], function () {
 
-    Route::get('/user', function (Request $request) {
+    Route::middleware('auth:api')->get('/user', function (Request $request) {
         return $request->user();
-    })->middleware('auth:api');
+    });
+
 
     Route::group(['namespace' => 'Common'], function () {
         Route::post('upload/{type}', ['as' => 'upload', 'uses' => 'FileController@upload'])

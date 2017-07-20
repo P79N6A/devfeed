@@ -1,7 +1,14 @@
-/vendor
 /node_modules
-Homestead.yaml
+/public/hot
+/public/storage
+/storage/*.key
+/vendor
+/.idea
+/.vagrant
 Homestead.json
+Homestead.yaml
+npm-debug.log
+yarn-error.log
 .env
 .env.php
 .env.*.php
@@ -10,7 +17,6 @@ Homestead.json
 /build/coverage
 /app/tests_log
 .DS_Store
-.idea
 /*.iws
 /*.iml
 *.sublime-workspace
