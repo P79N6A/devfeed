@@ -8,11 +8,14 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
     <meta name="format-detection" content="telephone=no">
     <meta name="msapplication-tap-highlight" content="no" />
+    <meta name="Keywords" content="前端开发,前端开发求职,前端开发新闻,前端开发前沿,前端开发博客,前端新知识,node.js,vue.js,fedn,社区,@yield('Keywords', '首页')">
+    <meta name="description" content="FEDN.it（前端开发者社区），聚合前端开发业界最新、最热门、最有价值的文章" />
     <meta name="robots" content="all" />
-    <meta name="author" content=" " />
+    <meta name="author" content="Tencent-Tgideas" />
     <meta name="Copyright" content="Tencent" />
-    <title>{{$baseInfo['title']}}--@yield('pageTitle', '首页')</title>
+    <title>@yield('pageTitle', '首页') -- {{$baseInfo['title']}}</title>
     <link rel="stylesheet" type="text/css" href="{{asset('v2017/css/common.css')}}">
+    @yield('page_style')
 <body>
 <div class="wrap">
     @include('v2017.partial.sidebar')

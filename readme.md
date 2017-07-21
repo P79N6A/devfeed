@@ -1,5 +1,10 @@
 ## FEDN.it
 
+|  Branch  |  Status  |  Coverage  |
+| :------: | :------: | :--------: |
+|  master  | [![build status][b-master]][master] | [![coverage report][c-master]][master] |
+|  dev     |  [![build status][b-dev]][dev] | [![coverage report][c-dev]][dev] |
+
 ### 当前服务器运营环境：
 - 操作系统： CentOS 7.3 x86_64
 - WEB环境： Nginx 1.13.0 + php-fpm
@@ -28,3 +33,9 @@
 
 如果有任何问题，随时可以骚扰 kairee.
 
+[b-dev]: https://gitlab.com/tgideas/fedn/badges/dev/build.svg
+[dev]: https://gitlab.com/tgideas/fedn/commits/dev
+[c-dev]: https://gitlab.com/tgideas/fedn/badges/dev/coverage.svg
+[b-master]: https://gitlab.com/tgideas/fedn/badges/master/build.svg
+[master]: https://gitlab.com/tgideas/fedn/commits/master
+[c-master]: https://gitlab.com/tgideas/fedn/badges/master/coverage.svg

@@ -1,12 +1,12 @@
 <?php
 
 namespace Fedn\Providers;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 
 use Fedn\Models\Article;
 use Fedn\Policies\ArticlePolicy;
 use Fedn\Models\User;
-use Gate;
 
 class AuthServiceProvider extends ServiceProvider
 {

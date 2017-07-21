@@ -5,7 +5,7 @@
             <div class="caption desc">
                 <h4 class="title">{{ team.title }}</h4>
                 <p><strong>获赞：{{ team.likes }}</strong>人次</p>
-                <p><strong>文章：{{ Math.round(Math.random() * 1000) }}</strong>篇</p>
+                <p><strong>文章：{{ team.articles_count }}</strong>篇</p>
                 <p class="options">
                     <button class="btn btn-primary" role="button" @click="edit(team)">编辑</button>
                     <button class="btn btn-danger" role="button" @click="delTeam(team)">删除</button>

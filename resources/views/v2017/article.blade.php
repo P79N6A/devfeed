@@ -1,7 +1,17 @@
 @extends('v2017.layout')
 
 @section('pageTitle', $art->title)
+@section('Keywords','前端,前端开发,'.$art->title)
 
+@section('page_style')
+    <link rel="stylesheet" href="{{ asset('css/code/tomorrow-night.min.css') }}">
+    <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Source+Code+Pro:500&amp;subset=latin-ext">
+    <style>
+        .hljs {
+            font-family: "Source Code Pro", monospace;
+        }
+    </style>
+@endsection
 @section('content_main')
 <div class="com-main">
     <div class="main-con">
@@ -14,6 +24,7 @@
                 <div id="tg-sns"></div>
             </div>
         </div>
+
         <div class="article-con">
             <div class="article-tt">
                 <h3>{{$art->title}}</h3>
@@ -34,16 +45,18 @@
 
 @section('page_script')
     <script charset="gb2312" src="//game.gtimg.cn/images/js/share/share-min.js"></script>
+    <script src="{{ asset('js/code/highlight.min.js') }}"></script>
     <script>
     TGshare({
         iconSize : 16,
         snsModule : ['wechat','qq','qzone','weibo','pengyou','sina','douban','kaixin','renren'],
-        title : '腾讯游戏 - 用心创造快乐',
-        url : 'location.href',
-        picUrl : 'http://b.gtimg.com/res/2014/06/13/0/058e8b5f7aa4e83d.jpg',
+        title : '{{ $art->title }}',
+        url : location.href,
+        picUrl : 'https://fedn.it/v2017/images/logo.png',
         snsID :'tg-sns',
         isWindow : true,
         tcss : false
     });
+    hljs.initHighlighting();
 </script>
 @endsection
