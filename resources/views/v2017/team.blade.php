@@ -8,8 +8,8 @@
         </div>
         <div class="main-con">
             <ul class="list clearfix"><!--通过类名list、item进行列表展示方式的切换-->
-                <li>
-                    <a href="{{ route('front.team.detail',$teamDetail->id) }}" class="list-pic"><img src="{{ $teamDetail->logo }}" alt="{{ $teamDetail->title }}" /></a>
+                <li class="team-intro">
+                    <a href="{{ route('front.team.detail',$teamDetail->id) }}" class="list-pic team-logo"><img src="{{ $teamDetail->logo }}" alt="{{ $teamDetail->title }}" /></a>
                     <h3>{{ link_to(route('front.team.detail',$teamDetail->id), $teamDetail->title) }}</h3>
                     <p class="list-intro">{!! $teamDetail->descriptionHtml !!}</p>
                 </li>
@@ -31,7 +31,6 @@
                             </h3>
                             <p class="list-intro">{{ mb_substr(strip_tags($item->summary), 0, 200) }}</p>
                             <p class="list-infor">
-
                                 <a href="{{ route('front.team.detail',$item->team->id) }}" class="team">{{ $item->team->title }}</a>&#64;
                                 <a href="javascript:void(0)" class="people">{{ $item->author }}</a><span class="time">{{ $item->publishTime }}</span>
                             </p>

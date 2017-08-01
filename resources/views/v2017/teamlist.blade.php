@@ -8,7 +8,7 @@
             <h2>{{$currentPage}}</h2>
         </div>
         <div class="main-con">
-            <ul class="list clearfix"><!--通过类名list、item进行列表展示方式的切换-->
+            <ul class="list clearfix teamlist"><!--通过类名list、item进行列表展示方式的切换-->
                 @foreach($teamList as $item)
                     <li>
                         <a href="{{route('front.team.detail', $item->id)}}" class="list-pic team-logo"><img src="{{ $item->logo }}" alt="{{ $item->title }}" /></a>
