@@ -18,8 +18,8 @@ class HomeController extends Controller
             $page = 1;
         }
         //获取最新的文章
-        $articles = Cache::tags('articles')->remember('_page_'.$page, 10, function () {
-            return Article::orderBy('id', 'desc')->paginate(10);
+        $articles = Cache::tags('articles')->remember('_new_page_'.$page, 9, function () {
+            return Article::orderBy('id', 'desc')->paginate(9);
         });
 
         $articles = $this->setPreviewToArticle($articles);
@@ -110,8 +110,8 @@ class HomeController extends Controller
             $page = 1;
         }
         //获取最热的文章
-        $articles = Cache::tags('articles')->remember('_page_'.$page, 10, function () {
-            return Article::orderBy('click_count', 'desc')->paginate(10);
+        $articles = Cache::tags('articles')->remember('_hot_page_'.$page, 9, function () {
+            return Article::orderBy('click_count', 'desc')->paginate(9);
         });
         $articles = $this->setPreviewToArticle($articles);
 
