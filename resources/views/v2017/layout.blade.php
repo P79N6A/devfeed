@@ -8,8 +8,8 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
     <meta name="format-detection" content="telephone=no">
     <meta name="msapplication-tap-highlight" content="no" />
-    <meta name="Keywords" content="前端开发,前端开发求职,前端开发新闻,前端开发前沿,前端开发博客,前端新知识,node.js,vue.js,fedn,社区,@yield('Keywords', '首页')">
-    <meta name="description" content="FEDN.it（前端开发者社区），聚合前端开发业界最新、最热门、最有价值的文章" />
+    <meta name="Keywords" content="前端开发,前端开发求职,前端开发新闻,前端开发前沿,前端开发博客,前端新知识,node.js,vue.js,devfeed,社区,@yield('Keywords')">
+    <meta name="description" content="DevFeed（前端开发聚合），聚合前端开发业界最新、最热门、最有价值的文章" />
     <meta name="robots" content="all" />
     <meta name="author" content="Tencent-Tgideas" />
     <meta name="Copyright" content="Tencent" />
@@ -25,7 +25,7 @@
         @show
         <div class="com-footer">
             <p>Copyright © 2017 Tgideas</p>
-            <p>粤ICP备14011364号-5</p>
+            <p>粤ICP备14011364号-4</p>
         </div>
     </div>
 </div>

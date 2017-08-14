@@ -3,9 +3,9 @@
 <head>
 <meta charset="utf-8">
 <meta name="description" content="Fedn"/>
-<meta name="keywords" content="FEDN,前端开发"/>
+<meta name="keywords" content="DevFeed,前端开发聚合"/>
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>@yield('pageTitle', '首页') - FEDN</title>
+<title>@yield('pageTitle', '首页') - DevFeed</title>
 @yield('extraMeta')
 <meta name="baidu-site-verification" content="zzaF8vP9Pc"/>
 <link href="//cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">

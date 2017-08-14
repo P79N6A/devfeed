@@ -52,7 +52,7 @@
         snsModule : ['wechat','qq','qzone','weibo','pengyou','sina','douban','kaixin','renren'],
         title : '{{ $art->title }}',
         url : location.href,
-        picUrl : 'https://fedn.it/v2017/images/logo.png',
+        picUrl : 'https://www.devfeed.cn/v2017/images/logo.png',
         snsID :'tg-sns',
         isWindow : true,
         tcss : false

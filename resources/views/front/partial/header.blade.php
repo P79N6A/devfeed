@@ -2,7 +2,7 @@
     <div class="container">
         <div class="row">
             <div class="col-md-2">
-                <h1 class="logo"><a href="{{ route('front.home') }}" title="FEDN.it官网首页">FEDN.it</a></h1>
+                <h1 class="logo"><a href="{{ route('front.home') }}" title="DevFeed首页">DevFeed</a></h1>
             </div>
             <div class="col-md-7 nav-area" id="navArea">
                 <ul class="header_nav">

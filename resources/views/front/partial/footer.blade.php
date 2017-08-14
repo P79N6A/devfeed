@@ -5,7 +5,7 @@
                 <p class="copy">Copyright © 2016
                     <a href="http://tgideas.qq.com/" title="Tgideas" target="_blank">Tgideas</a></p>
             </div>
-            <div class="col-md-2"><p class="copy muted">粤ICP备14011364号-5</p></div>
+            <div class="col-md-2"><p class="copy muted">粤ICP备14011364号-4</p></div>
         </div>
     </div>
 </div>

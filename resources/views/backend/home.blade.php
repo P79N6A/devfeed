@@ -92,7 +92,7 @@
                             </tr>
                             <tr>
                                 <th>域名</th>
-                                <td>{{ env('HTTP_HOST', 'fedn.it') }}</td>
+                                <td>{{ env('HTTP_HOST', 'devfeed.cn') }}</td>
                             </tr>
                             <tr>
                                 <th>服务器IP</th>

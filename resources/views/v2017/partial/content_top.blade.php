@@ -1,8 +1,12 @@
 <div class="com-top">
     <a class="uk-button" data-uk-offcanvas="{target:'#sideMenu'}"><i class="show-btn spr hide"></i></a>
-    <h1 class="logo"><a href="{{ route('front.home') }}" title="FEDN.it" class="hide">FEDN.it</a></h1>
-    {{--<div class="login">--}}
-        {{--<div class="unlogin"><a href="javascript:void(0);" class="spr">登陆</a></div>--}}
-        {{--<div class="logined" style="display:none;"><a href="javascript:void(0);" class="spr">注销</a></div>--}}
-    {{--</div>--}}
+    <h1 class="logo"><a href="{{ route('front.home') }}" title="DevFeed" class="hide">DevFeed</a></h1>
+    <div class="login">
+        @if (Auth::guest())
+            <div class="unlogin"><a href="{{ route('login') }}" class="spr">登录</a></div>
+        @else
+            <div class="logined"><a href="{{ route('logout') }}" class="spr">注销</a></div>
+        @endif
+    </div>
+
 </div>
