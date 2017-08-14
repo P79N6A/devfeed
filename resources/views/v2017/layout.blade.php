@@ -16,6 +16,15 @@
     <title>@yield('pageTitle', '首页') -- {{$baseInfo['title']}}</title>
     <link rel="stylesheet" type="text/css" href="{{asset('v2017/css/common.css')}}">
     @yield('page_style')
+    <script>
+        var _hmt = _hmt || [];
+        (function () {
+            var hm = document.createElement("script");
+            hm.src = "https://hm.baidu.com/hm.js?a76c6abdae91d63f9be7ede27760f36b";
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(hm, s);
+        })();
+    </script>
 <body>
 <div class="wrap">
     @include('v2017.partial.sidebar')
