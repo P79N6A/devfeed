@@ -47,7 +47,7 @@ class HomeController extends Controller
                 ];
             } else {
                 //设置预览图为文章的第一张图
-                $quato = '/<img.+src=[\'"]?([^"\']+)[\'"]?.*>/i';
+                $quato = '/<img.+?src=[\'"]??([^"\']+)[\'"]??.*?>/';
                 if (preg_match($quato, $article->content, $arr)) {
                     $arcPreview = [
                         'type' => 'img',
