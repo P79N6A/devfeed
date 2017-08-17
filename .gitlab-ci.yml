@@ -52,6 +52,9 @@ before_script:
   # - php artisan db:seed
 
 test:
+  tags:
+    - laravel
+    - docker
   script:
   # run laravel tests
   - php vendor/bin/phpunit --coverage-text --colors=never
