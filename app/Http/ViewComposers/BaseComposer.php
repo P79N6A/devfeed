@@ -38,7 +38,7 @@ class BaseComposer
         //侧边栏获取团队的
         $teamList = Team::take(5)->get();
         $baseInfo = array(
-            'title' => 'FEDN.it',
+            'title' => 'DevFeed',
             'teamList' => $teamList,
             //'serverName' => 'http://'.$_SERVER['HTTP_HOST']
         );
