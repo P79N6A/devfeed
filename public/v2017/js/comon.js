@@ -4,7 +4,7 @@ var brow = {
 	isIE:/MSIE/i.test(na),
 	loadAds:/Android|iPhone|iTouch|BlackBerry|IEMobile/i.test(na),
 	isMobile:/Android|iPhone|iTouch|iPad|BlackBerry|IEMobile|Mobile/i.test(na)
-}
+};
 
 function setCookie(name, value, expires, path, domain, secure) {
     var exp = new Date(),
@@ -38,7 +38,7 @@ $(function (){
 		$(sideMenuCon).fadeOut(500);
 		$(hideBtn).fadeOut(500);
 		$(showBtn).delay(500).fadeIn(300);
-	}
+	};
 
 	jQuery.fn.clickToggle = function(a, b) {
 		var ab = [b, a];
@@ -60,7 +60,7 @@ $(function (){
 		}else{
 			$(toggleBtn).clickToggle(hideSideMenu,showSideMenu)
 		}
-		
+
 	}
 
 	var type = function (){
@@ -85,6 +85,16 @@ $(function (){
 			$('.type-btns').css('display','none');
 			$('.main-con ul.list').addClass('item');
 		}
-	}
+	};
 	type();
-})
+});
+
+// Add baidu tongji by kairee - 2017-09-05
+var _hmt = _hmt || [];
+(function () {
+    var hm = document.createElement("script");
+    hm.src = "https://hm.baidu.com/hm.js?26790bda6fb5f397d7e69299be124586";
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(hm, s);
+})();
+
