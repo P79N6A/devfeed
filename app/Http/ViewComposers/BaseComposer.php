@@ -8,6 +8,7 @@
 
 namespace Fedn\Http\ViewComposers;
 
+use Illuminate\Support\Facades\Cache;
 use Illuminate\View\View;
 use Fedn\Models\Team;
 
@@ -36,9 +37,11 @@ class BaseComposer
     public function compose(View $view)
     {
         //侧边栏获取团队的
-        $teamList = Team::take(5)->get();
+        $teamList = Cache::remember('allTeam', 60, function() {
+            return Team::withCount('articles')->orderBy('articles_count')->take(10)->get();
+        });
         $baseInfo = array(
-            'title' => 'DevFeed',
+            'title' => config('app.name', 'DevFeed'),
             'teamList' => $teamList,
             //'serverName' => 'http://'.$_SERVER['HTTP_HOST']
         );

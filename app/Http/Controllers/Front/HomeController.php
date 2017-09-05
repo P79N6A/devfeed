@@ -19,7 +19,7 @@ class HomeController extends Controller
         }
         //获取最新的文章
         $articles = Cache::tags('articles')->remember('_new_page_'.$page, 9, function () {
-            return Article::orderBy('id', 'desc')->paginate(9);
+            return Article::with('team')->orderBy('id', 'desc')->paginate(9);
         });
 
         $articles = $this->setPreviewToArticle($articles);
