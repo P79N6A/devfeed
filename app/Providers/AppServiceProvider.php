@@ -30,11 +30,5 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        if ($this->app->environment('local')) {
-            $this->app->register('Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider');
-            $this->app->register('Barryvdh\Debugbar\ServiceProvider');
-            $loader = \Illuminate\Foundation\AliasLoader::getInstance();
-            $loader->alias(\Barryvdh\Debugbar\Facade::class, 'Debugbar');
-        }
     }
 }

@@ -8,6 +8,7 @@ return [
     | This value is the name of your application. This value is used when the
     | framework needs to place the application's name in a notification or
     | any other location as required by the application or its packages.
+    |
     */
 
     'name' => env('APP_NAME', 'Laravel'),
@@ -21,7 +22,9 @@ return [
     | services your application utilizes. Set this in your ".env" file.
     |
     */
+
     'env' => env('APP_ENV', 'production'),
+
     /*
     |--------------------------------------------------------------------------
     | Application Debug Mode
@@ -159,16 +162,13 @@ return [
         /*
          * Package Service Providers...
          */
-        Laravel\Tinker\TinkerServiceProvider::class,
-        SocialiteProviders\Manager\ServiceProvider::class,
-        Collective\Html\HtmlServiceProvider::class,
 
         /*
        * Application Service Providers...
        */
         Fedn\Providers\AppServiceProvider::class,
         Fedn\Providers\AuthServiceProvider::class,
-        // App\Providers\BroadcastServiceProvider::class,
+        // Fedn\Providers\BroadcastServiceProvider::class,
         Fedn\Providers\EventServiceProvider::class,
         Fedn\Providers\RouteServiceProvider::class,
         Fedn\Providers\ComposerServiceProvider::class
@@ -185,7 +185,9 @@ return [
     | the aliases are "lazy" loaded so they don't hinder performance.
     |
     */
+
     'aliases' => [
+
         'App' => Illuminate\Support\Facades\App::class,
         'Artisan' => Illuminate\Support\Facades\Artisan::class,
         'Auth' => Illuminate\Support\Facades\Auth::class,
