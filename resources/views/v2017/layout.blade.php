@@ -14,7 +14,7 @@
     <meta name="author" content="Tencent-Tgideas" />
     <meta name="Copyright" content="Tencent" />
     <title>@yield('pageTitle', '首页') -- {{$baseInfo['title']}}</title>
-    <link rel="stylesheet" type="text/css" href="{{asset('v2017/css/common.css')}}">
+    <link rel="stylesheet" type="text/css" href="//game.gtimg.cn/images/js/devfeed/v2017/ossweb-img/css/common.css">
     @yield('page_style')
     <script>
         var _hmt = _hmt || [];
@@ -38,8 +38,8 @@
         </div>
     </div>
 </div>
-<script src="{{asset('v2017/js/jquery.min.js')}}"></script>
-<script type="text/javascript" src="{{asset('v2017/js/comon.js')}}"></script>
+<script src="//game.gtimg.cn/images/js/devfeed/v2017/ossweb-img/js/jquery.min.js"></script>
+<script type="text/javascript" src="//game.gtimg.cn/images/js/devfeed/v2017/ossweb-img/js/comon.js"></script>
 @yield('page_script')
 </body>
 </html>

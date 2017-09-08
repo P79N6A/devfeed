@@ -49,10 +49,10 @@
     <script>
     TGshare({
         iconSize : 16,
-        snsModule : ['wechat','qq','qzone','weibo','pengyou','sina','douban','kaixin','renren'],
+        snsModule : ['wechat','qq','qzone','sina'],
         title : '{{ $art->title }}',
         url : location.href,
-        picUrl : 'https://www.devfeed.cn/v2017/images/logo.png',
+        picUrl : '',
         snsID :'tg-sns',
         isWindow : true,
         tcss : false

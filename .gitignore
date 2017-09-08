@@ -28,3 +28,4 @@ _ide_*
 .phpstorm.meta.php
 /storage/debugbar
 /public/storage
+/public/gtimg/.svn
