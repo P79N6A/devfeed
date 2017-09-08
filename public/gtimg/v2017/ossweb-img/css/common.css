@@ -130,16 +130,22 @@ body{min-width:320px;font:14px/1.5 "\5FAE\8F6F\96C5\9ED1",arial;color:#000;-webk
 .article-tt .like-icon.on{background-position: -293px 0;}
 .article-tt a.team{margin-right: 6px}
 .article-tt .time{margin-left: 12px}
-.article{margin-top: 20px;}
+.article{margin-top: 20px;color:#333;}
 .article img{max-width: 100%;}
-.article p{font-size: 16px;line-height: 24px;font-family: Avenir, -apple-system-font, '微软雅黑', sans-serif;text-align: justify;white-space: pre-line;line-height: 26px}
+.article p{font-size: 14px;color:#333;line-height: 24px;font-family: Avenir, -apple-system-font, '微软雅黑', sans-serif;text-align: justify;white-space: pre-line;line-height: 26px}
 .article h2{font-size: 26px;margin: 20px 0}
 .article h3{font-size: 20px;margin: 10px 0}
+.article section,.article section p{
+    font-weight: bold;
+    font-size: 20px !important;}
 .article blockquote {
     margin: 32px 28px;
-    padding-left: 14px;
+    color:##555;
+    padding: 14px;
+    margin:14px 0;
     border-left: 3px solid #ccc;
-    line-height: 1.6
+    line-height: 1.6;
+    background: #f9f9f9;
 }
 
 .article a {
@@ -201,7 +207,6 @@ body{min-width:320px;font:14px/1.5 "\5FAE\8F6F\96C5\9ED1",arial;color:#000;-webk
     margin-top: 14px
 }
 
-.article blockquote{margin: 0}
 .article code {
     display: inline-block;
     *display: inline;
@@ -233,7 +238,7 @@ body{min-width:320px;font:14px/1.5 "\5FAE\8F6F\96C5\9ED1",arial;color:#000;-webk
     background: none;
     border-radius: 0;
     font-size: inherit;
-    line-height: 1.5
+    line-height: 1.5;color:#333
 }
 
 .pln {

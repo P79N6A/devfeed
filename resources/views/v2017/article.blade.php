@@ -5,12 +5,8 @@
 
 @section('page_style')
     <link rel="stylesheet" href="{{ asset('css/code/tomorrow-night.min.css') }}">
-    <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Source+Code+Pro:500&amp;subset=latin-ext">
-    <style>
-        .hljs {
-            font-family: "Source Code Pro", monospace;
-        }
-    </style>
+    <link rel="stylesheet" href="//game.gtimg.cn/images/js/devfeed/v2017/ossweb-img/css/crayon.min.css">
+
 @endsection
 @section('content_main')
 <div class="com-main">
