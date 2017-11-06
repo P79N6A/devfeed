@@ -42,7 +42,7 @@
             </div>
             <div class="list-group">
                 <a class="list-group-item{{ request()->is('admin/article*') ? ' active':null }}" href="{{ url('admin/articles') }}">文章</a>
-                <a class="list-group-item disabled" href="{{ url('admin/special*') }}">专题</a>
+                <a class="list-group-item{{ request()->is('admin/specials*') ? ' active':null }}" href="{{ url('admin/specials') }}">专题</a>
                 <a class="list-group-item{{ request()->is('admin/tag*') ? ' active':null }}" href="{{ url('admin/tags') }}">标签</a>
                 <a class="list-group-item{{ request()->is('admin/team*') ? ' active':null }}" href="{{ url('admin/team') }}">团队</a>
             </div>
@@ -50,6 +50,10 @@
                 <a class="list-group-item{{ request()->is('admin/quotas') ? ' active':null }}" href="{{ url('admin/quotas') }}">采集</a>
                 <a class="list-group-item{{ request()->is('admin/sites') ? ' active':null }}" href="{{ url('admin/sites') }}">源站</a>
                 <a class="list-group-item{{ request()->is('admin/authors') ? ' active':null }} disabled" href="{{ url('admin/authors') }}">作者</a>
+            </div>
+
+            <div class="list-group">
+                <a class="list-group-item{{ request()->is('admin/quotas') ? ' active':null }}" href="{{ url('admin/quotas') }}">邮件</a>
             </div>
         </div>
         <div class="main">

@@ -41,6 +41,7 @@ Route::group(['namespace' => 'Front', 'as' => 'front.'], function () {
         Route::get('/feed/{id}', ['as' => 'view', 'uses' => 'FeedController@view']);
     });
 
+
 });
 /** backend */
 
@@ -76,6 +77,15 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'as' => 'admin.', 'mi
     Route::get( 'team/{any?}', ['as' => 'team', 'uses' => function(){
         return view('backend.team');
     }]);
+
+    //special
+    Route::get( 'specials', ['as' => 'special', 'uses' => 'SpecialController@index']);
+    Route::get( 'special/{id?}', ['as' => 'special.preview', 'uses' => 'SpecialController@preview']);
+    Route::post( 'special/{id?}', ['as' => 'special.save', 'uses' => 'SpecialController@save']);
+    Route::delete( 'special/{id?}', ['as' => 'special.delete', 'uses' => 'SpecialController@delete']);
+    Route::get( 'edit_special/{id?}', ['as' => 'special.edit_special', 'uses' => 'SpecialController@edit']);
+    Route::post( 'save_article', ['as' => 'special.save_article', 'uses' => 'SpecialController@save_article']);
+    Route::post('send_special',['as' => 'special.send_special', 'uses' => 'MailController@send']);
 
 });
 
