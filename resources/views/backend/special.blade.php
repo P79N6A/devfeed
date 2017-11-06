@@ -85,7 +85,7 @@
                 'id' : $(this).attr('data-id')
             };
             $.ajax({
-                url: "http://fedn1.local/admin/send_special",
+                url: "//www.devfeed.cn/admin/send_special",
                 type: "post",
                 dataType: "json",
                 data:postData,
