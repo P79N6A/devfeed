@@ -93,9 +93,8 @@
                     'article_id' : currentId
                 }
             }
-            console.log(postData);
             $.ajax({
-                url: "http://fedn1.local/admin/save_article",
+                url: "//www.devfeed.cn/admin/save_article",
                 type: "post",
                 dataType: "json",
                 data:postData,
@@ -107,6 +106,7 @@
                     $('#articleList').val(data.article_list);
                 },
                 error: function () {
+                    alert('系统繁忙，请稍后重试');
                 }
             });
         }
