@@ -79,7 +79,7 @@ body{min-width:320px;font:14px/1.5 "\5FAE\8F6F\96C5\9ED1",arial;color:#000;-webk
 .origin-link:hover{color: #5C7CFB !important}
 .main-con .list{padding: 12px 20px 0}
 .main-con .list li{min-height: 92px;padding:30px 0 30px 160px;position: relative;border-bottom: 1px solid #F7F8FF}
-.main-con .list li .list-pic{display: block;height: 92px;width: 138px;position: absolute;top: 30px;left: 0;}
+.main-con .list li .list-pic{display: block;height: 92px;width: 138px;position: absolute;top: 30px;left: 0;overflow:hidden;}
 .main-con .list li .text{display: inline-block;font-size:60px;width: 100%;text-align: center;line-height:92px;}
 .main-con .list li img{width: 100%;}
 .main-con .list li h3{font-size: 17px;min-height: 27px}
