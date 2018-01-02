@@ -8,7 +8,7 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
-
+use GuzzleHttp\Psr7\Uri;
 use Cache;
 use phpQuery;
 
