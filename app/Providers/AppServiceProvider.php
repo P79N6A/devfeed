@@ -14,6 +14,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+        Schema::defaultStringLength(191);
         Relation::morphMap([
             'article' => 'Fedn\Models\Article',
             'quote'   => 'Fedn\Models\Quote',
