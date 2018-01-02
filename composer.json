@@ -55,7 +55,7 @@
         "post-autoload-dump": [
             "Illuminate\\Foundation\\ComposerScripts::postAutoloadDump",
             "@php artisan package:discover",
-	    "@php artisan queue:restart"
+	        "@php artisan queue:restart"
         ]
     },
     "config": {
