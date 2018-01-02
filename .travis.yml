@@ -1,21 +1,37 @@
 language: php
 php:
-  - '7.1'
-  - '7.2'
+  - 7.1
+  - 7.2
 
 services: mysql
+
+os:
+  - linux
+
+matrix:
+  include:
+    - php: 7.1
+      env: COVERAGE=yes
+    - php: 7.2
+      env: COVERAGE=yes
+  allow_failures:
+    - php: 7.1
 
 cache:
   directories:
   - vendor
 
-before_install:
-  - mysql -e 'CREATE DATABASE devfeed_test;'
-
-install: composer install
+install: travis_retry composer update --optimize-autoloader --prefer-dist --prefer-stable --no-progress --no-interaction
 
 before_script:
+  - git config --global user.email "kaireewu@gmail.com"
+  - git config --global user.name "kairee Travis"
+  - mysql -e 'CREATE DATABASE devfeed_test;'
   - cp -f .env.testing .env
   - php artisan key:generate
 
-script: vendor/bin/phpunit
+script: vendor/bin/phpunit --coverage-clover build/logs/clover.xml
+
+after_script:
+  - vendor/bin/test-reporter --stdout > codeclimate.json
+  - "curl -X POST -d @codeclimate.json -H 'Content-Type: application/json' -H 'User-Agent: Code Climate (PHP Test Reporter v0.1.1)' https://codeclimate.com/test_reports"

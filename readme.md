@@ -1,9 +1,7 @@
 ## FEDN.it
 
-|  Branch  |  Status  |  Coverage  |
-| :------: | :------: | :--------: |
-|  master  | [![build status][b-master]][master] | [![coverage report][c-master]][master] |
-|  dev     |  [![build status][b-dev]][dev] | [![coverage report][c-dev]][dev] |
+[![Build Status](https://travis-ci.com/krwu/devfeed.svg?token=ewwsqHUp5uN7kb98qTjg&branch=master)](https://travis-ci.com/krwu/devfeed)
+[![Test Coverage](https://api.codeclimate.com/v1/badges/5b3a0bc6f4bc72adcd24/test_coverage)](https://codeclimate.com/repos/5a4b2151fd2511027b0000c2/test_coverage)
 
 ### 当前服务器运营环境：
 - 操作系统： CentOS 7.3 x86_64
@@ -22,20 +20,6 @@
 - Node环境：Nodejs 6.10.3
 
 
-**特别提醒**:
-
-- `master` 分支为保护分支，禁止向其提交代码
-- `dev` 分支为开发阶段的主分支，测试无误的代码提交后可以合并到该分支
-- 开发过程中请在本地自建开发分支进行开发和测试（参考`git-flow`工作流），测试完毕后将分支推送回仓库中，并发起 `Pull Request`
-
-
-有关本地环境配置、开发注意事项、代码规范等更多参考资料，请参见[项目wiki](http://git.oschina.net/krwu/fedn.it/wikis/home)
+有关本地环境配置、开发注意事项、代码规范等更多参考资料，请参见[项目wiki](https://github.com/krwu/devfeed/wiki)
 
 如果有任何问题，随时可以骚扰 kairee.
-
-[b-dev]: https://gitlab.com/tgideas/fedn/badges/dev/build.svg
-[dev]: https://gitlab.com/tgideas/fedn/commits/dev
-[c-dev]: https://gitlab.com/tgideas/fedn/badges/dev/coverage.svg
-[b-master]: https://gitlab.com/tgideas/fedn/badges/master/build.svg
-[master]: https://gitlab.com/tgideas/fedn/commits/master
-[c-master]: https://gitlab.com/tgideas/fedn/badges/master/coverage.svg
