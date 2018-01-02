@@ -12,7 +12,7 @@ cache:
 before_install:
   - mysql -e 'CREATE DATABASE devfeed_test;'
 
-install: composer install --prefer-dist
+install: composer install
 
 before_script:
   - cp -f .env.testing .env
