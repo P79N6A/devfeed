@@ -93,6 +93,7 @@ class SpecialController extends Controller
 
     //保存文章id到专题
     public function save_article(Request $request){
+
         $data = $request->all();
         $special = Special::findOrNew($data['id']);
         $article_id = $data['article_id'];
@@ -101,14 +102,18 @@ class SpecialController extends Controller
         }else{
             $article_list = array();
         }
+
         if($data['type'] == 'add'){
             //新增
             array_push($article_list,$article_id);
+            //防止重复ID
+            $article_list = array_unique($article_list);
         }else{
             //删除
             $offset=array_search($article_id,$article_list);
-            if($offset){
-                array_splice($article_list,$offset,1);
+
+            if($offset >= 0){
+               array_splice($article_list,$offset,1);
             }
         }
         $special->article_list = implode(',',$article_list);
