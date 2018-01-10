@@ -123,4 +123,12 @@ class SpecialController extends Controller
             'id' =>  $special->id
         );
     }
+    public  function delete_special(Request $request){
+        $data = $request->all();
+        $sId = $data['id'];
+        $special = Special::findOrNew($sId)->delete();
+        return array(
+            'id' =>  $sId
+        );
+    }
 }
