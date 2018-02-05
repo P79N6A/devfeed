@@ -34,7 +34,7 @@ EOF;
         $images = $html->find('img');
 
         //todo complete this test.
-        $this->markTestIncomplete('依赖测试未完成，此测试已暂时中止');
+        //$this->markTestIncomplete('依赖测试未完成，此测试已暂时中止');
 
         $result = ImageUtil::fetchImages($images, $baseUrl);
 

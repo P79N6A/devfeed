@@ -91,16 +91,13 @@ class ImageUtil
         // save to local
         $path = 'remote/'.date('Y').'/';
         $filename = str_random(3).'-'.$md5.$ext;
-        while(Storage::disk('public')->exists($path.$filename)) {
-            $file = str_random(3).'-'.$md5.$ext;
-        }
-
-        if(Storage::disk('public')->put($path.$filename, $raw)){
-            $file->local = Storage::url($path.$filename);
-        };
 
         if($inCos) {
-            // todo: save file to qcloud cos
+
+        } else {
+            if(Storage::disk('public')->put($path.$filename, $raw)){
+                $file->local = Storage::url($path.$filename);
+            };
         }
 
         return $file;
