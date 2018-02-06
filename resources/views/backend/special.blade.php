@@ -113,7 +113,7 @@
             }
             function d() {
                 $.ajax({
-                    url: "//devfeed.cn/admin/delete_special",
+                    url: "//www.devfeed.cn/admin/delete_special",
                     type: "post",
                     dataType: "json",
                     data:{'id':sId},

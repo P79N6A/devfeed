@@ -81,6 +81,7 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'as' => 'admin.', 'mi
     //special
     Route::get( 'specials', ['as' => 'special', 'uses' => 'SpecialController@index']);
     Route::get( 'special/{id?}', ['as' => 'special.preview', 'uses' => 'SpecialController@preview']);
+    Route::get( 'special/km/{id?}', ['as' => 'special.preview', 'uses' => 'SpecialController@previewKM']);
     Route::post( 'special/{id?}', ['as' => 'special.save', 'uses' => 'SpecialController@save']);
 //    Route::delete( 'special/{id?}', ['as' => 'special.delete', 'uses' => 'SpecialController@delete']);
     Route::get( 'edit_special/{id?}', ['as' => 'special.edit_special', 'uses' => 'SpecialController@edit']);

@@ -64,6 +64,24 @@ class SpecialController extends Controller
         $articles = Article::find(explode(',',$special->article_list));
         return view('emails.special-preview', ['special'=>$special,'articles'=>$articles]);
     }
+    //预览专题
+    public function previewKM(int $id = null){
+        if(is_null($id)) {
+            $special = new Special;
+        } else if (!is_numeric($id)) {
+            throw new HttpInvalidParamException('ID must be an integer.');
+        } else {
+            $special = Special::withoutGlobalScope('published')->find($id);
+        }
+
+        if(!$special) {
+            throw new ModelNotFoundException('专题不存在！');
+        }
+        //获取专题的文章
+
+        $articles = Article::find(explode(',',$special->article_list));
+        return view('emails.special-preview', ['special'=>$special,'articles'=>$articles]);
+    }
 
     //保存专题
     public function save(SpecialFormRequest $request, $id = 0){
