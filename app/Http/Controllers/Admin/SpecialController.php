@@ -80,7 +80,7 @@ class SpecialController extends Controller
         //获取专题的文章
 
         $articles = Article::find(explode(',',$special->article_list));
-        return view('emails.special-preview', ['special'=>$special,'articles'=>$articles]);
+        return view('emails.special-previewKM', ['special'=>$special,'articles'=>$articles]);
     }
 
     //保存专题
