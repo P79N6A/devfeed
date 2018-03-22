@@ -8,7 +8,9 @@
 
 namespace Fedn\Utils;
 
+use Mockery\Exception;
 use Qcloud\Cos\Client as CosClient;
+use Illuminate\Support\Facades\Log;
 
 class CosUtil
 {
@@ -18,6 +20,7 @@ class CosUtil
      */
     protected static $client = null;
     protected static $bucket = null;
+    protected static $cdn_url = null;
 
     /**
      * @return CosClient
@@ -30,14 +33,46 @@ class CosUtil
                 'credentials' => $config['credentials']
             ]);
             static::$bucket = $config['bucket'] . '-' .$config['appId'];
+            static::$cdn_url = $config['cdn_url'];
         }
         return static::$client;
     }
 
-    public static function saveToCos($path, $resource)
+    public static function saveToCos($path, $resource, $options = [])
     {
         $client = static::getClient();
 
-        $client->upload(static::$bucket, $path, $resource);
+        try {
+            return $client->upload(static::$bucket, $path, $resource, $options);
+        } Catch (\Qcloud\Cos\Exception\ServiceResponseException $e) {
+            Log::error((string)$e);
+            return null;
+        }
+
+    }
+
+    public static function getBucket() {
+        if(is_null(static::$bucket)) {
+            static::getClient();
+        }
+        return static::$bucket;
+    }
+
+    public static function getInfo($key) {
+        $client = static::getClient();
+
+        try {
+            return $client->headObject([
+                'Bucket'=>static::$bucket,
+                'Key' => $key
+            ]);
+        } catch ( Exception $e) {
+            Log::error((string)$e);
+            return null;
+        }
+    }
+
+    public static function getUrl($key) {
+        return static::$cdn_url . '/' . $key;
     }
 }

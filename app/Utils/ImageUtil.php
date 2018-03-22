@@ -2,7 +2,7 @@
 namespace Fedn\Utils;
 
 use Fedn\Models\RemoteFile;
-use Iterator;
+use IteratorAggregate;
 use GuzzleHttp\Psr7\Uri;
 use GuzzleHttp\Psr7\UriResolver;
 use Illuminate\Support\Facades\Storage;
@@ -16,7 +16,7 @@ class ImageUtil
      *
      * @return \Illuminate\Support\Collection
      */
-    public static function fetchImages(Iterator $images, string $baseUrl, $inCos = true)
+    public static function fetchImages(IteratorAggregate $images, string $baseUrl, $inCos = true)
     {
         $imageFiles = collect([]);
         foreach ($images as $img) {
@@ -56,8 +56,14 @@ class ImageUtil
         }
 
         $file = static::downloadFile($remote, $baseUrl, $inCos);
+        if($file) {
+            $file->origin = $src;
 
-        return $file;
+            return $file;
+        } else {
+            return null;
+        }
+
     }
 
     public static function downloadFile(string $url, string $baseUrl, $inCos = true)
@@ -66,41 +72,62 @@ class ImageUtil
         curl_setopt_array($ch, [
             CURLOPT_HEADER => 0,
             CURLOPT_RETURNTRANSFER => 1,
-            CURLOPT_BINARYTRANSFER => 1,
             CURLOPT_REFERER => $baseUrl,
             CURLOPT_SSL_VERIFYHOST => 0,
             CURLOPT_SSL_VERIFYPEER => 0,
+            CURLOPT_CONNECTTIMEOUT => 3,
+            CURLOPT_FOLLOWLOCATION => 1,
+            CURLOPT_HTTPHEADER => [
+                'Accept' => 'image/webp,image/apng,image/*,*/*;q=0.8',
+            ],
+            CURLOPT_MAXREDIRS => 5,
+            CURLOPT_TIMEOUT => 180,
+            CURLOPT_DEFAULT_PROTOCOL => 'https',
             CURLOPT_USERAGENT => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/63.0.3239.84 Safari/537.36'
         ]);
 
         $raw = curl_exec($ch);
+        $status = curl_getinfo($ch, CURLINFO_HTTP_CODE);
         curl_close($ch);
 
-        $md5 = md5($raw);
+        if($status < 400) {
+            $md5 = md5($raw);
+            $contentMd5 = base64_encode(md5($raw, true));
 
-        $file = RemoteFile::firstOrNew(['md5' => $md5]);
+            $file = RemoteFile::firstOrNew(['md5' => $md5]);
 
-        if($file->exists) {
-            // direct return if file has existed.
+            if ($file->exists) {
+                // direct return if file has existed.
+                return $file;
+            }
+
+            $file->remote = $url;
+            $file->base_url = $baseUrl;
+            $ext = static::guessExtensionFromContent($raw);
+            // save to local
+            $path = 'remote/'.date('Y').'/';
+            $filename = substr($md5, 0, 3).'-'.$md5.$ext;
+            $key = $path.$filename;
+
+            if ($inCos) {
+                $result = CosUtil::saveToCos($key, $raw, [
+                    'ContentMD5'         => $contentMd5,
+                    'ContentDisposition' => $filename
+                ]);
+                if ($result) {
+                    $file->remote = CosUtil::getUrl($key);
+                };
+            } else {
+                if (Storage::disk('public')->put($key, $raw)) {
+                    $file->local = Storage::url($key);
+                };
+            }
+
             return $file;
-        }
-
-        $file->remote = $url;
-        $file->base_url = $baseUrl;
-        $ext = static::guessExtensionFromContent($raw);
-        // save to local
-        $path = 'remote/'.date('Y').'/';
-        $filename = str_random(3).'-'.$md5.$ext;
-
-        if($inCos) {
-
         } else {
-            if(Storage::disk('public')->put($path.$filename, $raw)){
-                $file->local = Storage::url($path.$filename);
-            };
+            return null;
         }
 
-        return $file;
 
     }
 

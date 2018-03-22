@@ -49,6 +49,7 @@ return [
         'appId' => env('COS_APP_ID', ''),
         'bucket' => env('COS_BUCKET', ''),
         'timeout' => 3600,
-        'connect_timeout' => 3600
+        'connect_timeout' => 3600,
+        'cdn_url' => env('COS_CDN_URL', 'https://devfeed.ofcdn.com'),
     ],
 ];

@@ -62,6 +62,10 @@ class PublishFeedArticle implements ShouldQueue
 
         if(!$article) {
             $doc = phpQuery::newDocument($this->quota->content);
+            // TODO: 抓取所有远程图片，替换 HTML 中所有的图片 URL 为本地
+
+            // TODO: 从抓取到的图片中取第一张做封面
+            // 要替换的逻辑开始
             $img = $doc->find('img:first');
             $figure = null;
             if (count($img)) {
@@ -77,6 +81,7 @@ class PublishFeedArticle implements ShouldQueue
                 $rel = new Uri($figure);
                 $figure = (string)UriResolver::resolve($base, $rel);
             }
+            // 替换到这里结束
 
             $article = Article::create([
                 'user_id'    => $inputer,
