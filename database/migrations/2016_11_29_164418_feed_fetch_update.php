@@ -13,9 +13,6 @@ class FeedFetchUpdate extends Migration
      */
     public function up()
     {
-        Schema::table('quotas', function (Blueprint $table) {
-            $table->softDeletes();
-        });
 
         Schema::dropIfExists('jobs');
         Schema::create('jobs', function (Blueprint $table) {
@@ -46,9 +43,6 @@ class FeedFetchUpdate extends Migration
      */
     public function down()
     {
-        Schema::table('quotas', function (Blueprint $table) {
-            $table->dropSoftDeletes();
-        });
         Schema::dropIfExists('jobs');
         Schema::dropIfExists('failed_jobs');
     }
