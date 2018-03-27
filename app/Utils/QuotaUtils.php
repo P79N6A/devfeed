@@ -79,7 +79,7 @@ class QuotaUtils
     public static function resolveUrl($base, $relative) {
 
 
-        if(substr($relative,0,4) === 'http' || substr($relative,0,2) === '//') {
+        if(substr($relative,0,4) === 'http') {
             return $relative;
         } else {
             $base = new Uri($base);

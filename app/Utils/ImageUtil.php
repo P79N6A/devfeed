@@ -18,6 +18,9 @@ class ImageUtil
     public static function fetchImages(IteratorAggregate $images, string $baseUrl, $inCos = true)
     {
         $imageFiles = collect([]);
+        if(starts_with($baseUrl, '//')) {
+            $baseUrl = 'https:'.$baseUrl;
+        }
         foreach ($images as $img) {
             $localFile = static::fetchRemote($img, $baseUrl, $inCos);
             if($localFile) {
@@ -46,7 +49,7 @@ class ImageUtil
         }
         if ($schema !== 'http:' && $schema !== 'https') {
             if (starts_with($schema, '//')) {
-                $remote = 'http:'.$src;
+                $remote = 'https:'.$src;
             } else {
                 $remote = (string)UriResolver::resolve(new Uri($baseUrl), new Uri($src));
             }
@@ -81,7 +84,7 @@ class ImageUtil
             ],
             CURLOPT_MAXREDIRS => 5,
             CURLOPT_TIMEOUT => 180,
-            CURLOPT_DEFAULT_PROTOCOL => 'https',
+            //CURLOPT_DEFAULT_PROTOCOL => 'https',
             CURLOPT_USERAGENT => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/63.0.3239.84 Safari/537.36'
         ]);
 
