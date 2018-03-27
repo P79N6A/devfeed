@@ -1,7 +1,8 @@
 ## FEDN.it
 
 [![Build Status](https://travis-ci.com/krwu/devfeed.svg?token=ewwsqHUp5uN7kb98qTjg&branch=master)](https://travis-ci.com/krwu/devfeed)
-[![Test Coverage](https://api.codeclimate.com/v1/badges/5b3a0bc6f4bc72adcd24/test_coverage)](https://codeclimate.com/repos/5a4b2151fd2511027b0000c2/test_coverage)
+[![Test Coverage](https://api.codeclimate.com/v1/badges/b45022fb636b69afc46f/test_coverage)](https://codeclimate.com/github/krwu/devfeed/test_coverage)
+[![Maintainability](https://api.codeclimate.com/v1/badges/b45022fb636b69afc46f/maintainability)](https://codeclimate.com/github/krwu/devfeed/maintainability)
 
 ### 当前服务器运营环境：
 - 操作系统： CentOS 7.3 x86_64

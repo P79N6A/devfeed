@@ -81,9 +81,11 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'as' => 'admin.', 'mi
     //special
     Route::get( 'specials', ['as' => 'special', 'uses' => 'SpecialController@index']);
     Route::get( 'special/{id?}', ['as' => 'special.preview', 'uses' => 'SpecialController@preview']);
+    Route::get( 'special/km/{id?}', ['as' => 'special.previewKM', 'uses' => 'SpecialController@previewKM']);
     Route::post( 'special/{id?}', ['as' => 'special.save', 'uses' => 'SpecialController@save']);
-    Route::delete( 'special/{id?}', ['as' => 'special.delete', 'uses' => 'SpecialController@delete']);
+//    Route::delete( 'special/{id?}', ['as' => 'special.delete', 'uses' => 'SpecialController@delete']);
     Route::get( 'edit_special/{id?}', ['as' => 'special.edit_special', 'uses' => 'SpecialController@edit']);
+    Route::post( 'delete_special', ['as' => 'special.delete_special', 'uses' => 'SpecialController@delete_special']);
     Route::post( 'save_article', ['as' => 'special.save_article', 'uses' => 'SpecialController@save_article']);
     Route::post('send_special',['as' => 'special.send_special', 'uses' => 'MailController@send']);
 

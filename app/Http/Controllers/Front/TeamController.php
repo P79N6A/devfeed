@@ -25,7 +25,7 @@ class TeamController extends Controller
             $page = 1;
         }
         $teamDetail = Team::find($id);
-        $articleDetail = Article::where('team_id','=',$id)->paginate(10);
+        $articleDetail = Article::where('team_id','=',$id)->orderBy('id','desc')->paginate(10);
         $articleDetail = $this->setPreviewToArticle($articleDetail);
         return view('v2017.team',['currentPage' => '团队',
                                   'teamDetail'=>$teamDetail,

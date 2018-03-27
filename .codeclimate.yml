@@ -1,0 +1,9 @@
+## other configuration excluded from example...
+exclude_patterns:
+- "**/tests/"
+- "**/test/"
+- "**/spec/"
+- "**/vendor/"
+- "config/"
+- "bootstrap/"
+- "**/node_modules/"

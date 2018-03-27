@@ -51,14 +51,14 @@
                         <th>
                             {{ Html::Link('admin/edit_special/'.$topic->id, "编辑", ['class'=>'btn btn-small btn-primary']) }}
                             {{--<button data-id="{{$topic->id}}" class="btn btn-small btn-danger btn-delete">删除</button>--}}
-                            {{ Html::Link('admin/special/'.$topic->id, "删除", ['class'=>'btn btn-small btn-danger btn-delete']) }}
+                            <span class="btn btn-small btn-danger btn-delete" data-type="{{$topic->id}}">删除</span>
                             {{ Html::Link('admin/special/'.$topic->id, "预览", ['class'=>'btn btn-small btn-primary']) }}
                             <button data-id="{{$topic->id}}" class="btn btn-small btn-primary js_send_email">发送</button>
                         </th>
                     </tr>
                 @empty
                     <tr>
-                        <td colspan="8">当前还没有文章</td>
+                        <td colspan="9">当前还没有专题</td>
                     </tr>
                 @endforelse
 
@@ -105,6 +105,31 @@
                     alert(data.errmsg);
                 }
             });
+        })
+        $('.btn-delete').on('click',function () {
+            var sId= $(this).attr('data-type');
+            if(confirm('删除后将不能恢复，是否确认删除？')){
+                d();
+            }
+            function d() {
+                $.ajax({
+                    url: "//www.devfeed.cn/admin/delete_special",
+                    type: "post",
+                    dataType: "json",
+                    data:{'id':sId},
+                    timeout: 10000,
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    success: function (data) {
+                        alert('删除成功');
+                        location.reload();
+                    },
+                    error: function (data) {
+                        alert(data.errmsg);
+                    }
+                });
+            }
         })
     </script>
 @endsection

@@ -5,7 +5,7 @@
         @if (Auth::guest())
             <div class="unlogin"><a href="{{ route('login') }}" class="spr">登录</a></div>
         @else
-            <div class="logined"><a href="{{ route('logout') }}" class="spr">注销</a></div>
+            <div class="logined"><a href="/auth/logout" class="spr">注销</a></div>
         @endif
     </div>
 
