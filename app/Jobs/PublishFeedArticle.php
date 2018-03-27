@@ -3,6 +3,7 @@
 namespace Fedn\Jobs;
 
 use Fedn\Models\User;
+use Fedn\Utils\ImageUtil;
 use GuzzleHttp\Psr7\UriResolver;
 use Illuminate\Bus\Queueable;
 use Illuminate\Queue\SerializesModels;
@@ -64,37 +65,37 @@ class PublishFeedArticle implements ShouldQueue
             $doc = phpQuery::newDocument($this->quota->content);
             // TODO: 抓取所有远程图片，替换 HTML 中所有的图片 URL 为本地
 
-            // TODO: 从抓取到的图片中取第一张做封面
-            // 要替换的逻辑开始
-            $img = $doc->find('img:first');
-            $figure = null;
-            if (count($img)) {
-                $figure = $img->eq(0)->attr('src');
-            }
-            $doc = null;
+            $images = collect([]);
+            $doc->find('img')->map(function ($pqo) use (&$images) {
+                $url = $pqo->getAttribute('src');
+                if (empty($url) === false) {
+                    $images->push($url);
+                }
+            });
+            $imageFiles = ImageUtil::fetchImages($images, $this->quota->url);
 
-            $schema = substr($figure, 0, 5);
-            if($schema === 'data:') {
-                $figure = null;
-            } else if($schema !== 'http:' && $schema !== 'https' && substr($schema, 0, 2) !== '//') {
-                $base = new Uri($this->quota->url);
-                $rel = new Uri($figure);
-                $figure = (string)UriResolver::resolve($base, $rel);
+            $content = $this->quota->content;
+
+            foreach($imageFiles as $imgFile) {
+                $content = str_replace($imgFile->origin, $imgFile->local, $content);
             }
-            // 替换到这里结束
+
+            $figure = $imageFiles->first()->local;
 
             $article = Article::create([
                 'user_id'    => $inputer,
-                'title'      => $this->quota->title,
+                'title'      => trim($this->quota->title),
                 'source_url' => $this->quota->url,
                 'summary'    => $summary,
                 'figure'     => $figure,
-                'content'    => $this->quota->content,
-                'author'     => $this->quota->author_name,
+                'content'    => $content,
+                'author'     => trim($this->quota->author_name),
                 'author_url' => $this->quota->author_url,
                 'team_id'    => $this->quota->team_id,
                 'status'     => 'publish'
             ]);
+
+            $article->remoteFiles()->sync($imageFiles->pluck('id')->all());
 
             $tags = explode(',', $this->quota->tags);
             $ids = [];

@@ -5,8 +5,7 @@ use Fedn\Models\RemoteFile;
 use IteratorAggregate;
 use GuzzleHttp\Psr7\Uri;
 use GuzzleHttp\Psr7\UriResolver;
-use Illuminate\Support\Facades\Storage;
-use Qcloud\Cos\Client;
+use Storage;
 
 class ImageUtil
 {
@@ -58,7 +57,7 @@ class ImageUtil
         $file = static::downloadFile($remote, $baseUrl, $inCos);
         if($file) {
             $file->origin = $src;
-
+            $file->save();
             return $file;
         } else {
             return null;
@@ -92,7 +91,7 @@ class ImageUtil
 
         if($status < 400) {
             $md5 = md5($raw);
-            $contentMd5 = base64_encode(md5($raw, true));
+
 
             $file = RemoteFile::firstOrNew(['md5' => $md5]);
 
@@ -101,6 +100,7 @@ class ImageUtil
                 return $file;
             }
 
+            $contentMd5 = base64_encode(md5($raw, true));
             $file->remote = $url;
             $file->base_url = $baseUrl;
             $ext = static::guessExtensionFromContent($raw);
@@ -115,20 +115,17 @@ class ImageUtil
                     'ContentDisposition' => $filename
                 ]);
                 if ($result) {
-                    $file->remote = CosUtil::getUrl($key);
+                    $file->local = CosUtil::getUrl($key);
                 };
             } else {
                 if (Storage::disk('public')->put($key, $raw)) {
                     $file->local = Storage::url($key);
                 };
             }
-
             return $file;
         } else {
             return null;
         }
-
-
     }
 
 
@@ -141,10 +138,24 @@ class ImageUtil
      */
     public static function guessExtensionFromContent($content)
     {
-        $finfo = new \finfo(FILEINFO_MIME_TYPE);
-        $mimeType = $finfo->buffer($content);
+        $mimeType = static::guessMimeTypeFromContent($content);
 
-        return static::getExtensionFromMimeType($mimeType);
+        return $mimeType ? static::getExtensionFromMimeType($mimeType) : '.unknown';
+    }
+
+
+    /**
+     * @param $content
+     *
+     * @return string a textual description of the <i>string</i>
+     * argument, or <b>FALSE</b> if an error occurred.
+     */
+    public static function guessMimeTypeFromContent($content)
+    {
+        $finfo = new \finfo(FILEINFO_MIME_TYPE);
+
+        return $finfo->buffer($content);
+
     }
 
 
@@ -168,6 +179,6 @@ class ImageUtil
             'image/bmp' => '.bmp'
         ];
 
-        return array_key_exists($mimeType, $imageTypes) ? $imageTypes[$mimeType] : '';
+        return array_key_exists($mimeType, $imageTypes) ? $imageTypes[$mimeType] : '.unknown';
     }
 }

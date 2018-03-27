@@ -24,6 +24,7 @@ class CreateSitesTable extends Migration
             $table->string('sel_author_link', 200);
             $table->string('sel_author_name', 200);
             $table->dateTime('last_check')->nullable();
+            $table->boolean('published')->default(false);
             $table->unsignedInteger('team_id')->nullable();
             $table->nullableTimestamps();
         });

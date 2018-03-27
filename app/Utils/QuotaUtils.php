@@ -179,7 +179,7 @@ class QuotaUtils
             } else if (Tool::startsWith($site->sel_author_name, "-")) {
                 $data['author_name'] = '';
             } else {
-                $data['author_name'] = $doc->find($site->sel_author_name)->text();
+                $data['author_name'] = trim($doc->find($site->sel_author_name)->text());
             }
 
             if(Tool::startsWith($site->sel_author_link, "=")) {
