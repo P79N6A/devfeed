@@ -31,7 +31,12 @@ class Admin
     public function handle($request, Closure $next)
     {
         if (app()->environment() === "local") {
-            $user = \Fedn\Models\User::find(1);
+            $admin = \Fedn\Models\Role::with('users')->find(1);
+            $user = $admin->users()->first();
+            if(!$user) {
+                $user = factory('Fedn\Models\User')->create();
+                $admin->users()->attach($user->id);
+            }
             $this->auth->setUser($user);
             return $next($request);
         }

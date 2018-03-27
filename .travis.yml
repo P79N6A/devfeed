@@ -16,7 +16,7 @@ cache:
   directories:
   - vendor
 
-install: travis_retry composer update --optimize-autoloader --prefer-dist --prefer-stable --no-progress --no-interaction
+install: travis_retry composer install --optimize-autoloader --prefer-dist --prefer-stable --no-progress --no-interaction
 
 before_script:
   - git config --global user.email "kaireewu@gmail.com"

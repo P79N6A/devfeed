@@ -40,5 +40,16 @@ return [
         'client_secret' => env('QQ_SECRET'),
         'redirect' => env('QQ_REDIRECT_URI'),
     ],
-
+    'cos' => [
+        'credentials' => [
+            'secretId' => env('COS_SECRET_ID'),
+            'secretKey' => env('COS_SECRET_KEY')
+        ],
+        'region' => env('COS_REGION', 'ap-guangzhou'),
+        'appId' => env('COS_APP_ID', ''),
+        'bucket' => env('COS_BUCKET', ''),
+        'timeout' => 3600,
+        'connect_timeout' => 3600,
+        'cdn_url' => env('COS_CDN_URL', 'https://devfeed.ofcdn.com'),
+    ],
 ];

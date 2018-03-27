@@ -14,15 +14,17 @@ class AddQuotasTables extends Migration
     {
         Schema::create('quotas', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('url', 100);
+            $table->string('url', 255);
+            $table->longText('content');
             $table->string('title');
-            $table->text('content');
             $table->string('tags')->nullable();
             $table->string('site_name');
             $table->string('site_url');
             $table->string('author_name')->nullable();
             $table->string('author_url')->nullable();
+            $table->unsignedInteger('team_id')->nullable();
             $table->nullableTimestamps();
+            $table->softDeletes();
         });
     }
 

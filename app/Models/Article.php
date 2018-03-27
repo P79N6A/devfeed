@@ -60,6 +60,10 @@ class Article extends Model
         return $this->hasMany(ArticleMeta::class);
     }
 
+    public function remoteFiles() {
+        return $this->belongsToMany(RemoteFile::class);
+    }
+
     public function getIsLinkAttribute() {
         return !empty($this->source_url);
     }
