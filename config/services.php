@@ -41,6 +41,7 @@ return [
         'redirect' => env('QQ_REDIRECT_URI'),
     ],
     'cos' => [
+        'enabled' => env('COS_ENABLED', true),
         'credentials' => [
             'secretId' => env('COS_SECRET_ID'),
             'secretKey' => env('COS_SECRET_KEY')

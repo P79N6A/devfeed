@@ -89,6 +89,8 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'as' => 'admin.', 'mi
     Route::post( 'save_article', ['as' => 'special.save_article', 'uses' => 'SpecialController@save_article']);
     Route::post('send_special',['as' => 'special.send_special', 'uses' => 'MailController@send']);
 
+    Route::get('remote/update', ['as' => 'remote.update', 'uses' => 'ArticleController@updateRemote']);
+
 });
 
 Route::group(['namespace' => 'Admin', 'prefix' => 'api/v1', 'as'=>'api.', 'middleware' => 'admin'], function () {

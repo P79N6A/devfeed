@@ -63,7 +63,6 @@ class PublishFeedArticle implements ShouldQueue
 
         if(!$article) {
             $doc = phpQuery::newDocument($this->quota->content);
-            // TODO: 抓取所有远程图片，替换 HTML 中所有的图片 URL 为本地
 
             $images = collect([]);
             $doc->find('img')->map(function ($pqo) use (&$images) {

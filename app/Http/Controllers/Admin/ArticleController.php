@@ -8,10 +8,12 @@ use Fedn\Http\Requests\ArticleFormRequest;
 use Fedn\Models\Article;
 use Fedn\Models\Tag;
 use Fedn\Models\Team;
+use Fedn\Utils\ImageUtil;
 use Fedn\Utils\QuotaUtils;
 use Gate;
 use HttpInvalidParamException;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
+use phpQuery;
 
 class ArticleController extends Controller
 {
@@ -158,5 +160,63 @@ class ArticleController extends Controller
         //$article->categories()->sync($data['categories']);
 
         return redirect('admin/articles')->with('message', ['type' => 'success', 'text' => "文章《$article->title》已保存"]);
+    }
+
+    public function updateRemote()
+    {
+        $noImages = Cache::remember('articlesWithoutImages', 1440, function(){
+            return [];
+        });
+
+        $updated = [];
+        $skipped = [];
+
+        $articles = Article::doesntHave('remoteFiles')->whereNotIn('id', $noImages)->orderByDesc('id')->take(10)->get();
+
+        foreach($articles as $article) {
+            $content = $article->content;
+
+            $doc = phpQuery::newDocumentHTML($content);
+
+            $images = collect([]);
+            $doc->find('img')->map(function ($pqo) use (&$images) {
+                $url = $pqo->getAttribute('src');
+                if (empty($url) === false && starts_with($url, ['http:', 'https:', '//'])) {
+                    $images->push($url);
+                }
+            });
+            if($images->count() > 0) {
+                $imageFiles = ImageUtil::fetchImages($images, $article->source_url, true);
+
+                if($imageFiles->count() > 0) {
+                    foreach ($imageFiles as $img) {
+                        $content = str_replace($img->origin, $img->local, $content);
+                    }
+
+                    $article->content = $content;
+
+                    if(empty($article->figure)
+                        || (starts_with($article->figure, ['http:', 'https:', '//'])
+                            && starts_with($article->figure,'https://devfeed.ofcdn.com') === false)
+                    ) {
+                        $article->figure = $imageFiles->first()->local;
+                    }
+
+                    $article->remoteFiles()->sync($imageFiles->pluck('id')->all());
+
+                    if($article->save()) {
+                        $updated[] = $article;
+                    }
+                }
+
+            } else {
+                $noImages[] = $article->id;
+                $skipped[] = $article;
+            }
+        }
+
+        Cache::put('articlesWithoutImages', $noImages, 1440);
+
+        return view('backend.article-update', compact('updated', 'skipped'));
     }
 }

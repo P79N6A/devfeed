@@ -12,11 +12,14 @@ class ImageUtil
     /**
      * @param \Iterator remote image urls $images
      * @param string base url $baseUrl
+     * @param boolean|null whether storage images in cos or not $inCos
      *
      * @return \Illuminate\Support\Collection
      */
-    public static function fetchImages(IteratorAggregate $images, string $baseUrl, $inCos = true)
+    public static function fetchImages(IteratorAggregate $images, string $baseUrl, $inCos = null)
     {
+        $inCos = is_null($inCos) ? config('services.cos.enabled') : $inCos;
+
         $imageFiles = collect([]);
         if(starts_with($baseUrl, '//')) {
             $baseUrl = 'https:'.$baseUrl;
