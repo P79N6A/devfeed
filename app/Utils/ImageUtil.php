@@ -191,6 +191,6 @@ class ImageUtil
             'image/bmp' => '.bmp'
         ];
 
-        return array_key_exists($mimeType, $imageTypes) ? $imageTypes[$mimeType] : '.unknown';
+        return array_key_exists($mimeType, $imageTypes) ? $imageTypes[$mimeType] : '';
     }
 }
