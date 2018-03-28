@@ -96,7 +96,7 @@ class ImageUtil
         $status = curl_getinfo($ch, CURLINFO_HTTP_CODE);
         curl_close($ch);
 
-        if($status < 400) {
+        if($status < 400 && empty($raw) === false) {
             $md5 = md5($raw);
 
 
