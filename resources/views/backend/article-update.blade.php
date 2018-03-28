@@ -11,8 +11,8 @@
         </div>
     </div>
     <div class="row">
-        <h3 class="title">本次完成更新的文章</h3>
-        <div class="col-md-12">
+        <div class="col-md-10 col-md-offset-1">
+            <h3 class="title">本次完成更新的文章</h3>
             <table class="table table-bordered">
                 <thead class="bg-primary">
                 <tr>
