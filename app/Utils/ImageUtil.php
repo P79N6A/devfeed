@@ -5,6 +5,7 @@ use Fedn\Models\RemoteFile;
 use IteratorAggregate;
 use GuzzleHttp\Psr7\Uri;
 use GuzzleHttp\Psr7\UriResolver;
+use Mockery\Exception;
 use Storage;
 
 class ImageUtil
@@ -109,7 +110,12 @@ class ImageUtil
             $contentMd5 = base64_encode(md5($raw, true));
             $file->remote = $url;
             $file->base_url = $baseUrl;
-            $ext = static::guessExtensionFromContent($raw);
+            $ext = '';
+            try {
+                $ext = pathinfo(parse_url($url)['path'], PATHINFO_EXTENSION);
+
+            } catch (Exception $e) {}
+            $ext = empty($ext)? static::guessExtensionFromContent($raw) : ".$ext";
             // save to local
             $path = 'remote/'.date('Y').'/';
             $filename = substr($md5, 0, 3).'-'.$md5.$ext;
