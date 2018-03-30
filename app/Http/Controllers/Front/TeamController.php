@@ -38,7 +38,7 @@ class TeamController extends Controller
         $titleCacheArr = array();
         foreach ($articles as $article){
             //设置预览图为文章的第一张图
-            $quato = '/<img.*?src=[\"|\']?(.*?)[\"|\']?\s.*?>/i';
+            $quato = '/<img.+?src=[\'"]??([^"\']+)[\'"]??.*?>/';
             if(preg_match($quato, $article->content,$arr)){
                 $arcPreview = array(
                     'type' => 'img',
