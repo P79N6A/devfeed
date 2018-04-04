@@ -19,7 +19,11 @@ class ImageUtil
      */
     public static function fetchImages(IteratorAggregate $images, string $baseUrl, $inCos = null)
     {
-        $inCos = is_null($inCos) ? config('services.cos.enabled') : $inCos;
+        if(app()->environment('production')) {
+            $inCos = is_null($inCos) ? config('services.cos.enabled') : $inCos;
+        } else {
+            $inCos = false;
+        }
 
         $imageFiles = collect([]);
         if(starts_with($baseUrl, '//')) {
@@ -55,10 +59,19 @@ class ImageUtil
             if (starts_with($schema, '//')) {
                 $remote = 'https:'.$src;
             } else {
+                // skip images belongs to devfeed.
+                if(Storage::disk('public')->has($src)) {
+                    return null;
+                }
                 $remote = (string)UriResolver::resolve(new Uri($baseUrl), new Uri($src));
             }
         } else {
             $remote = $src;
+        }
+
+        // ignore images belongs to devfeed
+        if(starts_with($remote, config('services.cos.cdn_url'))) {
+            return null;
         }
 
         $file = static::downloadFile($remote, $baseUrl, $inCos);

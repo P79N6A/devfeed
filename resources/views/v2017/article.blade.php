@@ -15,10 +15,10 @@
             <div class="break-nav">
                 <a href="{{$nav['href']}}" title="{{$nav['name']}}">{{$nav['name']}}</a><em>&gt;</em><span>{{ $art->title }}</span>
             </div>
-            <div class="share">
+            {{--<div class="share">
                 <span>分享到：</span>
                 <div id="tg-sns"></div>
-            </div>
+            </div>--}}
         </div>
 
         <div class="article-con">
@@ -40,19 +40,21 @@
 @endsection
 
 @section('page_script')
-    <script charset="gb2312" src="//game.gtimg.cn/images/js/share/share-min.js"></script>
-    <script src="{{ asset('js/code/highlight.min.js') }}"></script>
-    <script>
-    TGshare({
-        iconSize : 16,
-        snsModule : ['wechat','qq','qzone','sina'],
-        title : '{{ $art->title }}',
-        url : location.href,
-        picUrl : '',
-        snsID :'tg-sns',
-        isWindow : true,
-        tcss : false
-    });
-    hljs.initHighlighting();
+{{--
+<script charset="gb2312" src="//game.gtimg.cn/images/js/share/share-min.js"></script>
+<script src="{{ asset('js/code/highlight.min.js') }}"></script>
+<script>
+TGshare({
+    iconSize : 16,
+    snsModule : ['wechat','qq','qzone','sina'],
+    title : '{{ $art->title }}',
+    url : location.href,
+    picUrl : '',
+    snsID :'tg-sns',
+    isWindow : true,
+    tcss : false
+});
+hljs.initHighlighting();
 </script>
+--}}
 @endsection
