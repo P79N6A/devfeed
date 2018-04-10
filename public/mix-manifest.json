@@ -1,11 +1,11 @@
 {
-    "/js/vendor.js": "/js/vendor.js?id=183c44555e77994dccad",
-    "/js/team.js": "/js/team.js?id=5e14d7f08fe495e70659",
-    "/css/vue.css": "/css/vue.css?id=0b45934135f4040debe7",
-    "/js/quotas.js": "/js/quotas.js?id=44c9006b0001e34eef58",
-    "/css/backend.css": "/css/backend.css?id=ecc22e63bd4dee062e86",
-    "/js/manifest.js": "/js/manifest.js?id=c13325bf45396a7a48ea",
+    "/js/vendor.js": "/js/vendor.js?id=9feedacfb9cf1a564672",
+    "/js/team.js": "/js/team.js?id=1cea0e369a31bd50efe8",
+    "/js/quotas.js": "/js/quotas.js?id=b6ddcd76b57343a313fe",
+    "/js/source.js": "/js/source.js?id=59bf2202da3c2c8ad593",
+    "/js/manifest.js": "/js/manifest.js?id=3856261ebef1de6b975c",
     "/css/bootstrap.css": "/css/bootstrap.css?id=83f8a2c830493a3e9186",
     "/js/jquery.min.js": "/js/jquery.min.js?id=4f252523d4af0b478c81",
-    "/js/bootstrap.min.js": "/js/bootstrap.min.js?id=5869c96cc8f19086aee6"
+    "/js/bootstrap.min.js": "/js/bootstrap.min.js?id=5869c96cc8f19086aee6",
+    "/css/backend.css": "/css/backend.css?id=920b9ec1dc65eb87339f"
 }
