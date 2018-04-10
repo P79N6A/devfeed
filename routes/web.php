@@ -19,7 +19,13 @@ Route::get('/auth/logout', 'Auth\LoginController@logout');
 
 /** front-end */
 Route::group(['namespace' => 'Front', 'as' => 'front.'], function () {
-    Route::get('/', ['as' => 'home', 'uses' => 'HomeController@index']);
+
+
+
+Route::view('/manage/{any?}', 'app.welcome');
+
+/*
+   Route::get('/', ['as' => 'home', 'uses' => 'HomeController@index']);
     Route::get('/hot', ['as' => 'hot', 'uses' => 'HomeController@hot']);
 
     Route::group(['as' => 'team.', 'prefix' => 'team'], function () {
@@ -40,9 +46,11 @@ Route::group(['namespace' => 'Front', 'as' => 'front.'], function () {
         Route::get('/feeds', ['as' => 'list', 'uses' => 'FeedController@listFeeds']);
         Route::get('/feed/{id}', ['as' => 'view', 'uses' => 'FeedController@view']);
     });
+*/
 
 
 });
+
 /** backend */
 
 Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'as' => 'admin.', 'middleware' => 'admin'], function () {
