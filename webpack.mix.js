@@ -1,5 +1,7 @@
 let mix = require('laravel-mix');
 
+const path = require('path');
+
 /*
  |--------------------------------------------------------------------------
  | Mix Asset Management
@@ -10,6 +12,8 @@ let mix = require('laravel-mix');
  | file for the application as well as bundling up all the JS files.
  |
  */
+
+const cssCachePath = 'public/.temp';
 
 mix.combine([
   'node_modules/bootstrap/dist/css/bootstrap.min.css',
@@ -22,12 +26,21 @@ mix.options({
   extractVueStyles: true
 });
 
-mix.sass('resources/assets/sass/vue.scss', 'public/css/')
-  .sass('resources/assets/sass/backend.scss', 'public/css')
+mix.sass('resources/assets/sass/vue.scss', cssCachePath)
   .js('resources/assets/js/quotas.js', 'public/js/')
   .js('resources/assets/js/team.js', 'public/js/')
-  .extract(['axios', 'vue', 'vue-router'], 'public/js/vendor.js')
-  .then(() => {
-    mix.combine(['public/css/backend.css', 'public/css/vue.css'], 'public/css/backend.css')
-  }).version();
+  .js('resources/assets/js/source.js', 'public/js/')
+  .extract(['axios', 'vue', 'vue-router'], 'public/js/vendor.js');
+
+mix.sass('resources/assets/sass/backend.scss', cssCachePath)
+   .combine(cssCachePath, 'public/css/backend.css');
+
+mix.version([
+    'public/js/manifest.js',
+    'public/js/vendor.js',
+    'public/js/quotas.js',
+    'public/js/team.js',
+    'public/js/source.js',
+    'public/css/backend.css',
+]);
 
