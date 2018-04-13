@@ -1,4 +1,4 @@
-webpackJsonp([3],{
+webpackJsonp([4],{
 
 /***/ "./node_modules/babel-loader/lib/index.js?{\"cacheDirectory\":true,\"presets\":[[\"env\",{\"modules\":false,\"targets\":{\"browsers\":[\"> 2%\"],\"uglify\":true}}]],\"plugins\":[\"transform-object-rest-spread\",[\"transform-runtime\",{\"polyfill\":false,\"helpers\":false}]]}!./node_modules/vue-loader/lib/selector.js?type=script&index=0!./resources/assets/js/components/MyView.vue":
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
@@ -33,9 +33,25 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-    name: "Example"
+    name: "Example",
+    computed: {
+        username: function username() {
+            // 我们很快就会看到 `params` 是什么
+            return this.$route.params.username;
+        }
+    },
+    methods: {
+        goBack: function goBack() {
+            window.history.length > 1 ? this.$router.go(-1) : this.$router.push('/');
+        }
+    }
 });
 
 /***/ }),
@@ -203,9 +219,20 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("h1", [_vm._v("example")])
+  return _vm._m(0)
 }
-var staticRenderFns = []
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", [
+      _c("h1", [_vm._v("example")]),
+      _vm._v(" "),
+      _c("p", [_vm._v("example ")])
+    ])
+  }
+]
 render._withStripped = true
 module.exports = { render: render, staticRenderFns: staticRenderFns }
 if (false) {
@@ -321,32 +348,28 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue__ = __webpack_require__("./node_modules/vue/dist/vue.common.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_vue__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_vue_router__ = __webpack_require__("./node_modules/vue-router/dist/vue-router.esm.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__frontRoutes__ = __webpack_require__("./resources/assets/js/frontRoutes.js");
+
 
 
 __WEBPACK_IMPORTED_MODULE_0_vue___default.a.use(__WEBPACK_IMPORTED_MODULE_1_vue_router__["default"]);
 
-//Vue.component('my-view', require('./components/MyView.vue'));
-//Vue.component('example', require('./components/example.vue'));
-var MyView = __webpack_require__("./resources/assets/js/components/MyView.vue");
-var Example = __webpack_require__("./resources/assets/js/components/example.vue");
 
-var NotFound = { template: '<p>Page not found</p>' };
-var Home = { template: '<p>home page</p>' };
-var About = { template: '<p>about page</p>' };
 
-var routes = [{ path: '/', component: MyView }, { path: '/example', component: Example }];
+// Vue.component('side-menu', require('./components/app/sideMenu'));
+// Vue.component('example', require('./components/example.vue'));
+
 
 var router = new __WEBPACK_IMPORTED_MODULE_1_vue_router__["default"]({
-    base: '/manage/',
-    mode: "history",
-    routes: routes // （缩写）相当于 routes: routes
+    base: '/',
+    mode: 'history',
+    routes: __WEBPACK_IMPORTED_MODULE_2__frontRoutes__["a" /* default */] // （缩写）相当于 routes: routes
 });
 
 var app = new __WEBPACK_IMPORTED_MODULE_0_vue___default.a({
     el: '#app',
     router: router
 });
-
 // const NotFound = { template: '<p>Page not found</p>' }
 // const Home = { template: '<p>home page</p>' }
 // const About = { template: '<p>about page</p>' }
@@ -362,11 +385,29 @@ var app = new __WEBPACK_IMPORTED_MODULE_0_vue___default.a({
 //
 // const app = new Vue({
 //     router
-// }).$mount('#app');
+// }).$mount('#app');K
 
 /***/ }),
 
-/***/ 2:
+/***/ "./resources/assets/js/frontRoutes.js":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/**
+ * meta参数解析
+ * hideLeft: 是否隐藏左侧菜单，单页菜单为true
+ * module: 菜单所属模块
+ * menu: 所属菜单，用于判断三级菜单是否显示高亮，如菜单列表、添加菜单、编辑菜单都是'menu'，用户列表、添加用户、编辑用户都是'user'，如此类推
+ */
+var MyView = __webpack_require__("./resources/assets/js/components/MyView.vue");
+var Example = __webpack_require__("./resources/assets/js/components/example.vue");
+
+var routes = [{ path: '/', component: MyView }, { path: '/example', component: Example }];
+/* harmony default export */ __webpack_exports__["a"] = (routes);
+
+/***/ }),
+
+/***/ 3:
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = __webpack_require__("./resources/assets/js/front.js");
@@ -374,4 +415,4 @@ module.exports = __webpack_require__("./resources/assets/js/front.js");
 
 /***/ })
 
-},[2]);
+},[3]);
