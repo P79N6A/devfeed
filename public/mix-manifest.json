@@ -2,7 +2,7 @@
     "/js/vendor.js": "/js/vendor.js?id=a3b18dff6c392622d123",
     "/js/team.js": "/js/team.js?id=d74fc5401d776fde930c",
     "/.temp/vue.css": "/.temp/vue.css?id=40e3c7450c24123357da",
-    "/js/front.js": "/js/front.js?id=97171a501bfa28522c91",
+    "/js/front.js": "/js/front.js?id=7c56084111ce2296dd18",
     "/js/quotas.js": "/js/quotas.js?id=fbf30d7c7f3b1e6a5d85",
     "/.temp/backend.css": "/.temp/backend.css?id=41cd4305eab3492e2806",
     "/js/source.js": "/js/source.js?id=26cb8f7a605a3d1c783f",
@@ -16,6 +16,6 @@
     "\\js\\quotas.js": "\\js\\quotas.js?id=fbf30d7c7f3b1e6a5d85",
     "\\js\\team.js": "\\js\\team.js?id=d74fc5401d776fde930c",
     "\\js\\source.js": "\\js\\source.js?id=26cb8f7a605a3d1c783f",
-    "\\js\\front.js": "\\js\\front.js?id=97171a501bfa28522c91",
+    "\\js\\front.js": "\\js\\front.js?id=7c56084111ce2296dd18",
     "\\css\\backend.css": "\\css\\backend.css?id=c829d02052cdb473d629"
 }

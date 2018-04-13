@@ -232,20 +232,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     name: "alist",
@@ -766,24 +752,16 @@ var staticRenderFns = [
         _c("h1", { staticClass: "logo" }, [
           _c(
             "a",
-            {
-              staticClass: "hide",
-              attrs: { href: "https://www.devfeed.cn", title: "DevFeed" }
-            },
+            { staticClass: "hide", attrs: { href: "/", title: "DevFeed" } },
             [_vm._v("DevFeed")]
           )
         ]),
         _vm._v(" "),
         _c("div", { staticClass: "login" }, [
           _c("div", { staticClass: "unlogin" }, [
-            _c(
-              "a",
-              {
-                staticClass: "spr",
-                attrs: { href: "https://www.devfeed.cn/login" }
-              },
-              [_vm._v("登录")]
-            )
+            _c("a", { staticClass: "spr", attrs: { href: "/login" } }, [
+              _vm._v("登录")
+            ])
           ])
         ])
       ]),
@@ -822,10 +800,7 @@ var staticRenderFns = [
             _c("li", [
               _c(
                 "a",
-                {
-                  staticClass: "list-pic",
-                  attrs: { href: "https://www.devfeed.cn/article/160" }
-                },
+                { staticClass: "list-pic", attrs: { href: "/article/160" } },
                 [
                   _c("img", {
                     attrs: { src: "/upload/figure/1495004459850.gif", alt: "" }
@@ -836,10 +811,7 @@ var staticRenderFns = [
               _c("h3", [
                 _c(
                   "a",
-                  {
-                    staticClass: "title",
-                    attrs: { href: "https://www.devfeed.cn/article/160" }
-                  },
+                  { staticClass: "title", attrs: { href: "/article/160" } },
                   [_vm._v("从零开始基于 JavaScript 构建简单神经网络（1）")]
                 ),
                 _vm._v(" "),
@@ -853,11 +825,8 @@ var staticRenderFns = [
               ]),
               _vm._v(" "),
               _c("p", { staticClass: "list-infor" }, [
-                _c("a", {
-                  staticClass: "team",
-                  attrs: { href: "https://www.devfeed.cn/team" }
-                }),
-                _vm._v("@\r\n                        "),
+                _c("a", { staticClass: "team", attrs: { href: "/team" } }),
+                _vm._v("@\n                        "),
                 _c(
                   "a",
                   {
@@ -887,10 +856,7 @@ var staticRenderFns = [
             _c("li", [
               _c(
                 "a",
-                {
-                  staticClass: "list-pic",
-                  attrs: { href: "https://www.devfeed.cn/article/161" }
-                },
+                { staticClass: "list-pic", attrs: { href: "/article/161" } },
                 [
                   _c("img", {
                     attrs: { src: "/upload/figure/1495004672387.png", alt: "" }
@@ -901,10 +867,7 @@ var staticRenderFns = [
               _c("h3", [
                 _c(
                   "a",
-                  {
-                    staticClass: "title",
-                    attrs: { href: "https://www.devfeed.cn/article/161" }
-                  },
+                  { staticClass: "title", attrs: { href: "/article/161" } },
                   [_vm._v("斯坦福教授决定放弃Java，使用JavaScript作为教学语言")]
                 ),
                 _vm._v(" "),
@@ -918,11 +881,8 @@ var staticRenderFns = [
               ]),
               _vm._v(" "),
               _c("p", { staticClass: "list-infor" }, [
-                _c("a", {
-                  staticClass: "team",
-                  attrs: { href: "https://www.devfeed.cn/team" }
-                }),
-                _vm._v("@\r\n                        "),
+                _c("a", { staticClass: "team", attrs: { href: "/team" } }),
+                _vm._v("@\n                        "),
                 _c(
                   "a",
                   {
@@ -952,10 +912,7 @@ var staticRenderFns = [
             _c("li", [
               _c(
                 "a",
-                {
-                  staticClass: "list-pic",
-                  attrs: { href: "https://www.devfeed.cn/article/4" }
-                },
+                { staticClass: "list-pic", attrs: { href: "/article/4" } },
                 [
                   _c("img", {
                     attrs: { src: "/upload/figure/1478157992848.jpg", alt: "" }
@@ -966,10 +923,7 @@ var staticRenderFns = [
               _c("h3", [
                 _c(
                   "a",
-                  {
-                    staticClass: "title",
-                    attrs: { href: "https://www.devfeed.cn/article/4" }
-                  },
+                  { staticClass: "title", attrs: { href: "/article/4" } },
                   [_vm._v("JavaScript 模块化入门Ⅱ：模块打包构建")]
                 ),
                 _vm._v(" "),
@@ -983,11 +937,8 @@ var staticRenderFns = [
               ]),
               _vm._v(" "),
               _c("p", { staticClass: "list-infor" }, [
-                _c("a", {
-                  staticClass: "team",
-                  attrs: { href: "https://www.devfeed.cn/team" }
-                }),
-                _vm._v("@\r\n                        "),
+                _c("a", { staticClass: "team", attrs: { href: "/team" } }),
+                _vm._v("@\n                        "),
                 _c(
                   "a",
                   {
@@ -1016,10 +967,7 @@ var staticRenderFns = [
             _c("li", [
               _c(
                 "a",
-                {
-                  staticClass: "list-pic",
-                  attrs: { href: "https://www.devfeed.cn/article/158" }
-                },
+                { staticClass: "list-pic", attrs: { href: "/article/158" } },
                 [
                   _c("img", {
                     attrs: { src: "/upload/figure/1495004098235.jpg", alt: "" }
@@ -1030,10 +978,7 @@ var staticRenderFns = [
               _c("h3", [
                 _c(
                   "a",
-                  {
-                    staticClass: "title",
-                    attrs: { href: "https://www.devfeed.cn/article/158" }
-                  },
+                  { staticClass: "title", attrs: { href: "/article/158" } },
                   [_vm._v("从前端工程师到AR工程师")]
                 ),
                 _vm._v(" "),
@@ -1047,11 +992,8 @@ var staticRenderFns = [
               ]),
               _vm._v(" "),
               _c("p", { staticClass: "list-infor" }, [
-                _c("a", {
-                  staticClass: "team",
-                  attrs: { href: "https://www.devfeed.cn/team" }
-                }),
-                _vm._v("@\r\n                        "),
+                _c("a", { staticClass: "team", attrs: { href: "/team" } }),
+                _vm._v("@\n                        "),
                 _c(
                   "a",
                   {
@@ -1081,10 +1023,7 @@ var staticRenderFns = [
             _c("li", [
               _c(
                 "a",
-                {
-                  staticClass: "list-pic",
-                  attrs: { href: "https://www.devfeed.cn/article/200" }
-                },
+                { staticClass: "list-pic", attrs: { href: "/article/200" } },
                 [
                   _c("span", { staticClass: "text text-purple" }, [
                     _vm._v("机")
@@ -1095,10 +1034,7 @@ var staticRenderFns = [
               _c("h3", [
                 _c(
                   "a",
-                  {
-                    staticClass: "title",
-                    attrs: { href: "https://www.devfeed.cn/article/200" }
-                  },
+                  { staticClass: "title", attrs: { href: "/article/200" } },
                   [_vm._v("机器学习与JavaScript（一）")]
                 ),
                 _vm._v(" "),
@@ -1112,15 +1048,10 @@ var staticRenderFns = [
               ]),
               _vm._v(" "),
               _c("p", { staticClass: "list-infor" }, [
-                _c(
-                  "a",
-                  {
-                    staticClass: "team",
-                    attrs: { href: "https://www.devfeed.cn/team/9" }
-                  },
-                  [_vm._v("前端充电站")]
-                ),
-                _vm._v("@\r\n                        "),
+                _c("a", { staticClass: "team", attrs: { href: "/team/9" } }, [
+                  _vm._v("前端充电站")
+                ]),
+                _vm._v("@\n                        "),
                 _c("a", {
                   staticClass: "people",
                   attrs: { href: "javascript:void(0)" }
@@ -1146,10 +1077,7 @@ var staticRenderFns = [
             _c("li", [
               _c(
                 "a",
-                {
-                  staticClass: "list-pic",
-                  attrs: { href: "https://www.devfeed.cn/article/3" }
-                },
+                { staticClass: "list-pic", attrs: { href: "/article/3" } },
                 [
                   _c("img", {
                     attrs: { src: "/upload/figure/1478158031907.jpg", alt: "" }
@@ -1160,10 +1088,7 @@ var staticRenderFns = [
               _c("h3", [
                 _c(
                   "a",
-                  {
-                    staticClass: "title",
-                    attrs: { href: "https://www.devfeed.cn/article/3" }
-                  },
+                  { staticClass: "title", attrs: { href: "/article/3" } },
                   [_vm._v("JavaScript 模块化入门Ⅰ：理解模块")]
                 ),
                 _vm._v(" "),
@@ -1177,11 +1102,8 @@ var staticRenderFns = [
               ]),
               _vm._v(" "),
               _c("p", { staticClass: "list-infor" }, [
-                _c("a", {
-                  staticClass: "team",
-                  attrs: { href: "https://www.devfeed.cn/team" }
-                }),
-                _vm._v("@\r\n                        "),
+                _c("a", { staticClass: "team", attrs: { href: "/team" } }),
+                _vm._v("@\n                        "),
                 _c(
                   "a",
                   {
@@ -1210,10 +1132,7 @@ var staticRenderFns = [
             _c("li", [
               _c(
                 "a",
-                {
-                  staticClass: "list-pic",
-                  attrs: { href: "https://www.devfeed.cn/article/199" }
-                },
+                { staticClass: "list-pic", attrs: { href: "/article/199" } },
                 [
                   _c("img", {
                     attrs: {
@@ -1228,10 +1147,7 @@ var staticRenderFns = [
               _c("h3", [
                 _c(
                   "a",
-                  {
-                    staticClass: "title",
-                    attrs: { href: "https://www.devfeed.cn/article/199" }
-                  },
+                  { staticClass: "title", attrs: { href: "/article/199" } },
                   [_vm._v("陆奇最新演讲：如何成为一个优秀的工程师")]
                 ),
                 _vm._v(" "),
@@ -1245,15 +1161,10 @@ var staticRenderFns = [
               ]),
               _vm._v(" "),
               _c("p", { staticClass: "list-infor" }, [
-                _c(
-                  "a",
-                  {
-                    staticClass: "team",
-                    attrs: { href: "https://www.devfeed.cn/team/9" }
-                  },
-                  [_vm._v("前端充电站")]
-                ),
-                _vm._v("@\r\n                        "),
+                _c("a", { staticClass: "team", attrs: { href: "/team/9" } }, [
+                  _vm._v("前端充电站")
+                ]),
+                _vm._v("@\n                        "),
                 _c("a", {
                   staticClass: "people",
                   attrs: { href: "javascript:void(0)" }
@@ -1279,10 +1190,7 @@ var staticRenderFns = [
             _c("li", [
               _c(
                 "a",
-                {
-                  staticClass: "list-pic",
-                  attrs: { href: "https://www.devfeed.cn/article/157" }
-                },
+                { staticClass: "list-pic", attrs: { href: "/article/157" } },
                 [
                   _c("img", {
                     attrs: { src: "/upload/figure/1495003903680.jpg", alt: "" }
@@ -1293,10 +1201,7 @@ var staticRenderFns = [
               _c("h3", [
                 _c(
                   "a",
-                  {
-                    staticClass: "title",
-                    attrs: { href: "https://www.devfeed.cn/article/157" }
-                  },
+                  { staticClass: "title", attrs: { href: "/article/157" } },
                   [_vm._v("10 个基于 JavaScript 的机器学习实例")]
                 ),
                 _vm._v(" "),
@@ -1310,11 +1215,8 @@ var staticRenderFns = [
               ]),
               _vm._v(" "),
               _c("p", { staticClass: "list-infor" }, [
-                _c("a", {
-                  staticClass: "team",
-                  attrs: { href: "https://www.devfeed.cn/team" }
-                }),
-                _vm._v("@\r\n                        "),
+                _c("a", { staticClass: "team", attrs: { href: "/team" } }),
+                _vm._v("@\n                        "),
                 _c(
                   "a",
                   {
@@ -1343,20 +1245,14 @@ var staticRenderFns = [
             _c("li", [
               _c(
                 "a",
-                {
-                  staticClass: "list-pic",
-                  attrs: { href: "https://www.devfeed.cn/article/68" }
-                },
+                { staticClass: "list-pic", attrs: { href: "/article/68" } },
                 [_c("span", { staticClass: "text text-purple" }, [_vm._v("v")])]
               ),
               _vm._v(" "),
               _c("h3", [
                 _c(
                   "a",
-                  {
-                    staticClass: "title",
-                    attrs: { href: "https://www.devfeed.cn/article/68" }
-                  },
+                  { staticClass: "title", attrs: { href: "/article/68" } },
                   [_vm._v("vue2.0全家桶实例")]
                 ),
                 _vm._v(" "),
@@ -1365,16 +1261,13 @@ var staticRenderFns = [
               _vm._v(" "),
               _c("p", { staticClass: "list-intro" }, [
                 _vm._v(
-                  "\r\n\r\n\r\n                        github地址\r\n\r\n                        下面一些是我在其中遇到的一些难点\r\n\r\n                        饿了么elementUI\r\n                        vue-router\r\n                        父子组件通信\r\n                        自定义事件\r\n                        动态组件\r\n                        stor内容分发\r\n                        vue-resource\r\n                        webpack跨域\r\n                        vuex\r\n\r\n\r\n                        最后还是想找个关于vuex的实际项目实例，vuex方面还是没有解决。\r\n\r\n                    "
+                  "\n\n\n                        github地址\n\n                        下面一些是我在其中遇到的一些难点\n\n                        饿了么elementUI\n                        vue-router\n                        父子组件通信\n                        自定义事件\n                        动态组件\n                        stor内容分发\n                        vue-resource\n                        webpack跨域\n                        vuex\n\n\n                        最后还是想找个关于vuex的实际项目实例，vuex方面还是没有解决。\n\n                    "
                 )
               ]),
               _vm._v(" "),
               _c("p", { staticClass: "list-infor" }, [
-                _c("a", {
-                  staticClass: "team",
-                  attrs: { href: "https://www.devfeed.cn/team" }
-                }),
-                _vm._v("@\r\n                        "),
+                _c("a", { staticClass: "team", attrs: { href: "/team" } }),
+                _vm._v("@\n                        "),
                 _c(
                   "a",
                   {
@@ -1410,59 +1303,31 @@ var staticRenderFns = [
               _c("li", { staticClass: "active" }, [_c("span", [_vm._v("1")])]),
               _vm._v(" "),
               _c("li", [
-                _c(
-                  "a",
-                  { attrs: { href: "https://www.devfeed.cn/hot?page=2" } },
-                  [_vm._v("2")]
-                )
+                _c("a", { attrs: { href: "/hot?page=2" } }, [_vm._v("2")])
               ]),
               _vm._v(" "),
               _c("li", [
-                _c(
-                  "a",
-                  { attrs: { href: "https://www.devfeed.cn/hot?page=3" } },
-                  [_vm._v("3")]
-                )
+                _c("a", { attrs: { href: "/hot?page=3" } }, [_vm._v("3")])
               ]),
               _vm._v(" "),
               _c("li", [
-                _c(
-                  "a",
-                  { attrs: { href: "https://www.devfeed.cn/hot?page=4" } },
-                  [_vm._v("4")]
-                )
+                _c("a", { attrs: { href: "/hot?page=4" } }, [_vm._v("4")])
               ]),
               _vm._v(" "),
               _c("li", [
-                _c(
-                  "a",
-                  { attrs: { href: "https://www.devfeed.cn/hot?page=5" } },
-                  [_vm._v("5")]
-                )
+                _c("a", { attrs: { href: "/hot?page=5" } }, [_vm._v("5")])
               ]),
               _vm._v(" "),
               _c("li", [
-                _c(
-                  "a",
-                  { attrs: { href: "https://www.devfeed.cn/hot?page=6" } },
-                  [_vm._v("6")]
-                )
+                _c("a", { attrs: { href: "/hot?page=6" } }, [_vm._v("6")])
               ]),
               _vm._v(" "),
               _c("li", [
-                _c(
-                  "a",
-                  { attrs: { href: "https://www.devfeed.cn/hot?page=7" } },
-                  [_vm._v("7")]
-                )
+                _c("a", { attrs: { href: "/hot?page=7" } }, [_vm._v("7")])
               ]),
               _vm._v(" "),
               _c("li", [
-                _c(
-                  "a",
-                  { attrs: { href: "https://www.devfeed.cn/hot?page=8" } },
-                  [_vm._v("8")]
-                )
+                _c("a", { attrs: { href: "/hot?page=8" } }, [_vm._v("8")])
               ]),
               _vm._v(" "),
               _c("li", { staticClass: "disabled" }, [
@@ -1470,32 +1335,17 @@ var staticRenderFns = [
               ]),
               _vm._v(" "),
               _c("li", [
-                _c(
-                  "a",
-                  { attrs: { href: "https://www.devfeed.cn/hot?page=31" } },
-                  [_vm._v("31")]
-                )
+                _c("a", { attrs: { href: "/hot?page=31" } }, [_vm._v("31")])
               ]),
               _vm._v(" "),
               _c("li", [
-                _c(
-                  "a",
-                  { attrs: { href: "https://www.devfeed.cn/hot?page=32" } },
-                  [_vm._v("32")]
-                )
+                _c("a", { attrs: { href: "/hot?page=32" } }, [_vm._v("32")])
               ]),
               _vm._v(" "),
               _c("li", [
-                _c(
-                  "a",
-                  {
-                    attrs: {
-                      href: "https://www.devfeed.cn/hot?page=2",
-                      rel: "next"
-                    }
-                  },
-                  [_vm._v("»")]
-                )
+                _c("a", { attrs: { href: "/hot?page=2", rel: "next" } }, [
+                  _vm._v("»")
+                ])
               ])
             ])
           ])
@@ -1830,7 +1680,7 @@ var alist = __webpack_require__("./resources/assets/js/components/app/alist.vue"
 var routes = [{
     path: '/',
     component: Home,
-    children: [{ path: '/', component: alist, name: 'alist' }]
+    children: [{ path: '/', component: alist, name: 'alist' }, { path: '/new', component: alist, name: 'alist' }]
 }, { path: '/example', component: Example }];
 /* harmony default export */ __webpack_exports__["a"] = (routes);
 
