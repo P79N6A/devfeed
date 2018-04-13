@@ -1,14 +1,14 @@
 <template>
     <div>
         <h1>example</h1>
-        <p>example </p>
+        <p>example {{ message }}</p>
 
     </div>
 
 </template>
 <script>
     export default {
-        name: "Example",
+        name: "sideMenu",
         computed: {
             username () {
                 // 我们很快就会看到 `params` 是什么

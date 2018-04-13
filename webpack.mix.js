@@ -30,6 +30,7 @@ mix.sass('resources/assets/sass/vue.scss', cssCachePath)
   .js('resources/assets/js/quotas.js', 'public/js/')
   .js('resources/assets/js/team.js', 'public/js/')
   .js('resources/assets/js/source.js', 'public/js/')
+  .js('resources/assets/js/front.js', 'public/js/')
   .extract(['axios', 'vue', 'vue-router'], 'public/js/vendor.js');
 
 mix.sass('resources/assets/sass/backend.scss', cssCachePath)
@@ -41,6 +42,7 @@ mix.version([
     'public/js/quotas.js',
     'public/js/team.js',
     'public/js/source.js',
+    'public/js/front.js',
     'public/css/backend.css',
 ]);
 

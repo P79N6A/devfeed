@@ -22,7 +22,10 @@ Route::group(['namespace' => 'Front', 'as' => 'front.'], function () {
 
 
 
-Route::view('/manage/{any?}', 'app.welcome');
+//Route::view('/manage/{any?}', 'app.welcome');
+
+Route::view('/{any?}', 'app.home');
+
 
 /*
    Route::get('/', ['as' => 'home', 'uses' => 'HomeController@index']);
