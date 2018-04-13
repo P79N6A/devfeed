@@ -7,8 +7,19 @@
 const MyView = require('./components/MyView.vue');
 const Example = require('./components/example');
 
+
+const Home = require('./components/app/home');
+
+const alist = require('./components/app/alist');
+
+
 const routes = [
-    { path: '/', component: MyView},
+    {
+        path: '/',
+        component: Home,
+        children: [{ path: '/', component: alist, name: 'alist' }
+    ]
+    },
     { path: '/example', component: Example}
 ];
 export default routes

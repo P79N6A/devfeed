@@ -1,19 +1,21 @@
 <template>
     <div>
-        <h1>example</h1>
-        <p>example {{ message }}</p>
-
+        <sideMenu></sideMenu>
+        <router-view></router-view>
     </div>
-
 </template>
 <script>
+    import sideMenu from './sideMenu.vue';
     export default {
-        name: "sideMenu",
+        name: "home",
         computed: {
             username () {
                 // 我们很快就会看到 `params` 是什么
                 return this.$route.params.username
             }
+        },
+        components: {
+            sideMenu
         },
         methods: {
             goBack () {

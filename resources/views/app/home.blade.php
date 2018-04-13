@@ -25,9 +25,12 @@
         })();
     </script>
 <body>
-<div id="app">
+<div class="wrap" id="app">
 <router-view></router-view>
 </div>
+
+<script src="v2017/js/jquery.min.js"></script>
+<script src="v2017/js/comon.js"></script>
 
 
 <script src="{{ mix('js/manifest.js') }}"></script>
@@ -37,6 +40,5 @@
 
 </body>
 </html>
-
 
 
