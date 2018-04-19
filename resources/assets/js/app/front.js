@@ -3,10 +3,25 @@ import VueRouter from 'vue-router';
 
 Vue.use(VueRouter);
 
-import routes from './frontRoutes';
+import routes from './routes';
+import Lockr from 'lockr';
+import axios from 'axios';
+
+
+const HOST = 'http://www.gohost.com/';
 
 // Vue.component('side-menu', require('./components/app/sideMenu'));
 // Vue.component('example', require('./components/example.vue'));
+
+axios.defaults.baseURL = HOST;
+
+//axios.defaults.baseURL = HOST;
+axios.defaults.timeout = 1000 * 15;
+//axios.defaults.headers.authKey = Lockr.get('authKey');
+//axios.defaults.headers.sessionId = Lockr.get('sessionId');
+axios.defaults.headers['Content-Type'] = 'application/json'
+
+
 
 
 
