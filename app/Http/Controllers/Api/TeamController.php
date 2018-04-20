@@ -133,4 +133,35 @@ class TeamController extends Controller
             'data' => 0
         ]);
     }
+
+    public function detail(Request $req)
+    {
+        $id = $req->get('id', 1);
+        $data = null;
+        $articles = Team::find($id);
+
+        if(!is_numeric($id) || (int)$id != $id) {
+            $result = [
+                "code" => 40035,
+                "message" => 'Invalid parameters.',
+                "data" => $data
+            ];
+            return response()->json($result);
+        }
+
+        if(!$articles) {
+            $result = [
+                "code" => 46001,
+                "message" => 'Article not found.',
+                "data" => $data
+            ];
+        } else {
+            $result = [
+                "code" => 0,
+                "message" => '',
+                "data" => $articles
+            ];
+        }
+        return response()->json($result);
+    }
 }
