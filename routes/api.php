@@ -35,3 +35,20 @@ Route::group(['prefix' => 'v1', 'as' => 'api.'], function () {
         Route::post('teams/del', ['as' => 'teams.save', 'uses' => 'TeamController@del']);
     });
 });
+
+Route::group(['prefix' => 'v2', 'as' => 'api_v2.'], function () {
+
+    Route::group(['namespace' => 'Api'], function () {
+        //文章相关
+        Route::get('articles/list', ['as' => 'article/list', 'uses' => 'ArticleController@list']);
+        Route::get('article/detail', ['as' => 'article/detail', 'uses' => 'ArticleController@detail']);
+
+        //标签相关
+
+
+
+        //团队相关
+        Route::get('teams/list', ['as' => 'teams/list', 'uses' => 'TeamController@list']);
+        Route::get('team/detail', ['as' => 'team/detail', 'uses' => 'TeamController@detail']);
+    });
+});
