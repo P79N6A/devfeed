@@ -115,7 +115,7 @@ class QuotaUtils
 
             $pa = null;
 
-            return $links;
+            return array_reverse($links);
         } else {
             return [];
         }
@@ -230,7 +230,7 @@ class QuotaUtils
                 return "";
             }
 
-            if($httpCode >= 200 && $httpCode < 300) {
+            if($httpCode >= 200 && $httpCode < 300 && empty($result) === false) {
                 $result = json_decode($result, true);
 
                 return $result['html'] ?: '';
