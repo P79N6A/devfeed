@@ -8,8 +8,8 @@
             <div class="side-menu-con">
                 <div class="main-tag">
                     <ul>
-                        <li class="on"><a href="https://www.devfeed.cn" title="最新">最新</a></li>
-                        <li class=" "><a href="/hot" title="最热">最热</a></li>
+                        <router-link tag="li" to="new"><a>最新</a></router-link>
+                        <router-link tag="li" to="hot"><a>最热</a></router-link>
                     </ul>
                 </div>
                 <div class="filter">

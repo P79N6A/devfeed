@@ -4,11 +4,20 @@ import VueRouter from 'vue-router';
 Vue.use(VueRouter);
 
 import routes from './routes';
-import Lockr from 'lockr';
-import axios from 'axios';
+
+if('undefined' === typeof window.axios) {
+    window.axios = require('axios');
+}
+let token = document.head.querySelector('meta[name="csrf-token"]');
+window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
+if (token) {
+    window.axios.defaults.headers.common['X-CSRF-TOKEN'] = token.content;
+} else {
+    console.error('CSRF token not found: https://laravel.com/docs/csrf#csrf-x-csrf-token');
+}
 
 
-const HOST = 'http://www.gohost.com/';
+const HOST = 'http://www.gohosts.com/';
 
 // Vue.component('side-menu', require('./components/app/sideMenu'));
 // Vue.component('example', require('./components/example.vue'));
@@ -16,13 +25,13 @@ const HOST = 'http://www.gohost.com/';
 axios.defaults.baseURL = HOST;
 
 //axios.defaults.baseURL = HOST;
-axios.defaults.timeout = 1000 * 15;
-//axios.defaults.headers.authKey = Lockr.get('authKey');
-//axios.defaults.headers.sessionId = Lockr.get('sessionId');
-axios.defaults.headers['Content-Type'] = 'application/json'
-
-
-
+// axios.defaults.timeout = 1000 * 15;
+// //axios.defaults.headers.authKey = Lockr.get('authKey');
+// //axios.defaults.headers.sessionId = Lockr.get('sessionId');
+// axios.defaults.headers['Content-Type'] = 'application/json'
+//
+//
+//
 
 
 const router = new VueRouter({

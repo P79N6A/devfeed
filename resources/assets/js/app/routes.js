@@ -18,7 +18,8 @@ const routes = [
         path: '/',
         component: Home,
         children: [{ path: '/', component: alist, name: 'alist' },
-                    { path: '/new', component: alist, name: 'alist' }
+                    { path: '/new', component: alist, name: 'alist' },
+                    { path: '/hot', component: alist, name: 'alist' }
         ]
     },
     { path: '/example', component: Example}
