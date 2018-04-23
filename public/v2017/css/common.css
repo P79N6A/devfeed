@@ -25,8 +25,13 @@ body{min-width:320px;font:14px/1.5 "\5FAE\8F6F\96C5\9ED1",arial;color:#000;-webk
 .side-menu-con{transition: all .5s linear;-webkit-transition: all .5s linear;-moz-transition: all .5s linear;-ms-transition: all .5s linear;}
 .side-menu .main-tag li{height: 36px;line-height: 36px;}
 .side-menu .main-tag li a{display: block;width: 100%;text-indent: 55px;color: #6e7b9b;font-size: 16px;}
+
 .side-menu .main-tag li.on{background-color: #dfe3f1;}
 .side-menu .main-tag li.on a{color: #223345}
+
+.side-menu .main-tag li.router-link-active{background-color: #dfe3f1;}
+.side-menu .main-tag li.router-link-active a{color: #223345}
+
 
 .side-menu .filter{margin-top: 36px}
 .side-menu .filter dl{margin-bottom: 55px;}
