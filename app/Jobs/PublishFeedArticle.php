@@ -79,7 +79,7 @@ class PublishFeedArticle implements ShouldQueue
                 $content = str_replace($imgFile->origin, $imgFile->local, $content);
             }
 
-            $figure = $imageFiles->first()->local;
+            $figure = $imageFiles->count() ? $imageFiles->first()->local : '';
 
             $article = Article::create([
                 'user_id'    => $inputer,
