@@ -18,7 +18,7 @@
             </div>
             <div class="main-con">
                 <ul class="list clearfix list"><!--通过类名list、item进行列表展示方式的切换-->
-                    <li v-for="article in articles">
+                    <li v-for="article in articles.data">
                         <a href="/article/161" class="list-pic">
                             <img :src="article.figure" :alt="article.title">
                         </a>
@@ -35,12 +35,15 @@
 
                     </li>
                 </ul>
+                <span v-for="n in articles.last_page">{{ n }} </span>
                 <div class="pages">
                     <ul class="pagination">
 
                         <li class="disabled"><span>«</span></li>
 
-                      
+
+
+
 
                         <li class="active"><span>1</span></li>
                         <li><a href="/hot?page=2">2</a></li>
@@ -59,27 +62,32 @@
                     </ul>
 
                 </div>
+
+
+                <template>
+                    <v-pagination :total="total" :current-page='current' @pagechange="pagechange"></v-pagination>
+                </template>
+
             </div>
         </div>
         <div class="com-footer">
             <p>Copyright © 2017 Tgideas</p>
             <p>粤ICP备14011364号-4</p>
         </div>
-
     </div>
 </template>
 
 <script>
-    //转换标准时间为时间戳：
-    function getDateTimeStamp(dateStr){
-        return Date.parse(dateStr.replace(/-/gi,"/"));
-    }
+    import pagination from './pagination.vue';
+
     export default {
         name: "alist",
         data:function(){
             return {
-                paging:0,
-                articles: [],
+                articles:{},
+                total: 490,     // 记录总条数
+                display: 10,   // 每页显示条数
+                current: 1,   // 当前的页数
             }
         },
         computed: {
@@ -89,15 +97,22 @@
             }
         },
         methods: {
+            pagechange:function(currentPage){
+                console.log(currentPage);
+                // ajax请求, 向后台发送 currentPage, 来获取对应的数据
 
+            }
+        },
+        components: {
+            'v-pagination': pagination,
         },
         created() {
             //console.log(this.$route.path);
             axios.get('/test_hot_1.js').then(({data}) => {
                 //console.log(data);
                 //console.log( this.formatTime(123123123123) );
-                this.$set(this, 'articles', this.articles.concat(data.data));
-                this.$set(this, 'paging', this.articles.concat(data.data));
+                this.$set(this, 'articles', data);
+                //this.$set(this, 'current_page', this.articles.concat(data.data));
             })
         }
     }
