@@ -2,11 +2,11 @@
     <div class="pages">
         <ul class="pagination">
             <li :class="{'disabled': current == 1}"><a href="javascript:;" @click="setCurrent(current - 1)"> « </a></li>
-            <li :class="{'disabled': current == 1}"><a href="javascript:;" @click="setCurrent(1)"> 首页 </a></li>
+            <!--<li :class="{'disabled': current == 1}"><a href="javascript:;" @click="setCurrent(1)"> 首页 </a></li>-->
             <li v-for="p in grouplist" :class="{'active': current == p.val}"><a href="javascript:;"
                                                                                 @click="setCurrent(p.val)"> {{ p.text }} </a>
             </li>
-            <li :class="{'disabled': current == page}"><a href="javascript:;" @click="setCurrent(page)"> 尾页 </a></li>
+            <!--<li :class="{'disabled': current == page}"><a href="javascript:;" @click="setCurrent(page)"> 尾页 </a></li>-->
             <li :class="{'disabled': current == page}"><a href="javascript:;" @click="setCurrent(current + 1)"> »</a></li>
         </ul>
     </div>
@@ -34,9 +34,9 @@
             },
             pagegroup: {// 分页条数
                 type: Number,
-                default: 5,
+                default: 8,
                 coerce: function (v) {
-                    v = v > 0 ? v : 5;
+                    v = v > 0 ? v : 8;
                     return v % 2 === 1 ? v : v + 1;
                 }
             }
@@ -64,14 +64,15 @@
                 temp = temp.splice(center - count - 1, this.pagegroup);
                 do {
                     var t = temp.shift();
+                    console.log(t);
                     list.push({
                         text: t,
                         val: t
                     });
                 } while (temp.length);
                 if (this.page > this.pagegroup) {
-                    (this.current > count + 1) && list.unshift({text: '...', val: list[0].val - 1});
-                    (this.current < this.page - count) && list.push({text: '...', val: list[list.length - 1].val + 1});
+                    (this.current > count + 1) && list.unshift({text: 1, val: 1},{text: 2, val: 2},{text: '...', val: list[0].val - 1});
+                    (this.current < this.page - count) && list.push({text: '...', val: list[list.length - 1].val + 1},{text: this.page-2, val: this.page-2},{text: this.page-1, val: this.page-1});
                 }
                 return list;
             }

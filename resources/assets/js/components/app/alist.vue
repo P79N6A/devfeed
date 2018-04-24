@@ -64,9 +64,12 @@
                 </div>
 
 
-                <template>
-                    <v-pagination :total="total" :current-page='current' @pagechange="pagechange"></v-pagination>
-                </template>
+                <!--<template>-->
+                    <!--<v-pagination :total="total" :current-page='current' @pagechange="pagechange"></v-pagination>-->
+                <!--</template>-->
+
+                <v-pagination :total="total" :current-page='current' @pagechange="pagechange"></v-pagination>
+
 
             </div>
         </div>
@@ -80,14 +83,19 @@
 <script>
     import pagination from './pagination.vue';
 
+    //import paginationx from './paginationx.vue';
+
+
     export default {
         name: "alist",
         data:function(){
             return {
                 articles:{},
-                total: 490,     // 记录总条数
+                total: 323,     // 记录总条数
                 display: 10,   // 每页显示条数
-                current: 1,   // 当前的页数
+                num: 30,
+                limit: 3,
+                current:1,
             }
         },
         computed: {
@@ -96,11 +104,20 @@
                 return this.$route.params.username
             }
         },
+        watch: {
+            currentPage: 'requestData'
+        },
+        ready () {
+            this.requestData()
+        },
         methods: {
             pagechange:function(currentPage){
                 console.log(currentPage);
                 // ajax请求, 向后台发送 currentPage, 来获取对应的数据
 
+            },
+            requestData:function () {
+                // 在这里使用ajax或者fetch将对应页传过去获取数据即可
             }
         },
         components: {
