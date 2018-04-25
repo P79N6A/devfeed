@@ -44,6 +44,12 @@ const app = new Vue({
     el: '#app',
     router
 });
+
+// 跳转后返回顶部
+router.afterEach((to,from,next) => {
+    window.scrollTo(0,0);
+})
+
 // const NotFound = { template: '<p>Page not found</p>' }
 // const Home = { template: '<p>home page</p>' }
 // const About = { template: '<p>about page</p>' }

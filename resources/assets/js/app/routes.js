@@ -17,9 +17,19 @@ const routes = [
     {
         path: '/',
         component: Home,
-        children: [{ path: '/', component: alist, name: 'alist' },
-                    { path: '/new', component: alist, name: 'alist' },
-                    { path: '/hot', component: alist, name: 'alist' }
+        children: [
+                    // { path: '', component: alist},
+                    { path: 'hot', component: alist},
+                    { path: 'hot/:id', component: alist},
+                    { path: '', redirect: '/new'},
+                    { path: 'new', component: alist},
+                    { path: 'new/:id', component: alist},
+
+                    // { path: '/:id', component: alist},
+                    // { path: '/new', component: alist },
+                    // { path: '/hot/:id', component: alist},
+                    // {path: '/hot/abc', component: alist}
+
         ]
     },
     { path: '/example', component: Example}

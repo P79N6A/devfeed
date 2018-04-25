@@ -8,8 +8,8 @@
             <div class="side-menu-con">
                 <div class="main-tag">
                     <ul>
-                        <router-link tag="li" to="new"><a>最新</a></router-link>
-                        <router-link tag="li" to="hot"><a>最热</a></router-link>
+                        <router-link tag="li" to="/new"><a>最新</a></router-link>
+                        <router-link tag="li" to="/hot"><a>最热</a></router-link>
                     </ul>
                 </div>
                 <div class="filter">

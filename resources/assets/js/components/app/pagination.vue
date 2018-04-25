@@ -34,11 +34,16 @@
             },
             pagegroup: {// 分页条数
                 type: Number,
-                default: 8,
+                default: 10,
                 coerce: function (v) {
-                    v = v > 0 ? v : 8;
+                    v = v > 0 ? v : 10;
                     return v % 2 === 1 ? v : v + 1;
                 }
+            }
+        },
+        watch:{
+            current:function(){
+                console.log(this.current+"a");
             }
         },
         computed: {
@@ -64,7 +69,6 @@
                 temp = temp.splice(center - count - 1, this.pagegroup);
                 do {
                     var t = temp.shift();
-                    console.log(t);
                     list.push({
                         text: t,
                         val: t
@@ -79,11 +83,14 @@
         },
         methods: {
             setCurrent: function (idx) {
+
                 if (this.current != idx && idx > 0 && idx < this.page + 1) {
                     this.current = idx;
+                    //this.current = i;
                     this.$emit('pagechange', this.current);
                 }
             }
         }
+
     }
 </script>

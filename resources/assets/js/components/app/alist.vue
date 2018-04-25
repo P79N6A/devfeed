@@ -10,7 +10,12 @@
         </div>
         <div class="com-main">
             <div class="main-tt">
-                <h2>最热</h2>
+                <h2 v-if="ctype === 'hot'">
+                    最热
+                </h2>
+                <h2 v-else-if="ctype === 'new'">
+                    最新
+                </h2>
                 <div class="type-btns" style="display: block;">
                     <a href="javascript:void(0);" title="list" class="list spr hide on">list</a>
                     <a href="javascript:void(0);" title="imte" class="item spr hide ">item</a>
@@ -36,41 +41,7 @@
                     </li>
                 </ul>
                 <span v-for="n in articles.last_page">{{ n }} </span>
-                <div class="pages">
-                    <ul class="pagination">
-
-                        <li class="disabled"><span>«</span></li>
-
-
-
-
-
-                        <li class="active"><span>1</span></li>
-                        <li><a href="/hot?page=2">2</a></li>
-                        <li><a href="/hot?page=3">3</a></li>
-                        <li><a href="/hot?page=4">4</a></li>
-                        <li><a href="/hot?page=5">5</a></li>
-                        <li><a href="/hot?page=6">6</a></li>
-                        <li><a href="/hot?page=7">7</a></li>
-                        <li><a href="/hot?page=8">8</a></li>
-                        <li class="disabled"><span>...</span></li>
-                        <li><a href="/hot?page=31">31</a></li>
-                        <li><a href="/hot?page=32">32</a></li>
-                        <li><a href="/hot?page=2" rel="next">»</a></li>
-
-
-                    </ul>
-
-                </div>
-
-
-                <!--<template>-->
-                    <!--<v-pagination :total="total" :current-page='current' @pagechange="pagechange"></v-pagination>-->
-                <!--</template>-->
-
-                <v-pagination :total="total" :current-page='current' @pagechange="pagechange"></v-pagination>
-
-
+                <v-pagination :total="total" :current-page='current'  ref="pagination" @pagechange="pagechange"></v-pagination>
             </div>
         </div>
         <div class="com-footer">
@@ -93,26 +64,97 @@
                 articles:{},
                 total: 323,     // 记录总条数
                 display: 10,   // 每页显示条数
-                num: 30,
-                limit: 3,
                 current:1,
+                currentPage:1,
+                ctype:"hot"
             }
         },
         computed: {
-            username () {
-                // 我们很快就会看到 `params` 是什么
-                return this.$route.params.username
-            }
+            // id() {
+            //     // 我们很快就会看到 `params` 是什么
+            //     return this.$route.params.id
+            // }
         },
         watch: {
-            currentPage: 'requestData'
+            currentPage: 'requestData',
+            $route:function(){
+                //this.catchange(this.$route);
+               //alert(1);
+                this.catchage(this.$route);
+                this.$set(this, 'currentPage', 1);
+
+               //  //console.log(this.$route.path);
+               //
+               //  //if(this.$route.path ==)
+               //  //
+               //  // if(!isNaN(this.$route.params.id)) this.$set(this, 'current', parseInt(this.$route.params.id));
+               //  // else
+               //
+               //  this.$set(this, 'currentPage', 3);
+               //  // console.log(this.current)
+               //  axios.get('/test_'+this.ctype+'_'+this.current+'.js').then(({data}) => {
+               //      //alert(222);
+               //      this.$set(this, 'articles', data);
+               //      this.$set(this, 'total', data.total);
+               //      this.$set(this, 'display', data.per_page);
+               //
+               //      //this.$set(this, 'total', );
+               //  });
+
+            }
         },
         ready () {
             this.requestData()
         },
         methods: {
+            catchage:function(routes){
+                //alert(1);
+                if(/\/new/.test(routes.path)&&this.ctype!="new"){
+                    this.ctype= "new";
+                    axios.get('/test_'+this.ctype+'_'+this.current+'.js').then(({data}) => {
+                        this.$set(this, 'articles', data);
+                        this.$set(this, 'total', data.total);
+                        this.$set(this, 'display', data.per_page);
+
+                        //this.$set(this, 'total', );
+                    });
+                    if(this.$refs.pagination) this.$refs.pagination.setCurrent(1);
+
+                }else if(/\/hot/.test(routes.path)&&this.ctype!="hot"){
+                    this.ctype= "hot";
+                    axios.get('/test_'+this.ctype+'_'+this.current+'.js').then(({data}) => {
+                        this.$set(this, 'articles', data);
+                        this.$set(this, 'total', data.total);
+                        this.$set(this, 'display', data.per_page);
+
+                        //this.$set(this, 'total', );
+                    });
+                    if(this.$refs.pagination) this.$refs.pagination.setCurrent(1);
+                }
+                // this.pagechange(1);
+
+                // if(routes.path == "/new")
+                //     this.ctit == "最新";
+                // else if(routes.path = "/hot"){
+                //     this.ctit == "最热";
+                // }
+
+
+                //console.log(this.$refs);
+
+            },
             pagechange:function(currentPage){
-                console.log(currentPage);
+                //console.log(this.$route);
+                //console.log(1);
+                //console.log("pagechange");
+                //this.catchage(this.$route);
+                axios.get('/test_'+this.ctype+'_'+currentPage+'.js').then(({data}) => {
+                    this.$set(this, 'articles', data);
+                    this.$router.push({ path: '/'+this.ctype+'/'+currentPage, params: { id: currentPage }})
+
+                });
+
+
                 // ajax请求, 向后台发送 currentPage, 来获取对应的数据
 
             },
@@ -124,13 +166,20 @@
             'v-pagination': pagination,
         },
         created() {
-            //console.log(this.$route.path);
-            axios.get('/test_hot_1.js').then(({data}) => {
-                //console.log(data);
-                //console.log( this.formatTime(123123123123) );
+            this.catchage(this.$route);
+            console.log(this.ctype);
+            if(!isNaN(this.$route.params.id)) this.$set(this, 'current', parseInt(this.$route.params.id));
+            else this.$set(this, 'current', 1);
+
+
+
+            axios.get('/test_'+this.ctype+'_'+this.current+'.js').then(({data}) => {
                 this.$set(this, 'articles', data);
-                //this.$set(this, 'current_page', this.articles.concat(data.data));
-            })
+                this.$set(this, 'total', data.total);
+                this.$set(this, 'display', data.per_page);
+
+                //this.$set(this, 'total', );
+            });
         }
     }
 </script>

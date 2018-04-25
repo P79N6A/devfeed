@@ -14,7 +14,7 @@
     <meta name="author" content="Tencent-Tgideas" />
     <meta name="Copyright" content="Tencent" />
     <title>最新前端开发知识 -- DevFeed</title>
-    <link rel="stylesheet" type="text/css" href="v2017/css/common.css">
+    <link rel="stylesheet" type="text/css" href="{{ asset('v2017/css/common.css') }}">
         <script>
         var _hmt = _hmt || [];
         (function () {
@@ -29,8 +29,8 @@
 <router-view></router-view>
 </div>
 
-<script src="v2017/js/jquery.min.js"></script>
-<script src="v2017/js/comon.js"></script>
+<script src="{{ asset('v2017/js/jquery.min.js') }}"></script>
+<script src="{{ asset('v2017/js/comon.js') }}"></script>
 
 
 <script src="{{ mix('js/manifest.js') }}"></script>
