@@ -89,14 +89,11 @@
         methods: {
             catchage:function(routes){
                 if(/\/new/.test(routes.path)&&this.ctype!="new"){
-
                     this.ctype= "new";
                     axios.get('/test_'+this.ctype+'_'+this.current+'.js').then(({data}) => {
                         this.$set(this, 'articles', data);
                         this.$set(this, 'total', data.total);
                         this.$set(this, 'display', data.per_page);
-
-                        //this.$set(this, 'total', );
                     });
                     if(this.$refs.pagination) this.$refs.pagination.setCurrent(1);
 
@@ -118,6 +115,7 @@
                 });
             },
             requestData:function () {
+                alert(1);
                 // 在这里使用ajax或者fetch将对应页传过去获取数据即可
             }
         },
