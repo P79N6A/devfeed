@@ -27,7 +27,7 @@
                         <a href="/article/161" class="list-pic">
                             <img :src="article.figure" :alt="article.title">
                         </a>
-                        <h3><a class="title" href="/article/161">{{ article.title }}</a>
+                        <h3><a class="title" :href="'/article/161'+article.id">{{ article.title }}</a>
                             <span class="read-all spr">{{ article.click_count }}</span>
                         </h3>
                         <p class="list-intro">{{ article.summary }}</p>
@@ -41,7 +41,7 @@
                     </li>
                 </ul>
                 <span v-for="n in articles.last_page">{{ n }} </span>
-                <v-pagination :total="total" :current-page='current'  ref="pagination" @pagechange="pagechange"></v-pagination>
+                <pagination :total="total" :current-page='current'  ref="pagination" @pagechange="pagechange"></pagination>
             </div>
         </div>
         <div class="com-footer">
@@ -78,28 +78,8 @@
         watch: {
             currentPage: 'requestData',
             $route:function(){
-                //this.catchange(this.$route);
-               //alert(1);
                 this.catchage(this.$route);
                 this.$set(this, 'currentPage', 1);
-
-               //  //console.log(this.$route.path);
-               //
-               //  //if(this.$route.path ==)
-               //  //
-               //  // if(!isNaN(this.$route.params.id)) this.$set(this, 'current', parseInt(this.$route.params.id));
-               //  // else
-               //
-               //  this.$set(this, 'currentPage', 3);
-               //  // console.log(this.current)
-               //  axios.get('/test_'+this.ctype+'_'+this.current+'.js').then(({data}) => {
-               //      //alert(222);
-               //      this.$set(this, 'articles', data);
-               //      this.$set(this, 'total', data.total);
-               //      this.$set(this, 'display', data.per_page);
-               //
-               //      //this.$set(this, 'total', );
-               //  });
 
             }
         },
@@ -108,8 +88,8 @@
         },
         methods: {
             catchage:function(routes){
-                //alert(1);
                 if(/\/new/.test(routes.path)&&this.ctype!="new"){
+
                     this.ctype= "new";
                     axios.get('/test_'+this.ctype+'_'+this.current+'.js').then(({data}) => {
                         this.$set(this, 'articles', data);
@@ -126,44 +106,23 @@
                         this.$set(this, 'articles', data);
                         this.$set(this, 'total', data.total);
                         this.$set(this, 'display', data.per_page);
-
-                        //this.$set(this, 'total', );
                     });
                     if(this.$refs.pagination) this.$refs.pagination.setCurrent(1);
                 }
-                // this.pagechange(1);
-
-                // if(routes.path == "/new")
-                //     this.ctit == "最新";
-                // else if(routes.path = "/hot"){
-                //     this.ctit == "最热";
-                // }
-
-
-                //console.log(this.$refs);
-
             },
             pagechange:function(currentPage){
-                //console.log(this.$route);
-                //console.log(1);
-                //console.log("pagechange");
-                //this.catchage(this.$route);
                 axios.get('/test_'+this.ctype+'_'+currentPage+'.js').then(({data}) => {
                     this.$set(this, 'articles', data);
                     this.$router.push({ path: '/'+this.ctype+'/'+currentPage, params: { id: currentPage }})
 
                 });
-
-
-                // ajax请求, 向后台发送 currentPage, 来获取对应的数据
-
             },
             requestData:function () {
                 // 在这里使用ajax或者fetch将对应页传过去获取数据即可
             }
         },
         components: {
-            'v-pagination': pagination,
+            'pagination': pagination,
         },
         created() {
             this.catchage(this.$route);
@@ -171,14 +130,11 @@
             if(!isNaN(this.$route.params.id)) this.$set(this, 'current', parseInt(this.$route.params.id));
             else this.$set(this, 'current', 1);
 
-
-
             axios.get('/test_'+this.ctype+'_'+this.current+'.js').then(({data}) => {
+                console.log(data);
                 this.$set(this, 'articles', data);
                 this.$set(this, 'total', data.total);
                 this.$set(this, 'display', data.per_page);
-
-                //this.$set(this, 'total', );
             });
         }
     }
