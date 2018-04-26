@@ -28,6 +28,8 @@ Route::view('/', 'app.home');
 Route::view('/hot/{any?}', 'app.home');
 Route::view('/new/{any?}', 'app.home');
 
+Route::view('/article/{any?}', 'app.home');
+
 /*
    Route::get('/', ['as' => 'home', 'uses' => 'HomeController@index']);
     Route::get('/hot', ['as' => 'hot', 'uses' => 'HomeController@hot']);
