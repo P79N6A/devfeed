@@ -13,24 +13,24 @@ class ArticleController extends Controller
     public function list(Request $req)
     {
 
-        $page = $req->get('page', 1);
+        $page = $req->get('page', null);
         $size = $req->get('size', 10);
         $hot= $req->get('hot', 0);
 
         $cacheKey = 'articles_';
 
         if($hot == 1){
-            $query = Article::orderBy('click_count', 'desc');
+            $query = Article::with("team")->orderBy('click_count', 'desc');
         }else{
-            $query = Article::orderBy('updated_at', 'desc');
+            $query = Article::with("team")->orderBy('updated_at', 'desc');
         }
 
-        if($size == 0) {
-            $cacheKey = 'articles_all';
-        } else {
+        if($page) {
             $page = is_numeric($page) && $page > 0 ? $page : 1;
             $size = is_numeric($size) && $size < 500 ? $size : 10;
             $cacheKey = 'articles_'.$page;
+        } else {
+            $cacheKey = 'articles_all';
         }
 
         $cacheExpiration = app()->isLocal() ? 0 : 60;
@@ -65,7 +65,7 @@ class ArticleController extends Controller
 
         $id = $req->get('id', 1);
         $data = null;
-        $articles = Article::find($id);
+        $articles = Article::with("team")->find($id);
 
         if(!is_numeric($id) || (int)$id != $id) {
             $result = [
@@ -90,5 +90,11 @@ class ArticleController extends Controller
             ];
         }
         return response()->json($result);
+    }
+
+    public function getPublishTimeAttribute() {
+        Carbon::setLocale('zh');
+
+        return Carbon::parse($this->created_at)->diffForHumans();
     }
 }
