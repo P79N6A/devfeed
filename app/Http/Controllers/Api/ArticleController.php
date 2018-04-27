@@ -13,7 +13,7 @@ class ArticleController extends Controller
     public function list(Request $req)
     {
 
-        $page = $req->get('page', 1);
+        $page = $req->get('page', null);
         $size = $req->get('size', 10);
         $hot= $req->get('hot', 0);
 
@@ -25,12 +25,12 @@ class ArticleController extends Controller
             $query = Article::orderBy('updated_at', 'desc');
         }
 
-        if($size == 0) {
-            $cacheKey = 'articles_all';
-        } else {
+        if($page) {
             $page = is_numeric($page) && $page > 0 ? $page : 1;
             $size = is_numeric($size) && $size < 500 ? $size : 10;
             $cacheKey = 'articles_'.$page;
+        } else {
+            $cacheKey = 'articles_all';
         }
 
         $cacheExpiration = app()->isLocal() ? 0 : 60;

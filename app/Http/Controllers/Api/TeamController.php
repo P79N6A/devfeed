@@ -13,19 +13,19 @@ class TeamController extends Controller
     public function list(Request $req)
     {
 
-        $page = $req->get('page', 1);
+        $page = $req->get('page', null);
         $size = $req->get('size', 10);
 
         $cacheKey = 'teams_';
 
         $query = Team::withCount('articles')->orderBy('likes', 'desc')->orderBy('updated_at', 'desc');
 
-        if($size == 0) {
-            $cacheKey = 'teams_all';
-        } else {
+        if($page) {
             $page = is_numeric($page) && $page > 0 ? $page : 1;
             $size = is_numeric($size) && $size < 500 ? $size : 10;
             $cacheKey = 'teams_'.$page;
+        } else {
+            $cacheKey = 'teams_all';
         }
 
         $cacheExpiration = app()->isLocal() ? 0 : 60;
@@ -152,7 +152,7 @@ class TeamController extends Controller
         if(!$articles) {
             $result = [
                 "code" => 46001,
-                "message" => 'Article not found.',
+                "message" => 'Team not found.',
                 "data" => $data
             ];
         } else {
