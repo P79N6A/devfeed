@@ -40,7 +40,6 @@
 
                     </li>
                 </ul>
-                <span v-for="n in articles.last_page">{{ n }} </span>
                 <pagination :total="total" :current-page='current'  ref="pagination" @pagechange="pagechange"></pagination>
             </div>
         </div>
