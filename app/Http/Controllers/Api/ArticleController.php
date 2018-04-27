@@ -20,9 +20,9 @@ class ArticleController extends Controller
         $cacheKey = 'articles_';
 
         if($hot == 1){
-            $query = Article::orderBy('click_count', 'desc');
+            $query = Article::with("team")->orderBy('click_count', 'desc');
         }else{
-            $query = Article::orderBy('updated_at', 'desc');
+            $query = Article::with("team")->orderBy('updated_at', 'desc');
         }
 
         if($page) {
@@ -65,7 +65,7 @@ class ArticleController extends Controller
 
         $id = $req->get('id', 1);
         $data = null;
-        $articles = Article::find($id);
+        $articles = Article::with("team")->find($id);
 
         if(!is_numeric($id) || (int)$id != $id) {
             $result = [
@@ -90,5 +90,11 @@ class ArticleController extends Controller
             ];
         }
         return response()->json($result);
+    }
+
+    public function getPublishTimeAttribute() {
+        Carbon::setLocale('zh');
+
+        return Carbon::parse($this->created_at)->diffForHumans();
     }
 }
