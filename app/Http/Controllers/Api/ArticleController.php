@@ -13,6 +13,7 @@ class ArticleController extends Controller
     public function list(Request $req)
     {
 
+
         $page = $req->get('page', null);
         $size = $req->get('size', 10);
         $hot= $req->get('hot', 0);
