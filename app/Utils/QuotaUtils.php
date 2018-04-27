@@ -11,28 +11,12 @@ use GuzzleHttp\Psr7\UriResolver;
 use Fedn\Models\Site;
 use Fedn\Models\Quota;
 use GuzzleHttp\Psr7\Uri;
-use GuzzleHttp\Client as GuzzleHttp;
 
 use Fedn\Utils\FednUtil as Tool;
 use phpQuery;
 
 class QuotaUtils
 {
-
-    protected static $guzzleOption = [
-        'timeout' => 10,
-        'allow_redirects' => true,
-        'verify' => false,
-        'defaults' => [
-            'headers' => [
-                'user-agent' => 'Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/54.0.2840.99 Safari/537.36',
-                'accept' => 'accept:text/html,application/xhtml+xml,application/xml'
-            ]
-        ]
-    ];
-
-    protected static $ua = 'Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/54.0.2840.99 Safari/537.36';
-
     /**
      * @param mixed $data
      * @param int $code
@@ -50,6 +34,13 @@ class QuotaUtils
         return response()->json($result);
     }
 
+
+    /**
+     * @param \Fedn\Models\Site $site
+     * @param bool $checkExists
+     *
+     * @return array
+     */
     public static function fetch(site $site, bool $checkExists = true) {
 
         $links = static::fetchLinks($site);
@@ -76,6 +67,13 @@ class QuotaUtils
 
     }
 
+
+    /**
+     * @param string $base
+     * @param string $relative
+     *
+     * @return string
+     */
     public static function resolveUrl($base, $relative) {
 
 
@@ -97,23 +95,12 @@ class QuotaUtils
      */
     protected static function fetchLinks(Site $site)
     {
-        $options = static::$guzzleOption;
-        $options['defaults']['headers']['referer'] = $site->list_url;
 
-        if(getenv('HTTP_PROXY')) {
-            $options['proxy'] = getenv('HTTP_PROXY');
-        }
 
-        $client = new GuzzleHttp($options);
+        $html = static::getHtml($site->list_url);
 
-        $flagExceptions = ['exceptions' => false];
 
-        $res = $client->get($site->list_url, $flagExceptions);
-
-        if ($res->getStatusCode() <= 304) {
-            $html = (string)$res->getBody();
-            $res = null;
-
+        if ($html) {
 
             $pq = phpQuery::newDocumentHTML($html);
 
@@ -128,29 +115,25 @@ class QuotaUtils
 
             $pa = null;
 
-            return $links;
+            return array_reverse($links);
         } else {
             return [];
         }
 
     }
 
+
+    /**
+     * @param string $link
+     * @param \Fedn\Models\Site $site
+     *
+     * @return array|null
+     */
     protected static function fetchArticle($link, Site $site)
     {
-        $options = static::$guzzleOption;
-        $options['defaults']['headers']['referer'] = $site->list_url;
+        $html = static::getHtml($link);
 
-        if (getenv('HTTP_PROXY')) {
-            $options['proxy'] = getenv('HTTP_PROXY');
-        }
-
-        $client = new GuzzleHttp($options);
-        $flagExceptions = ['exceptions' => false];
-        $res = $client->get($link, $flagExceptions);
-
-        if ($res->getStatusCode() <= 400) {
-            $html = $res->getBody()->getContents();
-            $res = null;
+        if ($html) {
 
             $doc = phpQuery::newDocumentHTML($html);
 
@@ -197,6 +180,68 @@ class QuotaUtils
 
         } else {
             return null;
+        }
+    }
+
+
+    /**
+     * @param string $url
+     *
+     * @return string
+     */
+    public static function getHtml($url) {
+        $parts = parse_url($url);
+        if($parts === false) {
+            throw new \InvalidArgumentException("Unable to parse URI: $url");
+        }
+        if($parts["scheme"] === NULL || $parts["host"] === NULL) {
+            throw new \InvalidArgumentException("URI: $url must be a valid url.");
+        }
+
+        $postData = json_encode([
+            'url' => $url,
+            'options' => [
+                "loadImages" => false,
+                "loadMedias" => false,
+                "logRequests" => false,
+                "logConsole" => false,
+                "logHtml" => true,
+                "followRedirect" => true,
+                "device" => "default",
+                "media" => "screen",
+            ]
+        ]);
+
+        $ch = curl_init("http://api.devfeed.cn/api/crawler");
+        curl_setopt($ch, CURLOPT_TIMEOUT, 15);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
+        curl_setopt($ch, CURLOPT_HTTPHEADER, ['Content-Type:application/json', 'Accept:application/json', 'Content-Length:'.strlen($postData)]);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, $postData);
+
+        try {
+            $result = curl_exec($ch);
+            $err = curl_error($ch);
+            $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+            curl_close($ch);
+
+            if($err) {
+                \Log::error($err);
+                return "";
+            }
+
+            if($httpCode >= 200 && $httpCode < 300 && empty($result) === false) {
+                $result = json_decode($result, true);
+
+                return $result['html'] ?: '';
+
+            } else {
+                return "";
+            }
+
+        } catch (Exception $e) {
+            \Log::error($e);
+            return "";
         }
     }
 }
