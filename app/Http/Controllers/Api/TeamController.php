@@ -40,13 +40,10 @@ class TeamController extends Controller
                 $total = $data->count();
                 $data = [
                     'total'=>$total,
-                    'per_page'=>$total,
+                    'per_page'=>$size,
                     'current_page'=>1,
-                    'last_page'=>1,
                     'next_page_url'=>null,
                     'prev_page_url'=>null,
-                    'from'=>1,
-                    'to'=>$total,
                     'data' => $data
                 ];
             }
