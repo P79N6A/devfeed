@@ -27,14 +27,14 @@
                         <a href="/article/161" class="list-pic">
                             <img :src="article.figure" :alt="article.title">
                         </a>
-                        <h3><a class="title" :href="'/article/161'+article.id">{{ article.title }}</a>
+                        <h3><a class="title" :href="'/article/'+article.id">{{ article.title }}</a>
                             <span class="read-all spr">{{ article.click_count }}</span>
                         </h3>
                         <p class="list-intro">{{ article.summary }}</p>
                         <p class="list-infor">
-                            <a :href="article.author_url" class="team">{{ article.author }}</a>@
-                            <a href="javascript:void(0)" class="people">未知数据</a>
-                            <span class="time">{{ article.updated_at }} {{ article.publishTime }} </span>
+                            <a v-if="article.team" :href="article.team.website" class="team">{{ article.team.title }}</a>@
+                            <a :href="article.author_url" class="people">{{ article.author }}</a>
+                            <span class="time">{{ article.publish_time }} </span>
                             <a :href="article.source_url" target="_blank" class="origin-link"><i class="spr"></i></a>
                         </p>
 
@@ -107,7 +107,13 @@
                 }
             },
             pagechange:function(currentPage){
-                axios.get('/test_'+this.ctype+'_'+currentPage+'.js').then(({data}) => {
+                let dataUrl;
+                if(this.ctype == "hot"){
+                    dataUrl = '/api/v2/articles/list?page='+this.current+'&size=10&hot=1';
+                }else{
+                    dataUrl = '/api/v2/articles/list?page='+this.current+'&size=10';
+                }
+                axios.get(dataUrl).then(({data}) => {
                     this.$set(this, 'articles', data);
                     this.$router.push({ path: '/'+this.ctype+'/'+currentPage, params: { id: currentPage }})
 

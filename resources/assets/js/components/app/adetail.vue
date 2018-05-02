@@ -21,7 +21,8 @@
                     <div class="article-tt">
                         <h3>{{ article.data.title }}</h3>
                         <p class="article-infor">
-                            @<a :href="article.data.author_url" class="people">{{ article.data.author }}</a><span class="time">{{ article.data.created_at }}</span>
+                            <a v-if="article.team" :href="article.team.website" class="team">{{ article.team.title }}</a>
+                            @<a :href="article.data.author_url" class="people">{{ article.data.author }}</a><span class="time">{{ article.data.publish_time }}</span>
                             <a :href="article.data.source_url" class="origin-link"><i class="spr"></i>查看原文</a>
                         </p>
                     </div>
@@ -64,7 +65,8 @@
             //this.catchage(this.$route);
             //console.log(this.ctype);
             this.$set(this, 'aid', parseInt(this.$route.params.id));
-            axios.get('/test_article_'+this.aid+'.js').then(({data}) => {
+            console.log('/api/v2/article/detail?id='+this.aid);
+            axios.get('/api/v2/article/detail?id='+this.aid).then(({data}) => {
                 //data.content = parser.parseFromString(data.content, "text/xml");
 
                 this.$set(this, 'article', data);
