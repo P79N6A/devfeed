@@ -34,7 +34,7 @@
                         <p class="list-infor">
                             <a :href="article.author_url" class="team">{{ article.author }}</a>@
                             <a href="javascript:void(0)" class="people">未知数据</a>
-                            <span class="time">{{ article.updated_at }}</span>
+                            <span class="time">{{ article.updated_at }} {{ article.publishTime }} </span>
                             <a :href="article.source_url" target="_blank" class="origin-link"><i class="spr"></i></a>
                         </p>
 
@@ -89,7 +89,7 @@
             catchage:function(routes){
                 if(/\/new/.test(routes.path)&&this.ctype!="new"){
                     this.ctype= "new";
-                    axios.get('/test_'+this.ctype+'_'+this.current+'.js').then(({data}) => {
+                    axios.get('/api/v2/articles/list?page='+this.current+'&size=10').then(({data}) => {
                         this.$set(this, 'articles', data);
                         this.$set(this, 'total', data.total);
                         this.$set(this, 'display', data.per_page);
@@ -98,7 +98,7 @@
 
                 }else if(/\/hot/.test(routes.path)&&this.ctype!="hot"){
                     this.ctype= "hot";
-                    axios.get('/test_'+this.ctype+'_'+this.current+'.js').then(({data}) => {
+                    axios.get('/api/v2/articles/list?page='+this.current+'&size=10&hot=1').then(({data}) => {
                         this.$set(this, 'articles', data);
                         this.$set(this, 'total', data.total);
                         this.$set(this, 'display', data.per_page);
@@ -122,12 +122,21 @@
             'pagination': pagination,
         },
         created() {
+
+           // axios.get(/api/v2/articles/list?page=1&size=10&hot=1
             this.catchage(this.$route);
-            console.log(this.ctype);
             if(!isNaN(this.$route.params.id)) this.$set(this, 'current', parseInt(this.$route.params.id));
             else this.$set(this, 'current', 1);
 
-            axios.get('/test_'+this.ctype+'_'+this.current+'.js').then(({data}) => {
+            let dataUrl;
+            if(this.ctype == "hot"){
+                dataUrl = '/api/v2/articles/list?page='+this.current+'&size=10&hot=1';
+            }else{
+                dataUrl = '/api/v2/articles/list?page='+this.current+'&size=10';
+            }
+            console.log(dataUrl);
+            console.log(dataUrl);
+            axios.get(dataUrl).then(({data}) => {
                 console.log(data);
                 this.$set(this, 'articles', data);
                 this.$set(this, 'total', data.total);
