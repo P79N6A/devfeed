@@ -1,61 +1,43 @@
 <template>
-    <div class="container">
-        <div class="com-top">
-            <a class="uk-button" data-uk-offcanvas="{target:'#sideMenu'}"><i class="show-btn spr hide"></i></a>
-            <h1 class="logo"><a href="/" title="DevFeed" class="hide">DevFeed</a></h1>
-            <div class="login">
-                <div class="unlogin"><a href="/login" class="spr">登录</a></div>
-            </div>
-
-        </div>
-        <div class="com-main">
-            <div class="main-tt">
-                <h2 v-if="ctype === 'hot'">
-                    最热
-                </h2>
-                <h2 v-else-if="ctype === 'new'">
-                    最新
-                </h2>
-                <div class="type-btns" style="display: block;">
-                    <a href="javascript:void(0);" title="list" class="list spr hide on">list</a>
-                    <a href="javascript:void(0);" title="imte" class="item spr hide ">item</a>
-                </div>
-            </div>
-            <div class="main-con">
-                <ul class="list clearfix list"><!--通过类名list、item进行列表展示方式的切换-->
-                    <li v-for="article in articles.data">
-                        <a href="/article/161" class="list-pic">
-                            <img :src="article.figure" :alt="article.title">
-                        </a>
-                        <h3><a class="title" :href="'/article/'+article.id">{{ article.title }}</a>
-                            <span class="read-all spr">{{ article.click_count }}</span>
-                        </h3>
-                        <p class="list-intro">{{ article.summary }}</p>
-                        <p class="list-infor">
-                            <a v-if="article.team" :href="article.team.website" class="team">{{ article.team.title }}</a>@
-                            <a :href="article.author_url" class="people">{{ article.author }}</a>
-                            <span class="time">{{ article.publish_time }} </span>
-                            <a :href="article.source_url" target="_blank" class="origin-link"><i class="spr"></i></a>
-                        </p>
-
-                    </li>
-                </ul>
-                <pagination :total="total" :current-page='current'  ref="pagination" @pagechange="pagechange"></pagination>
-            </div>
-        </div>
-        <div class="com-footer">
-            <p>Copyright © 2017 Tgideas</p>
-            <p>粤ICP备14011364号-4</p>
+<div class="com-main">
+    <div class="main-tt">
+        <h2 v-if="ctype === 'hot'">
+            最热
+        </h2>
+        <h2 v-else-if="ctype === 'new'">
+            最新
+        </h2>
+        <div class="type-btns" style="display: block;">
+            <a href="javascript:void(0);" title="list" class="list spr hide on">list</a>
+            <a href="javascript:void(0);" title="imte" class="item spr hide ">item</a>
         </div>
     </div>
+    <div class="main-con">
+        <ul class="list clearfix list"><!--通过类名list、item进行列表展示方式的切换-->
+            <li v-for="article in articles.data">
+                <a href="/article/161" class="list-pic">
+                    <img :src="article.figure" :alt="article.title">
+                </a>
+                <h3><a class="title" :href="'/article/'+article.id">{{ article.title }}</a>
+                    <span class="read-all spr">{{ article.click_count }}</span>
+                </h3>
+                <p class="list-intro">{{ article.summary }}</p>
+                <p class="list-infor">
+                    <a v-if="article.team" :href="article.team.website" class="team">{{ article.team.title }}</a>@
+                    <a :href="article.author_url" class="people">{{ article.author }}</a>
+                    <span class="time">{{ article.publish_time }} </span>
+                    <a :href="article.source_url" target="_blank" class="origin-link"><i class="spr"></i></a>
+                </p>
+
+            </li>
+        </ul>
+        <pagination :total="total" :current-page='current'  ref="pagination" @pagechange="pagechange"></pagination>
+    </div>
+</div>
 </template>
 
 <script>
     import pagination from './pagination.vue';
-
-    //import paginationx from './paginationx.vue';
-
-
     export default {
         name: "alist",
         data:function(){
@@ -120,7 +102,6 @@
                 });
             },
             requestData:function () {
-                alert(1);
                 // 在这里使用ajax或者fetch将对应页传过去获取数据即可
             }
         },
@@ -128,8 +109,6 @@
             'pagination': pagination,
         },
         created() {
-
-           // axios.get(/api/v2/articles/list?page=1&size=10&hot=1
             this.catchage(this.$route);
             if(!isNaN(this.$route.params.id)) this.$set(this, 'current', parseInt(this.$route.params.id));
             else this.$set(this, 'current', 1);
@@ -140,8 +119,6 @@
             }else{
                 dataUrl = '/api/v2/articles/list?page='+this.current+'&size=10';
             }
-            console.log(dataUrl);
-            console.log(dataUrl);
             axios.get(dataUrl).then(({data}) => {
                 console.log(data);
                 this.$set(this, 'articles', data);

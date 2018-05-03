@@ -50,6 +50,8 @@ router.afterEach((to,from,next) => {
     window.scrollTo(0,0);
 })
 
+window.go404 = 123;
+
 // const NotFound = { template: '<p>Page not found</p>' }
 // const Home = { template: '<p>home page</p>' }
 // const About = { template: '<p>about page</p>' }

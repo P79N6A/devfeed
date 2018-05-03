@@ -1,5 +1,5 @@
 <template>
-    <div class="pages">
+    <div class="pages" v-if="total!=0">
         <ul class="pagination">
             <li :class="{'disabled': current == 1}"><a href="javascript:;" @click="setCurrent(current - 1)"> « </a></li>
             <!--<li :class="{'disabled': current == 1}"><a href="javascript:;" @click="setCurrent(1)"> 首页 </a></li>-->

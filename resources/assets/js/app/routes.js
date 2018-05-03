@@ -14,6 +14,8 @@ const alist = require('../components/app/alist');
 
 const adetail = require('../components/app/adetail');
 
+const tlist = require('../components/app/tlist');
+const tdetail = require('../components/app/tdetail');
 
 const routes = [
     {
@@ -26,7 +28,9 @@ const routes = [
                     { path: '', redirect: '/new'},
                     { path: 'new', component: alist},
                     { path: 'new/:id', component: alist},
-                    { path: 'article/:id', component: adetail}
+                    { path: 'article/:id', component: adetail},
+                    { path: 'team', component:tlist},
+                    { path: 'team/:id', component:tdetail}
 
                     // { path: '/:id', component: alist},
                     // { path: '/new', component: alist },
