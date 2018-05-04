@@ -13,7 +13,7 @@
     <meta name="robots" content="all" />
     <meta name="author" content="Tencent-Tgideas" />
     <meta name="Copyright" content="Tencent" />
-    <title>最新前端开发知识 -- DevFeed</title>
+    <title>@yield('pageTitle', '首页') - DevFeed</title>
     <link rel="stylesheet" type="text/css" href="{{ asset('v2017/css/common.css') }}">
         <script>
         var _hmt = _hmt || [];
@@ -28,17 +28,14 @@
 <div class="wrap" id="app">
 <router-view></router-view>
 </div>
-
-<script src="{{ asset('v2017/js/jquery.min.js') }}"></script>
-<script src="{{ asset('v2017/js/comon.js') }}"></script>
-
+<script>
+    window.status = {{ Auth::guest() }};
+</script>
 
 <script src="{{ mix('js/manifest.js') }}"></script>
 <script src="{{ mix('js/vendor.js') }}"></script>
 <script src="{{ mix('js/front.js') }}"></script>
-
-
+<script src="{{ asset('v2017/js/jquery.min.js') }}"></script>
+<script src="{{ asset('v2017/js/comon.js') }}"></script>
 </body>
 </html>
-
-
