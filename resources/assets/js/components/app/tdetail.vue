@@ -42,7 +42,7 @@
             return {
                 teamer:{title:''},
                 articles:{},
-                total: 0,     // 记录总条数
+                total: 1,     // 记录总条数
                 display: 10,   // 每页显示条数
                 current:1,
                 currentPage:1,
