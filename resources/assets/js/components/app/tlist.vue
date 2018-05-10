@@ -55,9 +55,13 @@
                 let dataUrl;
                 dataUrl = "/api/v2/teams/list?page="+this.current+"&size=10";
                 axios.get(dataUrl).then(({data}) => {
-                    this.$set(this, 'articles', data.data.articles);
-                    this.$set(this, 'total', data.data.articles.total);
-                    this.$set(this, 'display', data.data.articles.per_page);
+                    if(this.current< data.last_page && data.last_page > 0) {
+                        this.$set(this, 'articles', data.data.articles);
+                        this.$set(this, 'total', data.data.articles.total);
+                        this.$set(this, 'display', data.data.articles.per_page);
+                    }else{
+                        this.$router.push({path:'/error404'});
+                    }
                 });
                 if(this.$refs.pagination) this.$refs.pagination.setCurrent(1);
             },
@@ -85,10 +89,15 @@
             dataUrl = "/api/v2/teams/list?page="+this.current+"&size=10";
             console.log(dataUrl);
             axios.get(dataUrl).then(({data}) => {
-                console.log(data);
-                this.$set(this, 'articles', data.data);
-                this.$set(this, 'total', data.total);
-                this.$set(this, 'display', data.per_page);
+                console.log(this.current);
+                if(!(this.current>data.last_page) && this.current > 0) {
+                    this.$set(this, 'articles', data.data);
+                    this.$set(this, 'total', data.total);
+                    this.$set(this, 'display', data.per_page);
+                }
+                else{
+                        this.$router.push({path:'/error404'});
+                    }
                 //console.log(this.articles);
             });
         }

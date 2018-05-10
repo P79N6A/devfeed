@@ -45,7 +45,9 @@
         created() {
             this.$set(this, 'aid', parseInt(this.$route.params.id));
             axios.get('/api/v2/article/detail?id='+this.aid).then(({data}) => {
-                this.$set(this, 'article', data);
+                if(data.code == 46001) {
+                    this.$router.push({path: '/error404'});
+                }else this.$set(this, 'article', data);
             });
 
 

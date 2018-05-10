@@ -43,7 +43,7 @@
         data:function(){
             return {
                 articles:{},
-                total: 323,     // 记录总条数
+                total: 0,     // 记录总条数
                 display: 10,   // 每页显示条数
                 current:1,
                 currentPage:1,
@@ -61,7 +61,6 @@
             $route:function(){
                 this.catchage(this.$route);
                 this.$set(this, 'currentPage', 1);
-
             }
         },
         ready () {
@@ -72,18 +71,26 @@
                 if(/\/new/.test(routes.path)&&this.ctype!="new"){
                     this.ctype= "new";
                     axios.get('/api/v2/articles/list?page='+this.current+'&size=10').then(({data}) => {
-                        this.$set(this, 'articles', data);
-                        this.$set(this, 'total', data.total);
-                        this.$set(this, 'display', data.per_page);
+                        if(!(this.current>data.last_page) && this.current > 0) {
+                            this.$set(this, 'articles', data);
+                            this.$set(this, 'total', data.total);
+                            this.$set(this, 'display', data.per_page);
+                        }else{
+                            this.$router.push({path:'/error404'});
+                        }
                     });
                     if(this.$refs.pagination) this.$refs.pagination.setCurrent(1);
 
                 }else if(/\/hot/.test(routes.path)&&this.ctype!="hot"){
                     this.ctype= "hot";
                     axios.get('/api/v2/articles/list?page='+this.current+'&size=10&hot=1').then(({data}) => {
-                        this.$set(this, 'articles', data);
-                        this.$set(this, 'total', data.total);
-                        this.$set(this, 'display', data.per_page);
+                        if(!(this.current>data.last_page) && this.current > 0) {
+                            this.$set(this, 'articles', data);
+                            this.$set(this, 'total', data.total);
+                            this.$set(this, 'display', data.per_page);
+                        }else{
+                            this.$router.push({path:'/error404'});
+                        }
                     });
                     if(this.$refs.pagination) this.$refs.pagination.setCurrent(1);
                 }
@@ -96,9 +103,12 @@
                     dataUrl = '/api/v2/articles/list?page='+this.current+'&size=10';
                 }
                 axios.get(dataUrl).then(({data}) => {
-                    this.$set(this, 'articles', data);
-                    this.$router.push({ path: '/'+this.ctype+'/'+currentPage, params: { id: currentPage }})
-
+                    if(!(this.current>data.last_page) && this.current > 0) {
+                        this.$set(this, 'articles', data);
+                        this.$router.push({ path: '/'+this.ctype+'/'+currentPage, params: { id: currentPage }})
+                    }else{
+                        this.$router.push({path:'/error404'});
+                    }
                 });
             },
             requestData:function () {
@@ -121,9 +131,15 @@
             }
             axios.get(dataUrl).then(({data}) => {
                 console.log(data);
-                this.$set(this, 'articles', data);
-                this.$set(this, 'total', data.total);
-                this.$set(this, 'display', data.per_page);
+                if(!(this.current>data.last_page) && this.current > 0) {
+                    this.$set(this, 'articles', data);
+                    this.$set(this, 'total', data.total);
+                    this.$set(this, 'display', data.per_page);
+                }else{
+                    //this.$router.push({path:'/error404'})
+                }
+
+
             });
         }
     }

@@ -71,9 +71,16 @@
                 let dataUrl;
                 dataUrl = "/api/v2/team/detail?id="+this.current;
                 axios.get(dataUrl).then(({data}) => {
-                    this.$set(this, 'articles', data.data.articles);
-                    this.$set(this, 'total', data.data.articles.total);
-                    this.$set(this, 'display', data.data.articles.per_page);
+                    if(data.code == 46001) {
+                        this.$router.push({path: '/error404'});
+                    }
+                    else if(!(this.current>data.data.last_page) && this.current > 0) {
+                        this.$set(this, 'articles', data.data.articles);
+                        this.$set(this, 'total', data.data.articles.total);
+                        this.$set(this, 'display', data.data.articles.per_page);
+                    }else{
+                        this.$router.push({path: '/error404'});
+                    }
                 });
                 if(this.$refs.pagination) this.$refs.pagination.setCurrent(1);
             },
@@ -101,11 +108,21 @@
             dataUrl = "/api/v2/team/detail?id="+this.current;
             console.log(dataUrl);
             axios.get(dataUrl).then(({data}) => {
-                console.log(data);
-                this.$set(this, 'teamer',{'logo':data.data.logo,'title':data.data.title,'website':data.data.website});
-                this.$set(this, 'articles', data.data.articles);
-                this.$set(this, 'total', data.data.articles.total);
-                this.$set(this, 'display', data.data.articles.per_page);
+                if(data.code == 46001) {
+                    this.$router.push({path: '/error404'});
+                }
+                else if(!(this.current>data.data.last_page) && this.current > 0) {
+                    this.$set(this, 'teamer', {
+                        'logo': data.data.logo,
+                        'title': data.data.title,
+                        'website': data.data.website
+                    });
+                    this.$set(this, 'articles', data.data.articles);
+                    this.$set(this, 'total', data.data.articles.total);
+                    this.$set(this, 'display', data.data.articles.per_page);
+                }else{
+                    this.$router.push({path: '/error404'});
+                }
                 //console.log(this.articles);
             });
         }

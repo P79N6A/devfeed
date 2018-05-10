@@ -33,6 +33,9 @@ Route::view('/article/{any?}', 'app.home');
 Route::view('/team', 'app.home');
 Route::view('/team/{any?}', 'app.home');
 
+Route::view('/teams', 'app.home');
+Route::view('/teams/{any?}', 'app.home');
+
 /*
    Route::get('/', ['as' => 'home', 'uses' => 'HomeController@index']);
     Route::get('/hot', ['as' => 'hot', 'uses' => 'HomeController@hot']);

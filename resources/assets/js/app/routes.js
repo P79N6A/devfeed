@@ -5,7 +5,7 @@
  * menu: 所属菜单，用于判断三级菜单是否显示高亮，如菜单列表、添加菜单、编辑菜单都是'menu'，用户列表、添加用户、编辑用户都是'user'，如此类推
  */
 const MyView = require('../components/MyView.vue');
-const Example = require('../components/example');
+const error404 = require('../components/app/error404');
 
 
 const Home = require('../components/app/home');
@@ -29,8 +29,10 @@ const routes = [
                     { path: 'new', component: alist},
                     { path: 'new/:id', component: alist},
                     { path: 'article/:id', component: adetail},
-                    { path: 'team', component:tlist},
-                    { path: 'team/:id', component:tdetail}
+                    { path: 'teams', component:tlist},
+                    { path: 'teams/:id', component:tlist},
+                    { path: 'team/:id', component:tdetail},
+                    // {path:'*',component:NotFound},//全不匹配的情况下，返回404，路由按顺序从上到下，依次匹配。最后一个*能匹配全部，
 
                     // { path: '/:id', component: alist},
                     // { path: '/new', component: alist },
@@ -39,6 +41,6 @@ const routes = [
 
         ]
     },
-    { path: '/example', component: Example}
+    { path: '/error404', component: error404}
 ];
 export default routes;
