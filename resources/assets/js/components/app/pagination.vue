@@ -34,10 +34,10 @@
             },
             pagegroup: {// 分页条数
                 type: Number,
-                default: 10,
+                default: 6,
                 coerce: function (v) {
-                    v = v > 0 ? v : 10;
-                    return v % 2 === 1 ? v : v + 1;
+                    v = v > 0 ? v : 6;
+                    return v % 2 === 2 ? v : v + 1;
                 }
             }
         },
@@ -75,8 +75,10 @@
                     });
                 } while (temp.length);
                 if (this.page > this.pagegroup) {
+                    //(this.current > count + 1) && list.unshift({text: '...', val: list[0].val - 1});
+                    //(this.current < this.page - count) && list.push({text: '...', val: list[list.length - 1].val + 1});
                     (this.current > count + 1) && list.unshift({text: 1, val: 1},{text: 2, val: 2},{text: '...', val: list[0].val - 1});
-                    (this.current < this.page - count) && list.push({text: '...', val: list[list.length - 1].val + 1},{text: this.page-2, val: this.page-2},{text: this.page-1, val: this.page-1});
+                    (this.current < this.page - count) && list.push({text: '...', val: list[list.length - 1].val + 1},{text: this.page-1, val: this.page-1},{text: this.page, val: this.page});
                 }
                 return list;
             }
@@ -86,7 +88,6 @@
 
                 if (this.current != idx && idx > 0 && idx < this.page + 1) {
                     this.current = idx;
-                    //this.current = i;
                     this.$emit('pagechange', this.current);
                 }
             }
