@@ -17,21 +17,12 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 // }
 
 
-const HOST = 'http://www.gohosts.com/';
+const HOST = '/';
 
-// Vue.component('side-menu', require('./components/app/sideMenu'));
-// Vue.component('example', require('./components/example.vue'));
+
 
 axios.defaults.baseURL = HOST;
 
-//axios.defaults.baseURL = HOST;
-// axios.defaults.timeout = 1000 * 15;
-// //axios.defaults.headers.authKey = Lockr.get('authKey');
-// //axios.defaults.headers.sessionId = Lockr.get('sessionId');
-// axios.defaults.headers['Content-Type'] = 'application/json'
-//
-//
-//
 
 
 const router = new VueRouter({
@@ -49,8 +40,8 @@ const app = new Vue({
 router.afterEach((to,from,next) => {
     window.scrollTo(0,0);
 })
-
-window.go404 = 123;
+//
+// window.go404 = 123;
 
 // const NotFound = { template: '<p>Page not found</p>' }
 // const Home = { template: '<p>home page</p>' }
