@@ -46,7 +46,6 @@
                         this.$router.push({path:'/error404'});
                     }
                 });
-
             }
         },
         methods: {

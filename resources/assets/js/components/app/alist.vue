@@ -106,8 +106,6 @@
                 }else{
                     this.$router.push({path:'/error404'})
                 }
-
-
             });
         }
     }
