@@ -31,7 +31,8 @@ const routes = [
                     { path: 'article/:id', component: adetail},
                     { path: 'teams', component:tlist},
                     { path: 'teams/:id', component:tlist},
-                    { path: 'team/:id', component:tdetail},
+                    { path: 'team/:tid', component:tdetail},
+                    { path: 'team/:tid/:pid', component:tdetail},
                     // {path:'*',component:NotFound},//全不匹配的情况下，返回404，路由按顺序从上到下，依次匹配。最后一个*能匹配全部，
 
                     // { path: '/:id', component: alist},
