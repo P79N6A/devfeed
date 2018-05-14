@@ -18,8 +18,6 @@
 
 <script>
     import pagination from './pagination.vue';
-
-    //import paginationx from './paginationx.vue';
     export default {
         name: "tdetail",
         data:function(){
@@ -32,65 +30,40 @@
                 currentPage:1,
             }
         },
-        computed: {
-            // id() {
-            //     // 我们很快就会看到 `params` 是什么
-            //     return this.$route.params.id
-            // }
-        },
         watch: {
-            currentPage: 'requestData',
             $route:function(){
-                // this.catchage(this.$route);
-                // this.$set(this, 'currentPage', 1);
-
-            }
-        },
-        ready () {
-            console.log();
-            this.requestData()
-        },
-        methods: {
-            catchage:function(routes){
-                let dataUrl;
-                dataUrl = "/api/v2/teams/list?page="+this.current+"&size=10";
+                let routes = this.$route;
+                if(routes.params.id) this.current = parseInt(routes.params.id); else this.current = 1;
+                let dataUrl = "/api/v2/teams/list?page="+this.current+"&size=10";
                 axios.get(dataUrl).then(({data}) => {
-                    if(this.current< data.last_page && data.last_page > 0) {
-                        this.$set(this, 'articles', data.data.articles);
-                        this.$set(this, 'total', data.data.articles.total);
-                        this.$set(this, 'display', data.data.articles.per_page);
-                    }else{
+                    if(!(this.current>data.last_page) && this.current > 0) {
+                        this.$set(this, 'articles', data.data);
+                        this.$set(this, 'total', data.total);
+                        this.$set(this, 'display', data.per_page);
+                        this.$refs.pagination.setCurrent(this.current);
+                    }
+                    else{
                         this.$router.push({path:'/error404'});
                     }
                 });
-                if(this.$refs.pagination) this.$refs.pagination.setCurrent(1);
-            },
-            pagechange:function(currentPage){
-                let dataUrl;
-                this.current= currentPage;
-                dataUrl = "/api/v2/teams/list?page="+this.current+"&size=10";
-                axios.get(dataUrl).then(({data}) => {
-                    this.$set(this, 'articles', data.data.articles);
-                    // this.$router.push({ path: '/'+this.ctype+'/'+currentPage, params: { id: currentPage }})
 
-                });
-            },
-            requestData:function () {
-                // 在这里使用ajax或者fetch将对应页传过去获取数据即可
+            }
+        },
+        methods: {
+            pagechange:function(currentPage){
+                this.current= currentPage;
+                this.$router.push({ path:"/teams/"+this.current+"&size=10", params: { id:  this.current }});
             }
         },
         components: {
             'pagination': pagination,
         },
         created() {
-            // this.catchage(this.$route);
-            if(!isNaN(this.$route.params.id)) this.$set(this, 'current', parseInt(this.$route.params.id));
-
+            let routes = this.$route;
+            if(routes.params.id) this.current = parseInt(routes.params.id);
             let dataUrl;
             dataUrl = "/api/v2/teams/list?page="+this.current+"&size=10";
-            console.log(dataUrl);
             axios.get(dataUrl).then(({data}) => {
-                console.log(this.current);
                 if(!(this.current>data.last_page) && this.current > 0) {
                     this.$set(this, 'articles', data.data);
                     this.$set(this, 'total', data.total);
@@ -99,7 +72,6 @@
                 else{
                         this.$router.push({path:'/error404'});
                     }
-                //console.log(this.articles);
             });
         }
     }

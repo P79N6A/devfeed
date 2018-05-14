@@ -35,79 +35,62 @@
 <script>
     import pagination from './pagination.vue';
 
-    //import paginationx from './paginationx.vue';
     export default {
         name: "tdetail",
         data:function(){
             return {
                 teamer:{title:''},
                 articles:{},
-                total: 1,     // 记录总条数
+                total: 0,     // 记录总条数
                 display: 10,   // 每页显示条数
+                tid:1,
                 current:1,
                 currentPage:1,
             }
         },
-        computed: {
-            // id() {
-            //     // 我们很快就会看到 `params` 是什么
-            //     return this.$route.params.id
-            // }
-        },
         watch: {
-            currentPage: 'requestData',
             $route:function(){
-                // this.catchage(this.$route);
-                // this.$set(this, 'currentPage', 1);
-
-            }
-        },
-        ready () {
-            console.log();
-            this.requestData()
-        },
-        methods: {
-            catchage:function(routes){
-                let dataUrl;
-                dataUrl = "/api/v2/team/detail?id="+this.current;
+                let routes = this.$route;
+                if(routes.params.pid) this.current = parseInt(routes.params.pid); else this.current = 1;
+                dataUrl = "/api/v2/team/detail?id="+this.tid+"&page="+this.current;
                 axios.get(dataUrl).then(({data}) => {
                     if(data.code == 46001) {
                         this.$router.push({path: '/error404'});
                     }
                     else if(!(this.current>data.data.last_page) && this.current > 0) {
+                        this.$set(this, 'teamer', {
+                            'logo': data.data.logo,
+                            'title': data.data.title,
+                            'website': data.data.website
+                        });
                         this.$set(this, 'articles', data.data.articles);
                         this.$set(this, 'total', data.data.articles.total);
                         this.$set(this, 'display', data.data.articles.per_page);
+                        this.$refs.pagination.setCurrent(this.current);
                     }else{
                         this.$router.push({path: '/error404'});
                     }
                 });
-                if(this.$refs.pagination) this.$refs.pagination.setCurrent(1);
-            },
-            pagechange:function(currentPage){
-                let dataUrl;
-                this.current= currentPage;
-                dataUrl = "/api/v2/team/detail?id="+this.current;
-                axios.get(dataUrl).then(({data}) => {
-                    this.$set(this, 'articles', data.data.articles);
-                    // this.$router.push({ path: '/'+this.ctype+'/'+currentPage, params: { id: currentPage }})
 
-                });
-            },
-            requestData:function () {
-                // 在这里使用ajax或者fetch将对应页传过去获取数据即可
+            }
+        },
+        methods: {
+            pagechange:function(currentPage){
+                this.current= currentPage;
+                this.$router.push({ path:"/team/"+this.tid+"/"+this.current+"/", params: { tid:  this.tid,pid:this.current}});
             }
         },
         components: {
             'pagination': pagination,
         },
         created() {
-            // this.catchage(this.$route);
-            if(!isNaN(this.$route.params.id)) this.$set(this, 'current', parseInt(this.$route.params.id));
+            let routes = this.$route;
+            if(routes.params.pid) this.current = parseInt(routes.params.pid);
+            if(routes.params.tid) this.tid = parseInt(routes.params.tid);
+
 
             let dataUrl;
-            dataUrl = "/api/v2/team/detail?id="+this.current;
-            console.log(dataUrl);
+            dataUrl = "/api/v2/team/detail?id="+this.tid+"&page="+this.current;
             axios.get(dataUrl).then(({data}) => {
                 if(data.code == 46001) {
                     this.$router.push({path: '/error404'});
@@ -124,7 +107,6 @@
                 }else{
                     this.$router.push({path: '/error404'});
                 }
-                //console.log(this.articles);
             });
         }
     }
