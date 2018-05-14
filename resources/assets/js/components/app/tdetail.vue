@@ -86,6 +86,7 @@
             },
             pagechange:function(currentPage){
                 let dataUrl;
+                this.current= currentPage;
                 dataUrl = "/api/v2/team/detail?id="+this.current;
                 axios.get(dataUrl).then(({data}) => {
                     this.$set(this, 'articles', data.data.articles);

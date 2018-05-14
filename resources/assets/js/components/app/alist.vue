@@ -96,7 +96,9 @@
                 }
             },
             pagechange:function(currentPage){
+                // console.log("pagechange_"+currentPage);
                 let dataUrl;
+                this.current= currentPage;
                 if(this.ctype == "hot"){
                     dataUrl = '/api/v2/articles/list?page='+this.current+'&size=10&hot=1';
                 }else{
@@ -119,6 +121,7 @@
             'pagination': pagination,
         },
         created() {
+            console.log("created");
             this.catchage(this.$route);
             if(!isNaN(this.$route.params.id)) this.$set(this, 'current', parseInt(this.$route.params.id));
             else this.$set(this, 'current', 1);

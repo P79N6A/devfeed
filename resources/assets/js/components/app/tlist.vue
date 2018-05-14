@@ -67,6 +67,7 @@
             },
             pagechange:function(currentPage){
                 let dataUrl;
+                this.current= currentPage;
                 dataUrl = "/api/v2/teams/list?page="+this.current+"&size=10";
                 axios.get(dataUrl).then(({data}) => {
                     this.$set(this, 'articles', data.data.articles);
