@@ -41,11 +41,6 @@
                 }
             }
         },
-        watch:{
-            current:function(){
-                console.log(this.current+"a");
-            }
-        },
         computed: {
             page: function () { // 总页数
                 return Math.ceil(this.total / this.display);
