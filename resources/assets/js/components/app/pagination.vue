@@ -1,13 +1,12 @@
 <template>
     <div class="pages" v-if="total!=0">
         <ul class="pagination">
-            <li :class="{'disabled': current == 1}"><a href="javascript:;" @click="setCurrent(current - 1)"> « </a></li>
-            <!--<li :class="{'disabled': current == 1}"><a href="javascript:;" @click="setCurrent(1)"> 首页 </a></li>-->
-            <li v-for="p in grouplist" :class="{'active': current == p.val}"><a href="javascript:;"
-                                                                                @click="setCurrent(p.val)"> {{ p.text }} </a>
-            </li>
-            <!--<li :class="{'disabled': current == page}"><a href="javascript:;" @click="setCurrent(page)"> 尾页 </a></li>-->
-            <li :class="{'disabled': current == page}"><a href="javascript:;" @click="setCurrent(current + 1)"> »</a></li>
+            <li :class="{'disabled': current == 1}"><a href="javascript:;" @click="setCurrent(1)"> 首页 </a></li>
+            <li :class="{'disabled': current == 1}"><a href="javascript:;" @click="setCurrent(current - 1)">«</a></li>
+            <li v-for="p in grouplist" :class="{'active': current == p.val}"><a href="javascript:;" @click="setCurrent(p.val)"> {{ p.text }} </a></li>
+            <li :class="{'disabled': current == page}"><a href="javascript:;" @click="setCurrent(current + 1)">»</a></li>
+            <li :class="{'disabled': current == page}"><a href="javascript:;" @click="setCurrent(page)"> 末页 </a></li>
+
         </ul>
     </div>
 </template>
@@ -34,9 +33,9 @@
             },
             pagegroup: {// 分页条数
                 type: Number,
-                default: 6,
+                default: 5,
                 coerce: function (v) {
-                    v = v > 0 ? v : 6;
+                    v = v > 0 ? v : 5;
                     return v % 2 === 2 ? v : v + 1;
                 }
             }
@@ -46,35 +45,49 @@
                 return Math.ceil(this.total / this.display);
             },
             grouplist: function () { // 获取分页页码
-                var len = this.page, temp = [], list = [], count = Math.floor(this.pagegroup / 2), center = this.current;
+                let len = this.page, temp = [], list = [], count = Math.floor(this.pagegroup / 2), center = this.current;
                 if (len <= this.pagegroup) {
                     while (len--) {
                         temp.push({text: this.page - len, val: this.page - len});
                     }
                     ;
                     return temp;
+                }else if(len>this.pagegroup){
+                    console.log("1111")
+                    console.log(this.current);
+                    if(this.current < this.pagegroup){
+                        console.log("xaxaxa");
+
+                        for(let i=1; i<= this.pagegroup; i++){
+                            temp.push({text: i, val: i});
+                        }
+                        if (this.current <= len-2) {//最后一页追加“...”代表省略的页
+                            temp.push({text: '...', val:null});
+                        }
+                    }else if(this.current >= this.pagegroup){
+                        for(let i=1; i<= 2; i++){
+                            temp.push({text: i, val: i});
+                        }
+                        temp.push({text: '...', val: null});
+                        if (this.current+1 == len) {//当前页+1等于总页码
+                            for(let i = this.current-1; i <= len; i++){//“...”后面跟三个页码当前页居中显示
+                                temp.push({text: i, val: i});
+                            }
+                        }else if (this.current == len) {//当前页数等于总页数则是最后一页页码显示在最后
+
+                            for(let i = this.current-2; i <= len; i++){//...后面跟三个页码当前页居中显示
+                                temp.push({text: i, val: i});
+                            }
+
+                        }else{//当前页小于总页数，则最后一页后面跟...
+                            for(let i = this.current-1; i <= this.current+1; i++){//dqPage+1页后面...
+                                temp.push({text: i, val: i});
+                            }
+                            temp.push({text: '...', val: null});
+                        }
+                    }
                 }
-                while (len--) {
-                    temp.push(this.page - len);
-                }
-                ;
-                var idx = temp.indexOf(center);
-                (idx < count) && ( center = center + count - idx);
-                (this.current > this.page - count) && ( center = this.page - count);
-                temp = temp.splice(center - count - 1, this.pagegroup);
-                do {
-                    var t = temp.shift();
-                    list.push({
-                        text: t,
-                        val: t
-                    });
-                } while (temp.length);
-                if (this.page > this.pagegroup) {
-                    //(this.current > count + 1) && list.unshift({text: '...', val: list[0].val - 1});
-                    //(this.current < this.page - count) && list.push({text: '...', val: list[list.length - 1].val + 1});
-                    (this.current > count + 1) && list.unshift({text: 1, val: 1},{text: 2, val: 2},{text: '...', val: list[0].val - 1});
-                    (this.current < this.page - count) && list.push({text: '...', val: list[list.length - 1].val + 1},{text: this.page-1, val: this.page-1},{text: this.page, val: this.page});
-                }
+                list = temp;
                 return list;
             }
         },
