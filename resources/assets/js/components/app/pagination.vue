@@ -53,11 +53,7 @@
                     ;
                     return temp;
                 }else if(len>this.pagegroup){
-                    console.log("1111")
-                    console.log(this.current);
                     if(this.current < this.pagegroup){
-                        console.log("xaxaxa");
-
                         for(let i=1; i<= this.pagegroup; i++){
                             temp.push({text: i, val: i});
                         }
