@@ -52,7 +52,7 @@
             $route:function(){
                 let routes = this.$route;
                 if(routes.params.pid) this.current = parseInt(routes.params.pid); else this.current = 1;
-                dataUrl = "/api/v2/team/detail?id="+this.tid+"&page="+this.current;
+                var dataUrl = "/api/v2/team/detail?id="+this.tid+"&page="+this.current;
                 axios.get(dataUrl).then(({data}) => {
                     if(data.code == 46001) {
                         this.$router.push({path: '/error404'});
