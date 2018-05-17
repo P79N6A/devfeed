@@ -92,8 +92,6 @@
             let dataUrl;
             dataUrl = "/api/v2/team/detail?id="+this.tid+"&page="+this.current;
             axios.get(dataUrl).then(({data}) => {
-                console.log(data);
-
                 if(data.code == 46001) {
                     this.$router.push({path: '/error404'});
                 }
