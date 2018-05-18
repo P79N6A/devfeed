@@ -55,7 +55,7 @@ body{min-width:320px;font:14px/1.5 "\5FAE\8F6F\96C5\9ED1",arial;color:#000;-webk
 
 .com-top{height: 96px;line-height: 96px;position: relative;border-bottom: 1px solid #F7F8FF}
 .uk-button{display: none;}
-.logo{width: 100px;height: 20px;float: left;margin-top: 38px;margin-left: 20px;}
+.logo{width: 132px; height: 50px; float: left; margin-top: 32px; margin-left: 15px;}
 .logo a{display: block;width: 100%;height: 100%;background: url('../images/logo.png') no-repeat;}
 .login{position: absolute;top: 40px;right: 20px;}
 .login a{display: block;width: 102px;height: 32px;line-height: 32px;text-align: center;font-size: 14px;color: #fff}
