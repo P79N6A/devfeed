@@ -26,6 +26,9 @@
         })();
     </script>
 <body>
+<!--[if lt IE 9]>
+    <p class="chromeframe">您使用的IE浏览器版本过低。<a href="//windows.microsoft.com/">升级您的IE浏览器</a>，或使用<a href="//www.google.com/chromeframe/?redirect=true">Google Chrome</a>、<a href="//www.google.com/chromeframe/?redirect=true">Firefox</a>等高级浏览器，将会得到更好的体验！</p>
+<![endif]-->
 <div class="wrap" id="app">
 <router-view></router-view>
 </div>
