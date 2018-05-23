@@ -4,6 +4,7 @@
     <meta charset="utf-8">
     <meta name="mobile-agent" content="format=html5;url= " />
     <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0">
+    <meta http-equiv="x-ua-compatible" content="IE=Edge" >
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
     <meta name="format-detection" content="telephone=no">
