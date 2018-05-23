@@ -15,8 +15,6 @@
             return {
                 loginStatus:!!window.status
             }
-        },
-        computed: {},
-        methods: {}
+        }
     }
 </script>

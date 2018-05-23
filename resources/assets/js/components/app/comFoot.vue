@@ -3,8 +3,6 @@
 </template>
 <script>
     export default {
-        name: "comFoot",
-        computed: {},
-        methods: {}
+        name: "comFoot"
     }
 </script>

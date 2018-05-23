@@ -1,5 +1,6 @@
 <template>
     <div>
+        <Loading v-show="showLoading"></Loading>
         <sideMenu></sideMenu>
         <div class="container">
             <comTop></comTop>
@@ -12,18 +13,18 @@
     import sideMenu from './sideMenu.vue';
     import comTop from './comTop.vue';
     import comFoot from './comFoot.vue';
+    import Loading from './loading.vue';
+    import { mapGetters } from 'vuex';
     export default {
         name: "home",
-        computed: {
-            username () {
-                // 我们很快就会看到 `params` 是什么
-                return this.$route.params.username
-            }
-        },
+        computed:mapGetters([
+            'showLoading'
+        ]),
         components: {
             sideMenu,
             'comFoot': comFoot,
             'comTop': comTop,
+            'Loading':Loading
         },
         methods: {
             goBack () {
