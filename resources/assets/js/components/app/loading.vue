@@ -8,7 +8,6 @@
             <div class="bounce2"></div>
             <div class="bounce3"></div>
         </div>
-        加载中，请稍后...
     </div>
 </template>
 <script>
