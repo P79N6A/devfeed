@@ -6,8 +6,8 @@
     <div class="main-con">
         <ul class="list clearfix teamlist"><!--通过类名list、item进行列表展示方式的切换-->
             <li  v-for="article in articles">
-                <a :href="'/team/'+article.id" class="list-pic team-logo"><img :src="article.logo" :alt="article.title" /></a>
-                <h3><a :href="'/team/'+article.id">{{ article.title }} </a><span class="article-num">{{ article.articles_count }}</span></h3>
+                <router-link :to="'/team/'+article.id" class="list-pic team-logo"><img :src="article.logo" :alt="article.title" /></router-link>
+                <h3><router-link :to="'/team/'+article.id">{{ article.title }} </router-link><span class="article-num">{{ article.articles_count }}</span></h3>
                 <p class="list-intro">{{ article.description }}</p>
             </li>
         </ul>

@@ -15,7 +15,7 @@
                 <div class="filter">
                     <dl>
                         <dt><i class="team spr"></i>团队</dt>
-                        <dd v-for="item in teamData"><a :href="'/team/'+item.id" :title="item.title">{{ item.title }}</a></dd>
+                        <dd v-for="item in teamData"><router-link :to="'/team/'+item.id" :title="item.title">{{ item.title }}</router-link></dd>
                         <dd><a href="/teams" title="更多">更多&gt;&gt;</a></dd>
                     </dl>
                 </div>

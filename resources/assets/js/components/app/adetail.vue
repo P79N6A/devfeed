@@ -3,7 +3,7 @@
     <div class="main-con">
         <div class="article-top">
             <div class="break-nav">
-                <a href="https://www.devfeed.cn/" title="最新">最新</a><em>&gt;</em><span>{{ article.data.title }}</span>
+                <router-link to="/new" title="最新">最新</router-link><em>&gt;</em><span>{{ article.data.title }}</span>
             </div>
 
         </div>
@@ -12,9 +12,9 @@
             <div class="article-tt">
                 <h3>{{ article.data.title }}</h3>
                 <p class="article-infor">
-                    <a v-if="article.team" :href="article.team.website" class="team">{{ article.team.title }}</a>
-                    @<a :href="article.data.author_url" class="people">{{ article.data.author }}</a><span class="time">{{ article.data.publish_time }}</span>
-                    <a :href="article.data.source_url" class="origin-link"><i class="spr"></i>查看原文</a>
+                    <a v-if="article.team" :href="article.team.website" class="team" target="_blank" rel="noopener external nofollow">{{ article.team.title }}</a>
+                    @<a :href="article.data.author_url" class="people" target="_blank" rel="noopener external nofollow">{{ article.data.author }}</a><span class="time">{{ article.data.publish_time }}</span>
+                    <a :href="article.data.source_url" class="origin-link" target="_blank" rel="noopener external nofollow"><i class="spr"></i>查看原文</a>
                 </p>
             </div>
             <div class="article"  v-html="article.data.content">

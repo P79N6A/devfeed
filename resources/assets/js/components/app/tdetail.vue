@@ -6,23 +6,23 @@
     <div class="main-con">
         <ul class="list clearfix"><!--通过类名list、item进行列表展示方式的切换-->
             <li class="team-intro">
-                <a :href="teamer.website" class="list-pic team-logo"><img  :src="teamer.logo" :alt="teamer.title" /></a>
-                <h3><a :href="teamer.website">{{ teamer.title }}</a></h3>
-                <p class="list-intro"><p>{{ teamer.title }}</p></p>
+                <a :href="teamer.website" class="list-pic team-logo" target="_blank" rel="noopener external nofollow"><img :src="teamer.logo" :alt="teamer.title" /></a>
+                <h3><a :href="teamer.website" target="_blank" rel="noopener external nofollow">{{ teamer.title }}</a></h3>
+                <p class="list-intro">{{ teamer.title }}</p>
             </li>
             <li v-for="article in articles.data">
-                <a href="/article/161" class="list-pic">
+                <router-link :to="'/article/'+article.id" class="list-pic">
                     <img :src="article.figure" :alt="article.title">
-                </a>
-                <h3><a class="title" :href="'/article/'+article.id">{{ article.title }}</a>
+                </router-link>
+                <h3><router-link class="title" :to="'/article/'+article.id">{{ article.title }}</router-link>
                     <span class="read-all spr">{{ article.click_count }}</span>
                 </h3>
                 <p class="list-intro">{{ article.summary }}</p>
                 <p class="list-infor">
-                    <a v-if="article.team" :href="article.team.website" class="team">{{ article.team.title }}</a>@
-                    <a :href="article.author_url" class="people">{{ article.author }}</a>
+                    <a v-if="article.team" :href="article.team.website" class="team" target="_blank" rel="noopener external nofollow">{{ article.team.title }}</a>@
+                    <a :href="article.author_url" class="people" target="_blank" rel="noopener external nofollow">{{ article.author }}</a>
                     <span class="time">{{ article.publish_time }} </span>
-                    <a :href="article.source_url" target="_blank" class="origin-link"><i class="spr"></i></a>
+                    <a :href="article.source_url" target="_blank" class="origin-link" rel="noopener external nofollow"><i class="spr"></i></a>
                 </p>
 
             </li>
