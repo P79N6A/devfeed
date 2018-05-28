@@ -29,7 +29,7 @@ mix.sass('resources/assets/sass/backend.scss', cssCachePath)
   .js('resources/assets/js/team.js', 'public/js/')
   .js('resources/assets/js/source.js', 'public/js/')
   .js('resources/assets/js/app/front.js', 'public/js/')
-  .extract(['babel-polyfill','axios', 'vue', 'vue-router'], 'public/js/vendor.js');
+  .extract(['axios', 'vue', 'vue-router', 'vuex'], 'public/js/vendor.js');
 
 mix.styles([cssCachePath+'backend.css', cssCachePath+'vue.css'], 'public/css/backend.css');
 

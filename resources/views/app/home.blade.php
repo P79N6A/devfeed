@@ -1,4 +1,4 @@
-<!DOCTYPE>
+<!doctype html>
 <html>
 <head>
     <meta charset="utf-8">
@@ -35,7 +35,7 @@
 <script>
     window.status = {{ Auth::guest() }};
 </script>
-
+<script src="https://cdn.bootcss.com/es6-promise/4.1.1/es6-promise.auto.min.js"></script>
 <script src="{{ mix('js/manifest.js') }}"></script>
 <script src="{{ mix('js/vendor.js') }}"></script>
 <script src="{{ mix('js/front.js') }}"></script>
