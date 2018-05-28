@@ -17,54 +17,7 @@ Route::get('/auth/social', 'Auth\LoginController@socialBind');
 Route::post('/auth/bind', 'Auth\LoginController@bindAccount');
 Route::get('/auth/logout', 'Auth\LoginController@logout');
 
-/** front-end */
-Route::group(['namespace' => 'Front', 'as' => 'front.'], function () {
-
-
-
-//Route::view('/manage/{any?}', 'app.welcome');
-
-Route::view('/', 'app.home');
-Route::view('/hot/{any?}', 'app.home');
-Route::view('/new/{any?}', 'app.home');
-
-Route::view('/article/{any?}', 'app.home');
-
-Route::view('/team', 'app.home');
-Route::view('/team/{any?}', 'app.home');
-Route::view('/team/{any?}/{id}', 'app.home');
-
-Route::view('/teams', 'app.home');
-Route::view('/teams/{any?}', 'app.home');
-
-/*
-   Route::get('/', ['as' => 'home', 'uses' => 'HomeController@index']);
-    Route::get('/hot', ['as' => 'hot', 'uses' => 'HomeController@hot']);
-
-    Route::group(['as' => 'team.', 'prefix' => 'team'], function () {
-        Route::get('/', ['as' => 'index', 'uses' => 'TeamController@index']);
-        Route::get('/{id}', ['as' => 'detail', 'uses' => 'TeamController@detail']);
-    });
-
-    Route::group(['as' => 'article.', 'prefix' => 'article'], function () {
-        Route::get('/{id}', ['as' => 'view', 'uses' => 'ArticleController@view']);
-    });
-
-    Route::group(['as' => 'tag.', 'prefix' => 'tag'], function () {
-        Route::get('/', ['as' => 'index', 'uses' => 'TagController@index']);
-        Route::get('/{id}', ['as' => 'detail', 'uses' => 'TagController@detail']);
-    });
-
-    Route::group(['as' => 'feed.'], function () {
-        Route::get('/feeds', ['as' => 'list', 'uses' => 'FeedController@listFeeds']);
-        Route::get('/feed/{id}', ['as' => 'view', 'uses' => 'FeedController@view']);
-    });
-*/
-
-
-});
-
-/** backend */
+/* backend */
 
 Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'as' => 'admin.', 'middleware' => 'admin'], function () {
     Route::get('/', ['as' => 'home', 'uses' => 'AdminController@getIndex']);
@@ -95,28 +48,27 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'as' => 'admin.', 'mi
     Route::get('sites', ['as' => 'sites', 'uses' => 'QuotaController@sites']);
 
     // teams
-    Route::get( 'team/{any?}', ['as' => 'team', 'uses' => function(){
+    Route::get('team/{any?}', ['as' => 'team', 'uses' => function () {
         return view('backend.team');
     }]);
 
     //special
-    Route::get( 'specials', ['as' => 'special', 'uses' => 'SpecialController@index']);
-    Route::get( 'special/{id?}', ['as' => 'special.preview', 'uses' => 'SpecialController@preview']);
-    Route::get( 'special/km/{id?}', ['as' => 'special.previewKM', 'uses' => 'SpecialController@previewKM']);
-    Route::post( 'special/{id?}', ['as' => 'special.save', 'uses' => 'SpecialController@save']);
+    Route::get('specials', ['as' => 'special', 'uses' => 'SpecialController@index']);
+    Route::get('special/{id?}', ['as' => 'special.preview', 'uses' => 'SpecialController@preview']);
+    Route::get('special/km/{id?}', ['as' => 'special.previewKM', 'uses' => 'SpecialController@previewKM']);
+    Route::post('special/{id?}', ['as' => 'special.save', 'uses' => 'SpecialController@save']);
 //    Route::delete( 'special/{id?}', ['as' => 'special.delete', 'uses' => 'SpecialController@delete']);
-    Route::get( 'edit_special/{id?}', ['as' => 'special.edit_special', 'uses' => 'SpecialController@edit']);
-    Route::post( 'delete_special', ['as' => 'special.delete_special', 'uses' => 'SpecialController@delete_special']);
-    Route::post( 'save_article', ['as' => 'special.save_article', 'uses' => 'SpecialController@save_article']);
-    Route::post('send_special',['as' => 'special.send_special', 'uses' => 'MailController@send']);
+    Route::get('edit_special/{id?}', ['as' => 'special.edit_special', 'uses' => 'SpecialController@edit']);
+    Route::post('delete_special', ['as' => 'special.delete_special', 'uses' => 'SpecialController@delete_special']);
+    Route::post('save_article', ['as' => 'special.save_article', 'uses' => 'SpecialController@save_article']);
+    Route::post('send_special', ['as' => 'special.send_special', 'uses' => 'MailController@send']);
 
     Route::view('source/{any?}', 'backend.source');
 
     Route::get('remote/update', ['as' => 'remote.update', 'uses' => 'ArticleController@updateRemote']);
-
 });
 
-Route::group(['namespace' => 'Admin', 'prefix' => 'api/v1', 'as'=>'api.', 'middleware' => 'admin'], function () {
+Route::group(['namespace' => 'Admin', 'prefix' => 'api/v1', 'as' => 'api.', 'middleware' => 'admin'], function () {
     Route::post('sites', ['as' => 'site.list', 'uses' => 'QuotaController@sites']);
     Route::post('site', ['as' => 'site.save', 'uses' => 'QuotaController@saveSite']);
     Route::post('site/check', ['as' => 'site.check', 'uses' => 'QuotaController@checkSite']);
@@ -133,11 +85,12 @@ Route::get('update', [
         if ($user->hasRole('Admin')) {
             set_time_limit(300);
             $exitCode = Artisan::call('app:update');
-            return $exitCode === 0 ? "OK" : "Failed.";
+
+            return 0 === $exitCode ? 'OK' : 'Failed.';
         } else {
             die('你没有进行此操作的权限！');
         }
-    }
+    },
 ]);
 
 Route::get('/home', function () {
@@ -146,8 +99,35 @@ Route::get('/home', function () {
 
 Route::auth();
 
-if (App::environment() === 'local') {
-    Route::group(['prefix' => 'test'], function () {
-        Route::get('html', 'DevController@htmlTest');
-    });
-}
+/* front-end */
+Route::group(['namespace' => 'Front', 'as' => 'front.'], function () {
+    //Route::view('/manage/{any?}', 'app.welcome');
+
+    $ua = strtolower(request()->userAgent());
+    if(str_contains($ua, ['baidu', 'googlebot', '360spider', 'sosospider', 'sogou spider', 'spider', 'bingbot'])) {
+        Route::get('/', 'FrontController@home');
+        Route::get('/hot/{page?}', 'FrontController@hot');
+        Route::get('/new/{page?}', 'FrontController@new');
+        Route::get('/article/{id}', 'FrontController@article');
+        Route::get('/teams', 'FrontController@teamList');
+        Route::get('/team/{id}', 'FrontController@team');
+    } else {
+        Route::view('{any?}', 'app.home')->where('any', '.*');
+    }
+
+    //
+    /*
+    Route::view('/hot/{any?}', 'app.home');
+    Route::view('/new/{any?}', 'app.home');
+
+    Route::view('/article/{any?}', 'app.home');
+
+    Route::view('/team', 'app.home');
+    Route::view('/team/{any?}', 'app.home');
+    Route::view('/team/{any?}/{id}', 'app.home');
+
+    Route::view('/teams', 'app.home');
+    Route::view('/teams/{any?}', 'app.home');
+    */
+
+});
