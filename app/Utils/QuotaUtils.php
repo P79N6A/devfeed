@@ -212,7 +212,7 @@ class QuotaUtils
             ]
         ]);
 
-        $ch = curl_init("http://api.devfeed.cn/api/crawler");
+        $ch = curl_init("http://api.webdn.net/api/crawler");
         curl_setopt($ch, CURLOPT_TIMEOUT, 15);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
