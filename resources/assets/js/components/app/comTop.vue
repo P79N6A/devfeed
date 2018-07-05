@@ -11,10 +11,10 @@
 <script>
     export default {
         name: "comTop",
-        data:function(){
-            return {
-                loginStatus:!!window.status
-            }
+        computed: {
+          loginStatus() {
+            return window.status;
+          }
         }
     }
 </script>
