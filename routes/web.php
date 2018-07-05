@@ -112,7 +112,9 @@ Route::group(['namespace' => 'Front', 'as' => 'front.'], function () {
         Route::get('/teams', 'FrontController@teamList');
         Route::get('/team/{id}', 'FrontController@team');
     } else {
-        Route::view('{any?}', 'app.home')->where('any', '.*');
+        Route::get('{any?}', function() {
+            return view('app.home');
+        })->where('any', '.*');
     }
 
     //

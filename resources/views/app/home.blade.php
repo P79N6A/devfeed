@@ -33,7 +33,7 @@
 <router-view></router-view>
 </div>
 <script>
-    window.status = {{ Auth::guest() ? 'true' : 'false' }};
+    window.isGuest = {{ Auth::guest() ? 1 : 0 }};
 </script>
 <script src="https://cdn.bootcss.com/es6-promise/4.1.1/es6-promise.auto.min.js"></script>
 <script src="{{ mix('js/manifest.js') }}"></script>
