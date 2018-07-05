@@ -13,6 +13,7 @@ class ArticleController extends Controller
     public function list(Request $req)
     {
 
+
         $page = $req->get('page', null);
         $size = $req->get('size', 10);
         $hot= $req->get('hot', 0);
@@ -44,11 +45,9 @@ class ArticleController extends Controller
                 $total = $data->count();
                 $data = [
                     'total'=>$total,
-                    'per_page'=>$total,
-                    'last_page'=>1,
+                    'per_page'=>$size,
                     'next_page_url'=>null,
                     'prev_page_url'=>null,
-                    'to'=>$total,
                     'data' => $data
                 ];
             }
@@ -92,9 +91,4 @@ class ArticleController extends Controller
         return response()->json($result);
     }
 
-    public function getPublishTimeAttribute() {
-        Carbon::setLocale('zh');
-
-        return Carbon::parse($this->created_at)->diffForHumans();
-    }
 }

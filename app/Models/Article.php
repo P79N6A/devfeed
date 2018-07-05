@@ -27,6 +27,8 @@ class Article extends Model
 
     protected $dates = ['deleted_at'];
 
+    protected $appends = ['publish_time'];
+
     /**
      * The "booting" method of the model.
      *
