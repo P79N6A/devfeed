@@ -51,7 +51,12 @@
         watch: {
             $route:function(){
                 let routes = this.$route;
-                if(routes.params.pid) this.current = parseInt(routes.params.pid); else this.current = 1;
+                this.tid = routes.params.tid;
+                if(routes.params.pid) {
+                  this.current = parseInt(routes.params.pid);
+                } else {
+                  this.current = 1;
+                }
                 var dataUrl = "/api/v2/team/detail?id="+this.tid+"&page="+this.current;
                 axios.get(dataUrl).then(({data}) => {
                     if(data.code == 46001) {
@@ -76,7 +81,10 @@
         methods: {
             pagechange:function(currentPage){
                 this.current= currentPage;
-                this.$router.push({ path:"/team/"+this.tid+"/"+this.current+"/", params: { tid:  this.tid,pid:this.current}});
+                this.$router.push({
+                  path:"/team/"+this.tid+"/"+this.current+"/",
+                  params: { tid:  this.tid,pid:this.current}
+                });
             }
         },
         components: {
@@ -86,8 +94,6 @@
             let routes = this.$route;
             if(routes.params.pid) this.current = parseInt(routes.params.pid);
             if(routes.params.tid) this.tid = parseInt(routes.params.tid);
-        console.log(this.current );
-
 
             let dataUrl;
             dataUrl = "/api/v2/team/detail?id="+this.tid+"&page="+this.current;

@@ -77,7 +77,10 @@
         methods: {
             pagechange:function(currentPage){
                 this.current = currentPage;
-                this.$router.push({ path: '/'+this.ctype+'/'+ this.current, params: { id:  this.current }});
+                this.$router.push({
+                  path: '/'+this.ctype+'/'+ this.current,
+                  params: { id:  this.current }
+                });
             }
         },
         components: {

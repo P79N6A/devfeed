@@ -21,7 +21,7 @@ mix.styles([
   .copy('node_modules/bootstrap/dist/js/bootstrap.min.js', 'public/js/bootstrap.min.js');
 
 mix.options({
-  extractVueStyles: cssCachePath+'vue.css'
+  extractVueStyles: `${cssCachePath}vue.css`,
 });
 
 mix.sass('resources/assets/sass/backend.scss', cssCachePath)
@@ -31,16 +31,15 @@ mix.sass('resources/assets/sass/backend.scss', cssCachePath)
   .js('resources/assets/js/app/front.js', 'public/js/')
   .extract(['axios', 'vue', 'vue-router', 'vuex'], 'public/js/vendor.js');
 
-mix.styles([cssCachePath+'backend.css', cssCachePath+'vue.css'], 'public/css/backend.css');
+mix.styles([`${cssCachePath}backend.css`, `${cssCachePath}vue.css`], 'public/css/backend.css');
 
 if (mix.inProduction()) {
-    mix.version([
-        'public/js/quotas.js',
-        'public/js/team.js',
-        'public/js/source.js',
-        'public/js/front.js',
-        'public/css/backend.css',
-    ]);
+  mix.version([
+    'public/js/quotas.js',
+    'public/js/team.js',
+    'public/js/source.js',
+    'public/js/front.js',
+    'public/css/backend.css',
+  ]);
 }
-
 
