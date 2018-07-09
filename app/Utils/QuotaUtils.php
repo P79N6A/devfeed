@@ -150,6 +150,7 @@ class QuotaUtils
             } else {
                 $tags = $doc->find($site->sel_tag)->texts();
                 $tags = array_map("trim", $tags);
+                $tags = array_slice($tags, 0, 5);
                 $data['tags'] = implode(',', $tags);
             }
 
