@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "490bd3b10c536eba16abfe0f42a2dd65",
+    "content-hash": "3717c6f6a4437d6b8febf2cc051c26ef",
     "packages": [
         {
             "name": "dnoegel/php-xdg-base-dir",
@@ -702,6 +702,59 @@
                 "trusted proxy"
             ],
             "time": "2017-06-15T17:19:42+00:00"
+        },
+        {
+            "name": "freyo/laravel-queue-cmq",
+            "version": "5.5.5",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/freyo/laravel-queue-cmq.git",
+                "reference": "87aefa93b6f59d23cd5672d58a7981641663df47"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://files.phpcomposer.com/files/freyo/laravel-queue-cmq/87aefa93b6f59d23cd5672d58a7981641663df47.zip",
+                "reference": "87aefa93b6f59d23cd5672d58a7981641663df47",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/queue": "5.5.*",
+                "php": ">=7.0"
+            },
+            "require-dev": {
+                "php": ">=7.0",
+                "phpunit/phpunit": "~6.0"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Freyo\\LaravelQueueCMQ\\LaravelQueueCMQServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Freyo\\LaravelQueueCMQ\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "freyo",
+                    "email": "freyhsiao@gmail.com"
+                }
+            ],
+            "description": "Queue Adapter for Tencent Qcloud CMQ SDK",
+            "keywords": [
+                "cmq",
+                "laravel-queue",
+                "qcloud"
+            ],
+            "time": "2018-05-21T07:18:41+00:00"
         },
         {
             "name": "guzzle/guzzle",

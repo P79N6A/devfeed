@@ -10,6 +10,7 @@
         "doctrine/dbal": "~2.3.0",
         "electrolinux/phpquery": "^0.9.6",
         "fideloper/proxy": "~3.3",
+        "freyo/laravel-queue-cmq": "5.5.*",
         "guzzlehttp/guzzle": "^6.2",
         "laravel/framework": "5.5.*",
         "laravel/socialite": "~3.0",
