@@ -32,8 +32,7 @@ class QuotaController extends Controller
 
         $quota = Quota::find($id);
         if ($quota) {
-            $job = (new PublishFeedArticle($quota))->onQueue('publishing');
-            dispatch($job);
+            PublishFeedArticle::dispatch($quota, request()->getUser())->onQueue('publishing');
 
             return QuotaUtils::JsonResult('任务已排入队列，请稍候。');
         } else {
