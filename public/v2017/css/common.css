@@ -107,6 +107,7 @@ body{min-width:320px;font:14px/1.5 "\5FAE\8F6F\96C5\9ED1",arial;color:#000;-webk
 .main-con .list .team-intro{padding: 30px 0 30px 104px}
 .main-con .list li .team-logo{width:72px;height:72px;top: 50px;overflow:hidden;border:1px solid #939db4;padding: 3px;border-radius: 50%;background-color: #fff;}
 .main-con .list li .team-logo img{width: 72px;height: 72px;border-radius: 50%;}
+.main-con .list .list-infor { white-space: nowrap; word-wrap: normal }
 
 
 .com-footer{padding: 30px 0 45px; border-top:1px solid #f7f8ff;}
