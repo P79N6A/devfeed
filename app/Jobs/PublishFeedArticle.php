@@ -6,6 +6,7 @@ use Fedn\Models\User;
 use Fedn\Utils\ImageUtil;
 use GuzzleHttp\Psr7\UriResolver;
 use Illuminate\Bus\Queueable;
+use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -16,15 +17,19 @@ use phpQuery;
 use Fedn\Models\Article;
 use Fedn\Models\quota;
 use Fedn\Models\Tag;
+use Log;
 
 class PublishFeedArticle implements ShouldQueue
 {
-    use InteractsWithQueue, Queueable, SerializesModels;
+    use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
     private $quota;
     private $user;
     /**
      * Create a new job instance.
+     *
+     * @param \Fedn\Models\Quota $quota
+     * @param \Fedn\Models\User $user
      *
      * @return void
      */
@@ -114,11 +119,19 @@ class PublishFeedArticle implements ShouldQueue
 
             $article->tags()->sync($ids);
 
-            $this->quota->delete(); // 文章已发布，从待选列表里删除
-            // 清理缓存
-            Cache::tags(['articles', 'tags'])->flush();
+            try {
+                $this->quota->delete(); // 文章已发布，从待选列表里删除
+                // 清理缓存
+                Cache::tags(['articles', 'tags'])->flush();
+            } catch (\Exception $e) {
+                Log::error($e->getMessage(), $e->getTrace());
+            }
         } else {
-            $this->quota->delete(); // 文章已发布，从待选列表里删除
+            try {
+                $this->quota->delete(); // 文章已发布，从待选列表里删除
+            } catch (\Exception $e) {
+                Log::error($e->getMessage(), $e->getTrace());
+            }
         }
 
     }
