@@ -12,50 +12,32 @@ class ArticleController extends Controller
 
     public function list(Request $req)
     {
-
-
-        $page = $req->get('page', null);
+        $page = $req->get('page', 1);
         $size = $req->get('size', 10);
         $hot= $req->get('hot', 0);
 
-        $cacheKey = 'articles_';
+        $cacheKey = 'articles';
 
         if($hot == 1){
             $query = Article::with("team")->orderBy('click_count', 'desc');
+            $cacheKey .= '_hot';
         }else{
             $query = Article::with("team")->orderBy('updated_at', 'desc');
+            $cacheKey .= '_new';
         }
 
-        if($page) {
-            $page = is_numeric($page) && $page > 0 ? $page : 1;
-            $size = is_numeric($size) && $size < 500 ? $size : 10;
-            $cacheKey = 'articles_'.$page;
-        } else {
-            $cacheKey = 'articles_all';
-        }
+        $page = is_numeric($page) && $page > 0 ? $page : 1;
+        $size = is_numeric($size) && $size < 500 ? $size : 10;
+        $cacheKey .= '_'.$page;
 
-        $cacheExpiration = app()->isLocal() ? 0 : 60;
+        $articles = Cache::tags('articles')->remember($cacheKey, 60, function() use ($query, $page, $size){
 
-        $teams = Cache::tags('articles')->remember($cacheKey, $cacheExpiration, function() use ($cacheKey, $query, $page, $size){
-            $returnAll = $cacheKey === 'articles_all';
-
-            $data = $returnAll ? $query->get() : $query->paginate($size, ['*'], 'page', $page);
-
-            if($returnAll) {
-                $total = $data->count();
-                $data = [
-                    'total'=>$total,
-                    'per_page'=>$size,
-                    'next_page_url'=>null,
-                    'prev_page_url'=>null,
-                    'data' => $data
-                ];
-            }
+            $data = $query->paginate($size, ['*'], 'page', $page);
 
             return $data;
         });
 
-        return response()->json($teams);
+        return response()->json($articles);
 
     }
 
