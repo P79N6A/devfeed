@@ -27,7 +27,7 @@
                                 <tr>
                                     <td align=left vertical-align=middle height="80" style="border-bottom:1px dashed #DEDCDC;" >
                                         <br>
-                                        <a href="{{ route('front.article.view',$article->id) }}" title="{{$article->title}}" style="color:#161616;display:block;padding-bottom:10px;" target="_blank">{{$article->title}}</a>
+                                        <a href="{{ url('/article/'.$article->id) }}" title="{{$article->title}}" style="color:#161616;display:block;padding-bottom:10px;" target="_blank">{{$article->title}}</a>
 
                                         <p style="color:#656060;font-size:13px;margin-bottom:10px;">{{ $article->summary }}</p>
 
