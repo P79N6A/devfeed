@@ -156,7 +156,7 @@ class TeamController extends Controller
                 "data" => $data
             ];
         } else {
-            $articleDetail = Article::where('team_id','=',$id)->paginate($size);
+            $articleDetail = Article::where('team_id','=',$id)->orderBy('updated_at', 'desc')->paginate($size);
             $team->articles = $articleDetail;
             $result = [
                 "code" => 0,
