@@ -18,7 +18,7 @@
     @foreach($articles as $article)
     <div>
         <div>
-            <a href="{{ route('front.article.view',$article->id) }}" title="{{$article->title}}" style="color:#161616;display:block;padding-bottom:10px;"  target="_blank">{{$article->title}}</a>
+            <a href="{{ url('/article/'.$article->id) }}" title="{{$article->title}}" style="color:#161616;display:block;padding-bottom:10px;"  target="_blank">{{$article->title}}</a>
             <p style="color:#656060; font-size: 13px; margin:0;">{{ $article->summary }}</p>
 
             <p style="color:#8F8F8F;font-size:12px;margin:0;"><a style="color:#8F8F8F;" href="{!! $article->source_url !!}"  target="_blank"><strong>原文</strong>：{!! $article->source_url !!}</a></p>

@@ -36,7 +36,7 @@ class ArticleController extends Controller
 
             return $data;
         });
-
+        $articleDetail = $this->setDefaultFigureArticle($articles);
         return response()->json($articles);
 
     }
@@ -71,6 +71,19 @@ class ArticleController extends Controller
             ];
         }
         return response()->json($result);
+    }
+
+
+    //设置文章默认缩略图
+    private function setDefaultFigureArticle($articles){
+
+        foreach ($articles as $article){
+            if(empty($article->figure)) {
+                $article->figure = 'https://ossweb-img.qq.com/images/js/devfeed/v2017/ossweb-img/images/default.jpg';
+            }
+
+        }
+        return $articles;
     }
 
 }

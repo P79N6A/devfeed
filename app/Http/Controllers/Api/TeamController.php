@@ -156,7 +156,8 @@ class TeamController extends Controller
                 "data" => $data
             ];
         } else {
-            $articleDetail = Article::where('team_id','=',$id)->paginate($size);
+            $articleDetail = Article::where('team_id','=',$id)->orderBy('updated_at', 'desc')->paginate($size);
+            $articleDetail = $this->setDefaultFigureArticle($articleDetail);
             $team->articles = $articleDetail;
             $result = [
                 "code" => 0,
@@ -165,5 +166,16 @@ class TeamController extends Controller
             ];
         }
         return response()->json($result);
+    }
+    //设置文章默认缩略图
+    private function setDefaultFigureArticle($articles){
+
+        foreach ($articles as $article){
+            if(empty($article->figure)) {
+                $article->figure = 'https://ossweb-img.qq.com/images/js/devfeed/v2017/ossweb-img/images/default.jpg';
+            }
+
+        }
+        return $articles;
     }
 }
