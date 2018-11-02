@@ -47,7 +47,7 @@
                                                 @endif
 
 
-                                                    <a href="{{ url('/article/'.$article->id) }}" title="{{$article->title}}" style="color:#161616;display:block;padding-bottom:10px;font-size:22px" target="_blank">{{$article->title}}</a>
+                                                    <a href="{{ url('/article/'.$article->id) }}" title="{{$article->title}}" style="color:#161616;display:block;padding-bottom:10px;font-size:28px;text-decoration: none;" target="_blank">{{$article->title}}</a>
 
                                                     <p style="color:#656060;font-size:13px;margin-bottom:10px;">{{ $article->summary }}</p>
 

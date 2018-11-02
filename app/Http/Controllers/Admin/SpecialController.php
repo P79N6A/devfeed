@@ -18,7 +18,7 @@ class SpecialController extends Controller
 {
     public function index(){
 
-        $topics = Special::paginate(10);
+        $topics = Special::orderBy('id','desc')->paginate(10);
         return view('backend.special',['topics'=>$topics]);
     }
 
