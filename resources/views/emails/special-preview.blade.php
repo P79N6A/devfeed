@@ -19,13 +19,13 @@
     <TR>
         <TD style="BACKGROUND-COLOR: #fdfdfd">
             <div style="width:1000px;margin:0 auto"><img src="https://ossweb-img.qq.com/images/js/devfeed/ossweb-img/head2018.jpg" style="margin:0 auto;padding:0;display:block;"></div>
-            <p style="padding:20px 40px;font-size:13px;color:#444;line-height:1.8;font-family:\5FAE\8F6F\96C5\9ED1;"></p>
-            <TABLE class=main-table border=0 cellSpacing=0 cellPadding=0 width=920 align=center style="margin:0 auto;word-wrap: break-word; word-break: break-all;">
+            <p style="padding:20px 40px;font-size:13px;color:#444;line-height:1.8;font-family:\5FAE\8F6F\96C5\9ED1;">&nbsp;</p>
+            <TABLE class=main-table border=0 cellSpacing=0 cellPadding=0 width=960 align=center style="margin:0 auto;word-wrap: break-word; word-break: break-all;">
                 <TBODY width=920 >
                 <TR width=920 >
-                    <td width=37 ><div style="width: 37px"><img src="https://ossweb-img.qq.com/images/js/devfeed/ossweb-img/intro.jpg" style="margin:0 auto;display:block;width:37px;height:70px"></div></td>
-                    <td bgcolor="#F4F4F4" style="width:883px;height:70px"><div style="padding:10px 20px;font-size:13px;">
-                            {{ $special->desc }}
+                    <td  width="4%" ><img src="https://ossweb-img.qq.com/images/js/devfeed/ossweb-img/intro.jpg" style="margin:0 auto;display:block;width:37px;height:70px" width="37" height="70"></td>
+                    <td bgcolor="#F4F4F4" style="height:70px" width="96%"><div style="padding:10px 20px 10px 20px;font-size:13px;">
+                            &nbsp;&nbsp;{{ $special->desc }}
 
                         </div></td>
                 </TR>
@@ -42,8 +42,8 @@
 
                                                     <td colspan="2">
                                                 @else
-                                                    <td vertical-align=top><img vertical-align=top src="{{$article->figure}}" alt="{{$article->title}}" style="width:184px;padding-right: 20px "></td>
-                                                    <td>
+                                                    <td vertical-align=top><img width="184" vertical-align=top src="{{$article->figure}}" alt="{{$article->title}}" style="width:184px;padding-right: 20px "></td>
+                                                    <td style="padding:0 0 0 20px">
                                                 @endif
 
 
