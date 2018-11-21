@@ -61,7 +61,7 @@ class SpecialController extends Controller
         }
         //获取专题的文章
 
-        $articles = Article::find(explode(',',$special->article_list));
+        $articles = Article::orderBy('id','desc')->find(explode(',',$special->article_list));
         return view('emails.special-preview', ['special'=>$special,'articles'=>$articles]);
     }
     //预览专题
@@ -79,7 +79,7 @@ class SpecialController extends Controller
         }
         //获取专题的文章
 
-        $articles = Article::find(explode(',',$special->article_list));
+        $articles = Article::orderBy('id','desc')->find(explode(',',$special->article_list));
         return view('emails.special-previewKM', ['special'=>$special,'articles'=>$articles]);
     }
 
